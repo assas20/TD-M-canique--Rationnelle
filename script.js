@@ -249,17 +249,42 @@ btnVideo.onclick = () => {
  * ====== Contact ======
  ***********************************/
 
-btnContact.onclick=()=>{
-  showSimpleBox("Contact",
-    `<p><strong>Email :</strong> <a href="mailto:taqiyeddine.assas@univ-biskra.dz">taqiyeddine.assas@univ-biskra.dz</a></p>
+btnContact.onclick = () => {
+  showSimpleBox(
+    "Contact 📞",
+    `
+    <p>
+      <strong>Email :</strong>
+      <a href="mailto:taqiyeddine.assas@univ-biskra.dz">
+        taqiyeddine.assas@univ-biskra.dz
+      </a>
+    </p>
+
     <div class="social-icons">
-      <a href="https://www.linkedin.com/in/taqiyeddine-assas-770696378" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://www.researchgate.net/profile/Taqiyeddine-Assas" target="_blank"><i class="fab fa-researchgate"></i></a>
-      <a href="https://scholar.google.com/citations?user=Gk1u97UAAAAJ&hl=fr&oi=ao" target="_blank"><i class="fas fa-graduation-cap"></i></a>
-      <a href="https://orcid.org/0009-0001-4288-2908" target="_blank"><i class="fab fa-orcid"></i></a>
-      <a href="mailto:taqiyeddine.assas@univ-biskra.dz"><i class="fas fa-envelope"></i></a>
-    </div>`);
+      <a href="https://www.linkedin.com/in/taqiyeddine-assas-770696378" target="_blank">
+        <i class="fab fa-linkedin"></i>
+      </a>
+
+      <a href="https://www.researchgate.net/profile/Taqiyeddine-Assas" target="_blank">
+        <i class="fab fa-researchgate"></i>
+      </a>
+
+      <a href="https://scholar.google.com/citations?user=Gk1u97UAAAAJ&hl=fr&oi=ao" target="_blank">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+
+      <a href="https://orcid.org/0009-0001-4288-2908" target="_blank">
+        <i class="fab fa-orcid"></i>
+      </a>
+
+      <a href="mailto:taqiyeddine.assas@univ-biskra.dz">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+    `
+  );
 };
+
 
 /***********************************
  * ====== تغيير اللغة ======
