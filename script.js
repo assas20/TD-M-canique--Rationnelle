@@ -159,7 +159,7 @@ function renderTable(data, group, container){
       let raw=data[d][i]||"Présent";
       let key=raw==="Absent"?"Absent":raw==="Absence Justifiée"?"Justified":raw==="Holiday"?"Holiday":"Present";
       if(key==="Absent") abs[s]++;
-      let warning=abs[s]>3?`<br>⚠️ L'étudiant a dépassé le nombre légal d'absences (3).`:"";
+      let warning=abs[s]>3?`<br>⚠️ L'étudiant a dépassé le nombre légal d'absences (3) selon le décret ministériel n°1165 du 04/10/2025.`:"";
       row+=`<td class="status-${key}">${key}${warning}</td>`;
     });
     row+="</tr>";
