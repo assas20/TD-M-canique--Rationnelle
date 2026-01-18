@@ -133,7 +133,11 @@ function showTD(td) {
         <a href="${td.html}" target="_blank">Voir Corrigé 📝</a>
     `;
 }
-
+function showCorrige(td) {
+    const frame = document.getElementById(td + '-frame');
+    frame.src = 'TDs/TD01.html'; // رابط ملف HTML للحل
+    frame.style.display = 'block';
+}
 btnS03.onclick=()=>showTDSerie(TDs.S03);
 btnS04.onclick=()=>showTDSerie(TDs.S04);
 
