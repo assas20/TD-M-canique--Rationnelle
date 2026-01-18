@@ -50,7 +50,7 @@ const g07Data = {
 };
 
 /***********************************
- * ====== TDs مع PDF مترجمة ======
+ * ====== TDs + PDF ======
  ***********************************/
 const TDs = {
   S03:[
@@ -68,25 +68,18 @@ const TDs = {
 };
 
 /***********************************
- * ====== الفيديوهات ======
+ * ====== Videos ======
  ***********************************/
 const videoLinks = [
-"https://youtube.com/playlist?list=PLAh__9lJn0k8HewWhb4ytEIhlV4BbV3GV",
-  "https://youtube.com/playlist?list=PLvkDaCOYDNUgV-S7TIw8S8YRr3dtkObjK",
-  "https://youtu.be/CFbH3hHYPv8",
-  "https://youtu.be/NIP8Xa4LSJY",
-  "https://youtu.be/zIbOQsnVhZk",
-  "https://youtu.be/ub7M0qo6zek",
-  "https://youtu.be/oHWq2ls4aLc",
-  "https://youtu.be/XkIL3fvLKsM",
-  "https://youtu.be/gTZvyS3Pxa8",
-  "https://youtu.be/D2fsBKSkGp4",
-  "https://youtu.be/DKbiOEhJgJc",
-  "https://youtu.be/Os6XL15--BI",
-  "https://youtu.be/Ob9R8WYbneQ"
-
-
+  "https://youtube.com/playlist?list=PLAh__9lJn0k8HewWhb4ytEIhlV4BbV3GV",
+  "https://youtube.com/playlist?list=PLvkDaCOYDNUgV-S7TIw8S8YRr3dtkObjK"
 ];
+
+/***********************************
+ * ====== PDF للدروس والبرامج ======
+ ***********************************/
+const pdfCours = "TDs/Cours.pdf";
+const pdfProgramme = "TDs/Programme.pdf";
 
 /***********************************
  * ====== عناصر الصفحة ======
@@ -178,56 +171,41 @@ function renderTable(data, group, container){
 /***********************************
  * ====== الدروس والبرامج والكتب والفيديو ======
  ***********************************/
-
-// ملفات PDF للدروس والبرامج
-const pdfCours = "TDs/Cours.pdf";
-const pdfProgramme = "TDs/Programme.pdf";
-
-btnCours.onclick=()=>showSimpleBox(
-  currentLang==="fr"?"Cours":currentLang==="en"?"Course":"الدروس",
+btnCours.onclick=()=>showSimpleBox("Cours",
   `<ul>
      <li>Statique</li>
      <li>Cinématique</li>
      <li>Torseurs</li>
    </ul>
-   <p><a href="${pdfCours}" target="_blank" style="font-weight:bold; color:#004080; text-decoration:underline;">
-     ${currentLang==="fr"?"Cliquez ici pour télécharger le PDF":currentLang==="en"?"Click here to download PDF":"اضغط هنا لتحميل PDF"}
-   </a></p>`
+   <p><a href="${pdfCours}" target="_blank" style="font-weight:bold; color:#004080; text-decoration:underline;">اضغط هنا لتحميل PDF</a></p>`
 );
 
-btnProgramme.onclick=()=>showSimpleBox(
-  currentLang==="fr"?"Programme Pédagogique":currentLang==="en"?"Pedagogical Program":"البرنامج البيداغوجي",
+btnProgramme.onclick=()=>showSimpleBox("Programme Pédagogique",
   `<p>Programme officiel ENSTP – CPST</p>
-   <p><a href="${pdfProgramme}" target="_blank" style="font-weight:bold; color:#004080; text-decoration:underline;">
-     ${currentLang==="fr"?"Cliquez ici pour télécharger le PDF":currentLang==="en"?"Click here to download PDF":"اضغط هنا لتحميل PDF"}
-   </a></p>`
+   <p><a href="${pdfProgramme}" target="_blank" style="font-weight:bold; color:#004080; text-decoration:underline;">اضغط هنا لتحميل PDF</a></p>`
 );
+
+btnLivre.onclick=()=>showSimpleBox("Livre","<ul><li>Mécanique Rationnelle – ENSTP</li><li>Hibbeler</li></ul>");
 
 btnVideo.onclick=()=>{
   let html="";
-  videoLinks.forEach(v=>{
-    html+=`<p>
-      <i class="fab fa-youtube" style="color:red; margin-right:5px;"></i>
-      <a href="${v}" target="_blank">${v}</a>
-    </p>`;
-  });
-  showSimpleBox(
-    currentLang==="fr"?"Vidéos YouTube":currentLang==="en"?"YouTube Videos":"فيديوهات يوتيوب",
-    html
-  );
+  videoLinks.forEach(v=>{ html+=`<p><i class="fab fa-youtube"></i> <a href="${v}" target="_blank">${v}</a></p>`; });
+  showSimpleBox("Vidéos YouTube",html);
 };
+
 /***********************************
  * ====== Contact ======
  ***********************************/
-btnContact.onclick=()=>showSimpleBox(currentLang==="fr"?"Contact":currentLang==="en"?"Contact":"التواصل",
+btnContact.onclick=()=>showSimpleBox("Contact",
   `<p><strong>Email :</strong> <a href="mailto:taqiyeddine.assas@univ-biskra.dz">taqiyeddine.assas@univ-biskra.dz</a></p>
-  <div class="social-icons">
-    <a href="https://www.linkedin.com/in/taqiyeddine-assas-770696378" target="_blank"><i class="fab fa-linkedin"></i></a>
-    <a href="https://www.researchgate.net/profile/Taqiyeddine-Assas" target="_blank"><i class="fab fa-researchgate"></i></a>
-    <a href="https://scholar.google.com/citations?user=Gk1u97UAAAAJ&hl=fr&oi=ao" target="_blank"><i class="fas fa-graduation-cap"></i></a>
-    <a href="https://orcid.org/0009-0001-4288-2908" target="_blank"><i class="fab fa-orcid"></i></a>
-    <a href="mailto:taqiyeddine.assas@univ-biskra.dz"><i class="fas fa-envelope"></i></a>
-  </div>`);
+   <div class="social-icons">
+     <a href="https://www.linkedin.com/in/taqiyeddine-assas-770696378" target="_blank"><i class="fab fa-linkedin"></i></a>
+     <a href="https://www.researchgate.net/profile/Taqiyeddine-Assas" target="_blank"><i class="fab fa-researchgate"></i></a>
+     <a href="https://scholar.google.com/citations?user=Gk1u97UAAAAJ&hl=fr&oi=ao" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+     <a href="https://orcid.org/0009-0001-4288-2908" target="_blank"><i class="fab fa-orcid"></i></a>
+     <a href="mailto:taqiyeddine.assas@univ-biskra.dz"><i class="fas fa-envelope"></i></a>
+   </div>`
+);
 
 /***********************************
  * ====== تغيير اللغة ======
