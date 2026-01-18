@@ -71,8 +71,21 @@ const TDs = {
  * ====== الفيديوهات ======
  ***********************************/
 const videoLinks = [
-  "https://youtube.com/playlist?list=PLAh__9lJn0k8HewWhb4ytEIhlV4BbV3GV",
-  "https://youtube.com/playlist?list=PLvkDaCOYDNUgV-S7TIw8S8YRr3dtkObjK"
+"https://youtube.com/playlist?list=PLAh__9lJn0k8HewWhb4ytEIhlV4BbV3GV",
+  "https://youtube.com/playlist?list=PLvkDaCOYDNUgV-S7TIw8S8YRr3dtkObjK",
+  "https://youtu.be/CFbH3hHYPv8",
+  "https://youtu.be/NIP8Xa4LSJY",
+  "https://youtu.be/zIbOQsnVhZk",
+  "https://youtu.be/ub7M0qo6zek",
+  "https://youtu.be/oHWq2ls4aLc",
+  "https://youtu.be/XkIL3fvLKsM",
+  "https://youtu.be/gTZvyS3Pxa8",
+  "https://youtu.be/D2fsBKSkGp4",
+  "https://youtu.be/DKbiOEhJgJc",
+  "https://youtu.be/Os6XL15--BI",
+  "https://youtu.be/Ob9R8WYbneQ"
+
+
 ];
 
 /***********************************
