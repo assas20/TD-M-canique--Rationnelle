@@ -54,7 +54,15 @@ const g07Data = {
  ***********************************/
 const TDs = {
   S03:[
-    {title:{fr:"Série TD N°01 : Les outils mathématiques",en:"TD Series 01: Math Tools",ar:"السلسلة 01: الأدوات الرياضية"}, pdf:"TDs/TD01.pdf"},
+    {
+      title: {
+        fr: "Série TD N°01 : Les outils mathématiques",
+        en: "TD Series 01: Math Tools",
+        ar: "السلسلة 01: الأدوات الرياضية"
+      },
+      pdf: "TDs/TD01.pdf",      // رابط الملف PDF
+      html: "TDs/TD01.html"     // رابط الملف HTML للحلول التفصيلية
+    },
     {title:{fr:"Série TD N°02 : Moments des forces",en:"TD Series 02: Moments of Forces",ar:"السلسلة 02: عزم القوى"}, pdf:"TDs/TD02.pdf"},
     {title:{fr:"Série TD N°03 : Les Torseurs",en:"TD Series 03: Torques",ar:"السلسلة 03: العزوم"}, pdf:"TDs/TD03.pdf"},
     {title:{fr:"Série TD N°04 : Statique du solide",en:"TD Series 04: Solid Statics",ar:"السلسلة 04: سكون الصلب"}, pdf:"TDs/TD04.pdf"}
@@ -118,18 +126,14 @@ function showSimpleBox(title, html){ clearAll(); presenceContainer.innerHTML=`<d
 /***********************************
  * ====== عرض TDs مع PDF في iframe ======
  ***********************************/
-function showTDSerie(tds){
-  clearAll();
-  tds.forEach(td=>{
-    const div=document.createElement("div");
-    div.className="td-detail";
-    div.innerHTML=`
-      <h2 class="series-title">${td.title[currentLang]}</h2>
-      <iframe src="${td.pdf}" width="100%" height="500px"></iframe>
+function showTD(td) {
+    const container = document.getElementById('td-buttons');
+    container.innerHTML = `
+        <a href="${td.pdf}" target="_blank">Voir PDF 📄</a>
+        <a href="${td.html}" target="_blank">Voir Corrigé 📝</a>
     `;
-    tdContainer.appendChild(div);
-  });
 }
+
 btnS03.onclick=()=>showTDSerie(TDs.S03);
 btnS04.onclick=()=>showTDSerie(TDs.S04);
 
