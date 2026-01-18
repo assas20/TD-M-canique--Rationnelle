@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suivi TD - ENSTP</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+  <img src="images/enstp_logo.png" class="logo" alt="ENSTP Logo">
+  <h1>ENSTP - National School of Built and Ground Works Engineering</h1>
+  <h2>TD Mécanique Rationnelle</h2>
+</header>
+
+<div class="container">
+  <aside class="sidebar">
+    <label for="languageSelect">Langue :</label>
+    <select id="languageSelect">
+      <option value="fr">Français 🇫🇷</option>
+      <option value="en">English 🇬🇧</option>
+      <option value="ar">العربية 🇩🇿</option>
+    </select>
+
+    <button id="btnS03">Semestre 03</button>
+    <button id="btnS04">Semestre 04</button>
+    <button id="btnListe">Liste de Présence</button>
+
+    <hr>
+
+    <button id="btnCours">Cours 📑</button>
+    <button id="btnProgramme">Programme pédagogique 📃</button>
+    <button id="btnLivre">Livre 📚</button>
+    <button id="btnVideo">Videos YouTube 📹</button>
+    <button id="btnContact">Contact 📞</button>
+  </aside>
+
+  <main class="content">
+    <div id="tdContainer"></div>
+    <div id="presenceContainer"></div>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
