@@ -126,18 +126,7 @@ function showSimpleBox(title, html){ clearAll(); presenceContainer.innerHTML=`<d
 /***********************************
  * ====== عرض TDs مع PDF في iframe ======
  ***********************************/
-function showTD(td) {
-    const container = document.getElementById('td-buttons');
-    container.innerHTML = `
-        <a href="${td.pdf}" target="_blank">Voir PDF 📄</a>
-        <a href="${td.html}" target="_blank">Voir Corrigé 📝</a>
-    `;
-}
-function showCorrige(td) {
-    const frame = document.getElementById(td + '-frame');
-    frame.src = 'TDs/TD01.html'; // رابط ملف HTML للحل
-    frame.style.display = 'block';
-}
+
 btnS03.onclick=()=>showTDSerie(TDs.S03);
 btnS04.onclick=()=>showTDSerie(TDs.S04);
 
