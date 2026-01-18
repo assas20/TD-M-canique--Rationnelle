@@ -50,20 +50,20 @@ const g07Data = {
 };
 
 /***********************************
- * ====== TDs مترجمة ======
+ * ====== TDs مع PDF مترجمة ======
  ***********************************/
 const TDs = {
   S03:[
-    {title:{fr:"Série TD N°01 : Les outils mathématiques",en:"Tutorial Sheet N°01: Math Tools",ar:"السلسلة 01: الأدوات الرياضية"}, pdf:"TD01.pdf"},
-    {title:{fr:"Série TD N°02 : Moments des forces",en:" Tutorial Sheet N° 02: Moments of Forces",ar:"السلسلة 02: عزم القوى"}, pdf:"TD02.pdf"},
-    {title:{fr:"Série TD N°03 : Les Torseurs",en:" Tutorial Sheet N°03: Torques",ar:"السلسلة 03: العزوم"}, pdf:"TD03.pdf"},
-    {title:{fr:"Série TD N°04 : Statique du solide",en:" Tutorial Sheet N°04: Solid Statics",ar:"السلسلة 04: سكون الصلب"}, pdf:"TD04.pdf"}
+    {title:{fr:"Série TD N°01 : Les outils mathématiques",en:"TD Series 01: Math Tools",ar:"السلسلة 01: الأدوات الرياضية"}, pdf:"TDs/TD01.pdf"},
+    {title:{fr:"Série TD N°02 : Moments des forces",en:"TD Series 02: Moments of Forces",ar:"السلسلة 02: عزم القوى"}, pdf:"TDs/TD02.pdf"},
+    {title:{fr:"Série TD N°03 : Les Torseurs",en:"TD Series 03: Torques",ar:"السلسلة 03: العزوم"}, pdf:"TDs/TD03.pdf"},
+    {title:{fr:"Série TD N°04 : Statique du solide",en:"TD Series 04: Solid Statics",ar:"السلسلة 04: سكون الصلب"}, pdf:"TDs/TD04.pdf"}
   ],
   S04:[
-    {title:{fr:"Série TD N°05 : Exemple TD 05",en:" Tutorial Sheet N° 05: Example TD 05",ar:"السلسلة 05: مثال TD 05"}, pdf:"TD05.pdf"},
-    {title:{fr:"Série TD N°06 : Exemple TD 06",en:" Tutorial Sheet N°06: Example TD 06",ar:"السلسلة 06: مثال TD 06"}, pdf:"TD06.pdf"},
-    {title:{fr:"Série TD N°07 : Exemple TD 07",en:" Tutorial Sheet N°07: Example TD 07",ar:"السلسلة 07: مثال TD 07"}, pdf:"TD07.pdf"},
-    {title:{fr:"Série TD N°08 : Exemple TD 08",en:" Tutorial Sheet N°08: Example TD 08",ar:"السلسلة 08: مثال TD 08"}, pdf:"TD08.pdf"}
+    {title:{fr:"Série TD N°05 : Exemple TD 05",en:"TD Series 05: Example TD 05",ar:"السلسلة 05: مثال TD 05"}, pdf:"TDs/TD05.pdf"},
+    {title:{fr:"Série TD N°06 : Exemple TD 06",en:"TD Series 06: Example TD 06",ar:"السلسلة 06: مثال TD 06"}, pdf:"TDs/TD06.pdf"},
+    {title:{fr:"Série TD N°07 : Exemple TD 07",en:"TD Series 07: Example TD 07",ar:"السلسلة 07: مثال TD 07"}, pdf:"TDs/TD07.pdf"},
+    {title:{fr:"Série TD N°08 : Exemple TD 08",en:"TD Series 08: Example TD 08",ar:"السلسلة 08: مثال TD 08"}, pdf:"TDs/TD08.pdf"}
   ]
 };
 
@@ -72,18 +72,7 @@ const TDs = {
  ***********************************/
 const videoLinks = [
   "https://youtube.com/playlist?list=PLAh__9lJn0k8HewWhb4ytEIhlV4BbV3GV",
-  "https://youtube.com/playlist?list=PLvkDaCOYDNUgV-S7TIw8S8YRr3dtkObjK",
-  "https://youtu.be/CFbH3hHYPv8",
-  "https://youtu.be/NIP8Xa4LSJY",
-  "https://youtu.be/zIbOQsnVhZk",
-  "https://youtu.be/ub7M0qo6zek",
-  "https://youtu.be/oHWq2ls4aLc",
-  "https://youtu.be/XkIL3fvLKsM",
-  "https://youtu.be/gTZvyS3Pxa8",
-  "https://youtu.be/D2fsBKSkGp4",
-  "https://youtu.be/DKbiOEhJgJc",
-  "https://youtu.be/Os6XL15--BI",
-  "https://youtu.be/Ob9R8WYbneQ"
+  "https://youtube.com/playlist?list=PLvkDaCOYDNUgV-S7TIw8S8YRr3dtkObjK"
 ];
 
 /***********************************
@@ -107,21 +96,20 @@ let currentLang="fr";
  * ====== الأدوات العامة ======
  ***********************************/
 function clearAll(){ tdContainer.innerHTML=""; presenceContainer.innerHTML=""; }
-function showSimpleBox(title, html){
-  clearAll();
-  presenceContainer.innerHTML=`<div class="td-detail"><h3>${title}</h3>${html}</div>`;
-}
+function showSimpleBox(title, html){ clearAll(); presenceContainer.innerHTML=`<div class="td-detail"><h3>${title}</h3>${html}</div>`; }
 
 /***********************************
- * ====== عرض TDs ======
+ * ====== عرض TDs مع PDF في iframe ======
  ***********************************/
 function showTDSerie(tds){
   clearAll();
   tds.forEach(td=>{
     const div=document.createElement("div");
     div.className="td-detail";
-    div.innerHTML=`<h2 class="series-title">${td.title[currentLang]}</h2>
-                   <p>PDF : <a href="${td.pdf}" target="_blank">${td.pdf}</a></p>`;
+    div.innerHTML=`
+      <h2 class="series-title">${td.title[currentLang]}</h2>
+      <iframe src="${td.pdf}" width="100%" height="500px"></iframe>
+    `;
     tdContainer.appendChild(div);
   });
 }
@@ -153,7 +141,7 @@ function renderTable(data, group, container){
   const students=group==="G08"?studentsG08:studentsG07;
   let abs={}; students.forEach(s=>abs[s]=0);
 
-  // Table header
+  // Header
   let head="<tr><th>#</th><th>Nom</th>";
   Object.keys(data).forEach(d=>head+=`<th>${d}</th>`);
   head+="</tr>";
@@ -177,20 +165,14 @@ function renderTable(data, group, container){
 /***********************************
  * ====== الدروس والبرامج والكتب والفيديو ======
  ***********************************/
-btnCours.onclick=()=>showSimpleBox(
-  currentLang==="fr"?"Cours":currentLang==="en"?"Course":"الدروس",
-  "<ul><li>Statique</li><li>Cinématique</li><li>Torseurs</li></ul>"
-);
+btnCours.onclick=()=>showSimpleBox(currentLang==="fr"?"Cours":currentLang==="en"?"Course":"الدروس",
+  "<ul><li>Statique</li><li>Cinématique</li><li>Torseurs</li></ul>");
 
-btnProgramme.onclick=()=>showSimpleBox(
-  currentLang==="fr"?"Programme Pédagogique":currentLang==="en"?"Pedagogical Program":"البرنامج البيداغوجي",
-  "<p>Programme officiel ENSTP – CPST</p>"
-);
+btnProgramme.onclick=()=>showSimpleBox(currentLang==="fr"?"Programme Pédagogique":currentLang==="en"?"Pedagogical Program":"البرنامج البيداغوجي",
+  "<p>Programme officiel ENSTP – CPST</p>");
 
-btnLivre.onclick=()=>showSimpleBox(
-  currentLang==="fr"?"Livre":currentLang==="en"?"Book":"الكتاب",
-  "<ul><li>Mécanique Rationnelle – ENSTP</li><li>Hibbeler</li></ul>"
-);
+btnLivre.onclick=()=>showSimpleBox(currentLang==="fr"?"Livre":currentLang==="en"?"Book":"الكتاب",
+  "<ul><li>Mécanique Rationnelle – ENSTP</li><li>Hibbeler</li></ul>");
 
 btnVideo.onclick=()=>{
   let html="";
@@ -201,8 +183,7 @@ btnVideo.onclick=()=>{
 /***********************************
  * ====== Contact ======
  ***********************************/
-btnContact.onclick=()=>showSimpleBox(
-  currentLang==="fr"?"Contact":currentLang==="en"?"Contact":"التواصل",
+btnContact.onclick=()=>showSimpleBox(currentLang==="fr"?"Contact":currentLang==="en"?"Contact":"التواصل",
   `<p><strong>Email :</strong> <a href="mailto:taqiyeddine.assas@univ-biskra.dz">taqiyeddine.assas@univ-biskra.dz</a></p>
   <div class="social-icons">
     <a href="https://www.linkedin.com/in/taqiyeddine-assas-770696378" target="_blank"><i class="fab fa-linkedin"></i></a>
@@ -210,8 +191,7 @@ btnContact.onclick=()=>showSimpleBox(
     <a href="https://scholar.google.com/citations?user=Gk1u97UAAAAJ&hl=fr&oi=ao" target="_blank"><i class="fas fa-graduation-cap"></i></a>
     <a href="https://orcid.org/0009-0001-4288-2908" target="_blank"><i class="fab fa-orcid"></i></a>
     <a href="mailto:taqiyeddine.assas@univ-biskra.dz"><i class="fas fa-envelope"></i></a>
-  </div>`
-);
+  </div>`);
 
 /***********************************
  * ====== تغيير اللغة ======
