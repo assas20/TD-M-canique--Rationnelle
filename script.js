@@ -193,8 +193,26 @@ btnProgramme.onclick=()=>showSimpleBox("Programme Pédagogique",
    <p><a href="${pdfProgramme}" target="_blank" style="font-weight:bold; color:#004080; text-decoration:underline;">اضغط هنا لتحميل PDF</a></p>`
 );
 
-btnLivre.onclick=()=>showSimpleBox("Livre","<ul><li>Mécanique Rationnelle – ENSTP</li><li>Hibbeler</li></ul>");
+btnLivre.onclick = () => {
+  let html = "<ul>";
 
+  for (let i = 1; i <= 10; i++) {
+    const num = i < 10 ? "0" + i : i;
+    html += `
+      <li>
+        📘 <strong>Livre ${num}</strong><br>
+        <a href="livre/livre-${num}.pdf" target="_blank"
+           style="color:#004080; font-weight:bold; text-decoration:underline;">
+           اضغط هنا لفتح / تحميل PDF
+        </a>
+      </li><br>
+    `;
+  }
+
+  html += "</ul>";
+
+  showSimpleBox("Livre 📚", html);
+};
 btnVideo.onclick=()=>{
   let html="";
   videoLinks.forEach(v=>{ html+=`<p><i class="fab fa-youtube"></i> <a href="${v}" target="_blank">${v}</a></p>`; });
