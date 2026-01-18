@@ -173,9 +173,17 @@ function renderTable(data, group, container){
  ***********************************/
 btnCours.onclick=()=>showSimpleBox("Cours",
   `<ul>
-     <li>Statique</li>
-     <li>Cinématique</li>
-     <li>Torseurs</li>
+     <li>Cours destiné aux étudiants :
+
+Secteur : Génie civil, Génie mécanique, Travaux publics, Aéronautique et Hydraulique
+
+Spécialisation : /
+
+Formation : Licence
+Semestre : S3
+Unité pédagogique : UEF 2.1.2</li>
+    
+     
    </ul>
    <p><a href="${pdfCours}" target="_blank" style="font-weight:bold; color:#004080; text-decoration:underline;">اضغط هنا لتحميل PDF</a></p>`
 );
