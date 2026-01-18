@@ -72,7 +72,18 @@ const TDs = {
  ***********************************/
 const videoLinks = [
   "https://youtube.com/playlist?list=PLAh__9lJn0k8HewWhb4ytEIhlV4BbV3GV",
-  "https://youtube.com/playlist?list=PLvkDaCOYDNUgV-S7TIw8S8YRr3dtkObjK"
+  "https://youtube.com/playlist?list=PLvkDaCOYDNUgV-S7TIw8S8YRr3dtkObjK",
+  "https://youtu.be/CFbH3hHYPv8",
+  "https://youtu.be/NIP8Xa4LSJY",
+  "https://youtu.be/zIbOQsnVhZk",
+  "https://youtu.be/ub7M0qo6zek",
+  "https://youtu.be/oHWq2ls4aLc",
+  "https://youtu.be/XkIL3fvLKsM",
+  "https://youtu.be/gTZvyS3Pxa8",
+  "https://youtu.be/D2fsBKSkGp4",
+  "https://youtu.be/DKbiOEhJgJc",
+  "https://youtu.be/Os6XL15--BI",
+  "https://youtu.be/Ob9R8WYbneQ"
 ];
 
 /***********************************
@@ -213,11 +224,26 @@ btnLivre.onclick = () => {
 
   showSimpleBox("Livre 📚", html);
 };
-btnVideo.onclick=()=>{
-  let html="";
-  videoLinks.forEach(v=>{ html+=`<p><i class="fab fa-youtube"></i> <a href="${v}" target="_blank">${v}</a></p>`; });
-  showSimpleBox("Vidéos YouTube",html);
+btnVideo.onclick = () => {
+  let html = "<ul style='list-style:none; padding:0;'>";
+
+  videoLinks.forEach((link, index) => {
+    html += `
+      <li style="margin-bottom:10px;">
+        <i class="fab fa-youtube" style="color:red; font-size:20px; margin-right:8px;"></i>
+        <a href="${link}" target="_blank"
+           style="color:#004080; font-weight:bold; text-decoration:none;">
+           Vidéo ${index + 1}
+        </a>
+      </li>
+    `;
+  });
+
+  html += "</ul>";
+
+  showSimpleBox("Vidéos YouTube 📹", html);
 };
+
 
 /***********************************
  * ====== Contact ======
