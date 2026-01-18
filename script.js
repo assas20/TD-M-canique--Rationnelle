@@ -178,21 +178,44 @@ function renderTable(data, group, container){
 /***********************************
  * ====== الدروس والبرامج والكتب والفيديو ======
  ***********************************/
-btnCours.onclick=()=>showSimpleBox(currentLang==="fr"?"Cours":currentLang==="en"?"Course":"الدروس",
-  "<ul><li>Statique</li><li>Cinématique</li><li>Torseurs</li></ul>");
 
-btnProgramme.onclick=()=>showSimpleBox(currentLang==="fr"?"Programme Pédagogique":currentLang==="en"?"Pedagogical Program":"البرنامج البيداغوجي",
-  "<p>Programme officiel ENSTP – CPST</p>");
+// ملفات PDF للدروس والبرامج
+const pdfCours = "TDs/Cours.pdf";
+const pdfProgramme = "TDs/Programme.pdf";
 
-btnLivre.onclick=()=>showSimpleBox(currentLang==="fr"?"Livre":currentLang==="en"?"Book":"الكتاب",
-  "<ul><li>Mécanique Rationnelle – ENSTP</li><li>Hibbeler</li></ul>");
+btnCours.onclick=()=>showSimpleBox(
+  currentLang==="fr"?"Cours":currentLang==="en"?"Course":"الدروس",
+  `<ul>
+     <li>Statique</li>
+     <li>Cinématique</li>
+     <li>Torseurs</li>
+   </ul>
+   <p><a href="${pdfCours}" target="_blank" style="font-weight:bold; color:#004080; text-decoration:underline;">
+     ${currentLang==="fr"?"Cliquez ici pour télécharger le PDF":currentLang==="en"?"Click here to download PDF":"اضغط هنا لتحميل PDF"}
+   </a></p>`
+);
+
+btnProgramme.onclick=()=>showSimpleBox(
+  currentLang==="fr"?"Programme Pédagogique":currentLang==="en"?"Pedagogical Program":"البرنامج البيداغوجي",
+  `<p>Programme officiel ENSTP – CPST</p>
+   <p><a href="${pdfProgramme}" target="_blank" style="font-weight:bold; color:#004080; text-decoration:underline;">
+     ${currentLang==="fr"?"Cliquez ici pour télécharger le PDF":currentLang==="en"?"Click here to download PDF":"اضغط هنا لتحميل PDF"}
+   </a></p>`
+);
 
 btnVideo.onclick=()=>{
   let html="";
-  videoLinks.forEach(v=>{ html+=`<p><a href="${v}" target="_blank">${v}</a></p>`; });
-  showSimpleBox(currentLang==="fr"?"Vidéos YouTube":currentLang==="en"?"YouTube Videos":"فيديوهات يوتيوب",html);
+  videoLinks.forEach(v=>{
+    html+=`<p>
+      <i class="fab fa-youtube" style="color:red; margin-right:5px;"></i>
+      <a href="${v}" target="_blank">${v}</a>
+    </p>`;
+  });
+  showSimpleBox(
+    currentLang==="fr"?"Vidéos YouTube":currentLang==="en"?"YouTube Videos":"فيديوهات يوتيوب",
+    html
+  );
 };
-
 /***********************************
  * ====== Contact ======
  ***********************************/
