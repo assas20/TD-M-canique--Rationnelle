@@ -6,12 +6,10 @@ header .logo { width:200px; margin-bottom:0px; }
 .sidebar select, .sidebar button { padding:8px; border-radius:5px; border:none; cursor:pointer; background:#0060c0; color:white; font-weight:bold; }
 .sidebar button:hover { background:#5f88b1; }
 .content { flex:1; padding:15px; }
-.assas-name {
-  color: #d32f2f; /* اللون الأحمر الغامق */
-  font-weight: bold; /* اجعل الاسم غامق */
-}
+.assas-name { color: #d32f2f; font-weight: bold; }
+
 /* TD Buttons */
-.td-btn { background:#cce0ff; color:#004080; font-weight:bold; padding:10px; margin:5px; border-radius:8px; border:1px solid #004080; cursor:pointer; text-align:left; }
+.td-btn { background:#cce0ff; color:#004080; font-weight:bold; padding:10px; margin:5px; border-radius:8px; border:1px solid #004080; cursor:pointer; text-align:left; width:100%; }
 .td-detail { background:#fff; border:1px solid #ddd; padding:10px; margin:5px 0; border-radius:5px; }
 .td-detail a { color:#004080; text-decoration:none; font-weight:bold; }
 .td-detail a:hover { text-decoration:underline; }
@@ -25,6 +23,8 @@ th { background:#004080; color:white; position:sticky; top:0; }
 .status-Absent { background:#ffcdd2; color:#c62828; font-weight:bold; }
 .status-Holiday { background:#e0e0e0; color:#616161; font-weight:bold; }
 .warning { color:red; font-weight:bold; font-size:0.9em; display:block; text-align:left; }
+
+/* Social icons */
 .social-icons a { margin-right:10px; font-size:1.2em; color:#004080; }
 .social-icons a:hover { color:#0080ff; }
 
