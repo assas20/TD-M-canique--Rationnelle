@@ -95,18 +95,15 @@
             margin-bottom: 30px;
         }
 
-        .figure-placeholder {
-            height: 150px;
-            border: 2px dashed #ccc;
-            background-color: #fafafa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #888;
-            font-style: italic;
-            margin: 1em 0;
+        /* Updated style for images */
+        .exercise-figure {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 1.5em auto;
             border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
         }
 
         /* Language Toggle Styles */
@@ -183,7 +180,7 @@
         <div class="solution-container">
             <h2>Exercice 01</h2>
             <p>Une sphère homogène d'un poids de 12 kN repose sur deux plans inclinés lisses AB et BC, perpendiculaires l'un à l'autre. Sachant que le plan BC fait un angle de 60° avec l'horizontale, déterminer les réactions exercées par les deux plans inclinés sur la sphère.</p>
-            <div class="figure-placeholder">Figure Exercice 01</div>
+            <img src="fig1.jpg" class="exercise-figure" alt="Figure Exercice 01">
             
             <h3>Solution Détaillée</h3>
             
@@ -242,7 +239,7 @@
         <div class="solution-container">
             <h2>Exercice 02</h2>
             <p>Déterminer la magnitude T de la tension dans le câble de support, et la force de réaction à l'axe A pour la grue représentée. La poutre AB est un profilé I standard de 0,5-m avec une masse linéique de 95 kg/m.</p>
-            <div class="figure-placeholder">Figure Exercice 02</div>
+            <img src="fig2.jpg" class="exercise-figure" alt="Figure Exercice 02">
 
             <h3>Solution Détaillée</h3>
 
@@ -334,7 +331,7 @@
             <h2>Exercice 03</h2>
             <p>Une barre homogène pesant 80 N est reliée par une charnière cylindrique en A à un mur. Elle est maintenue par un câble attaché en B. 
             <br><strong>Données Géométriques :</strong> A et C sont sur la même verticale (mur). L'angle au sommet A (BAC) est de 120°. L'angle en B (ABC) est de 30°.</p>
-            <div class="figure-placeholder">Figure Exercice 03</div>
+            <img src="fig3.jpg" class="exercise-figure" alt="Figure Exercice 03">
 
             <h3>Solution Détaillée</h3>
 
@@ -352,7 +349,7 @@
             <ul>
                 <li><strong>Point A (Pivot) :</strong> Origine \((0,0)\).</li>
                 <li><strong>Point B :</strong> La barre AB fait un angle de 120° avec la verticale AC.
-                    <br>Angle polaire standard (par rapport à l'axe x horizontal) : Puisque l'axe Y est à 90°, l'angle de la barre est \( 90^\circ - 120^\circ = -30^\circ \) (ou 330°).
+                    <br>Angle polaire standard (par rapport à l'axe x horizontal) : Puisque l'axe Y est à 90°, l'angle de la barre est \( 90^\circ - 120^\circ = -30^\circ \) (or 330°).
                     <br>\( \vec{r}_B = L (\cos(-30^\circ)\vec{i} + \sin(-30^\circ)\vec{j}) = L(\frac{\sqrt{3}}{2}\vec{i} - 0.5\vec{j}) \).
                 </li>
                 <li><strong>Point G (Centre de gravité) :</strong> Milieu de AB.
@@ -417,7 +414,7 @@
             <h2>Exercice 04</h2>
             <p>Déterminer la tension dans le câble agissant au point B, ainsi que les réactions au support double A pour le corps rigide ABC.</p>
             <p><strong>Données :</strong> A(0,0). Angle de la partie AB = 40°. Câble attaché en B, angle de 22° avec l'horizontale. Coordonnées horizontales : \(x_A=0\), \(x_B=300\)mm, \(x_C=575\)mm. Une seule charge verticale de 850 N en C.</p>
-            <div class="figure-placeholder">Figure Exercice 04</div>
+            <img src="fig4.jpg" class="exercise-figure" alt="Figure Exercice 04">
 
             <h3>Solution Détaillée</h3>
             
@@ -488,7 +485,7 @@
         <div class="solution-container">
             <h2>Exercise 01</h2>
             <p>A homogeneous sphere with a weight of 12 kN rests on two smooth inclined planes AB and BC, which are perpendicular to each other. Knowing that plane BC makes an angle of 60° with the horizontal, determine the reactions exerted by the two inclined planes on the sphere.</p>
-            <div class="figure-placeholder">Figure Exercise 01</div>
+            <img src="fig1.jpg" class="exercise-figure" alt="Figure Exercise 01">
             
             <h3>Detailed Solution</h3>
             
@@ -547,7 +544,7 @@
         <div class="solution-container">
             <h2>Exercise 02</h2>
             <p>Determine the magnitude T of the tension in the supporting cable, and the reaction force at pin A for the jib crane shown. The beam AB is a standard 0.5-m I-beam with a linear mass of 95 kg/m.</p>
-            <div class="figure-placeholder">Figure Exercise 02</div>
+            <img src="fig2.jpg" class="exercise-figure" alt="Figure Exercise 02">
 
             <h3>Detailed Solution</h3>
 
@@ -639,7 +636,7 @@
             <h2>Exercise 03</h2>
             <p>A homogeneous bar weighing 80 N is connected by a cylindrical hinge at A to a wall. It is held by a cable attached at B. 
             <br><strong>Geometric Data:</strong> A and C are on the same vertical line (wall). The angle at vertex A (BAC) is 120°. The angle at B (ABC) is 30°.</p>
-            <div class="figure-placeholder">Figure Exercise 03</div>
+            <img src="fig3.jpg" class="exercise-figure" alt="Figure Exercise 03">
 
             <h3>Detailed Solution</h3>
 
@@ -721,7 +718,7 @@
             <h2>Exercise 04</h2>
             <p>Determine the tension in the cable acting at point B, as well as the reactions at the double support A for the rigid body ABC.</p>
             <p><strong>Data:</strong> A(0,0). Angle of part AB = 40°. Cable attached at B, angle 22° with horizontal. Horizontal coordinates: \(x_A=0\), \(x_B=300\)mm, \(x_C=575\)mm. Only one vertical load of 850 N at C.</p>
-            <div class="figure-placeholder">Figure Exercise 04</div>
+            <img src="fig4.jpg" class="exercise-figure" alt="Figure Exercise 04">
 
             <h3>Detailed Solution</h3>
             
