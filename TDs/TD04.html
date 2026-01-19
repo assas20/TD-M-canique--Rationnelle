@@ -781,6 +781,264 @@
             </p>
         </div>
     </div>
+<div id="language-toggle">
+        <div class="toggle-button"></div>
+        <span class="toggle-text">EN</span>
+    </div>
+
+    <div id="fr-version" lang="fr" style="display:none;">
+        <h1>Statique du Solide (3D) - TD n°04 (Suite)</h1>
+        <p class="intro-text">Correction Détaillée Exercice 05</p>
+
+        <div class="solution-container">
+            <h2>Exercice 05</h2>
+            <p>Une barre homogène <strong>AB</strong>, de poids <strong>P</strong> et de longueur <strong>4a</strong>, est fixée à un mur vertical par une rotule sphérique en A. La barre est maintenue perpendiculaire au mur par les câbles <strong>DE</strong> et <strong>CG</strong>. Une charge de poids <strong>Q</strong> est attachée à l'extrémité libre B.</p>
+            <p><strong>Données :</strong> \(AE=AD=DC=a\), \(AF=4a\), \(FG=a\). P=50N, Q=3kN.</p>
+            <figure style="text-align:center; margin: 1.5em 0;">
+                <img src="fig5.jpg" alt="Schéma de l'exercice" class="exercise-figure">
+                <figcaption style="font-style:italic; color:#777; margin-top:0.5em;">Figure : Schéma de l'exercice</figcaption>
+            </figure>
+            
+            <h3>Solution Détaillée</h3>
+            
+            <div class="explanation">
+                <strong>Analyse du Repère</strong><br>
+                Nous utilisons un repère \((A, \vec{i}, \vec{j}, \vec{k})\) où :
+                <ul>
+                    <li><strong>Axe X (\(\vec{i}\)) :</strong> Le long de la barre AB.</li>
+                    <li><strong>Axe Y (\(\vec{j}\)) :</strong> Horizontal le long du mur. \(E\) est à \(+a\), \(F\) est à \(-4a\).</li>
+                    <li><strong>Axe Z (\(\vec{k}\)) :</strong> Vertical vers le haut. \(G\) est à une hauteur \(+a\).</li>
+                </ul>
+            </div>
+
+            <p><strong>1- Isoler le système et représenter toutes les forces extérieures</strong></p>
+            <p>Le système étudié est la <strong>barre AB</strong>.</p>
+            <ul>
+                <li><strong>Forces actives :</strong>
+                    <ul>
+                        <li>Poids de la barre \(\vec{P}\) (appliqué au centre de gravité, milieu de AB).</li>
+                        <li>Charge \(\vec{Q}\) (appliquée en B).</li>
+                    </ul>
+                </li>
+                <li><strong>Forces de liaison (réactions) :</strong>
+                    <ul>
+                        <li>Tension du câble DE : \(\vec{T}_{DE}\) (appliquée en D).</li>
+                        <li>Tension du câble CG : \(\vec{T}_{CG}\) (appliquée en C).</li>
+                        <li>Réaction à la rotule A : \(\vec{R}_A\) (3 composantes inconnues).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p><strong>2- Écrire les conditions d'équilibre du système sous forme vectorielle</strong></p>
+            <p>Pour qu'un solide soit en équilibre statique, la somme des forces et la somme des moments doivent être nulles :</p>
+            <div class="math-display">
+                \[ \sum \vec{F}_{ext} = \vec{R}_A + \vec{P} + \vec{Q} + \vec{T}_{DE} + \vec{T}_{CG} = \vec{0} \]
+                \[ \sum \vec{M}_{A} = \vec{M}_A(\vec{P}) + \vec{M}_A(\vec{Q}) + \vec{M}_A(\vec{T}_{DE}) + \vec{M}_A(\vec{T}_{CG}) = \vec{0} \]
+                (Le moment de \(\vec{R}_A\) est nul car la force passe par A).
+            </div>
+
+            <p><strong>3- Déterminer l'expression vectorielle de chaque force. En déduire les trois équations d'équilibre projetées.</strong></p>
+            
+            <p><strong>Coordonnées des points :</strong><br>
+            \(A(0,0,0)\), \(D(a,0,0)\), \(C(2a,0,0)\), \(B(4a,0,0)\).<br>
+            \(E(0,a,0)\), \(F(0,-4a,0)\), \(G(0,-4a,a)\).</p>
+
+            <p><strong>Vecteurs Forces :</strong></p>
+            <ul>
+                <li>\(\vec{P} = -P \vec{k}\)</li>
+                <li>\(\vec{Q} = -Q \vec{k}\)</li>
+                <li>\(\vec{R}_A = A_x \vec{i} + A_y \vec{j} + A_z \vec{k}\)</li>
+                <li><strong>Tension DE :</strong> Vecteur position \(\vec{DE} = E - D = -a\vec{i} + a\vec{j}\).
+                    <br>\(||\vec{DE}|| = a\sqrt{2}\).
+                    <br>\(\vec{T}_{DE} = T_{DE} \frac{\vec{DE}}{||\vec{DE}||} = \frac{T_{DE}}{\sqrt{2}} (-\vec{i} + \vec{j})\).
+                </li>
+                <li><strong>Tension CG :</strong> Vecteur position \(\vec{CG} = G - C = -2a\vec{i} - 4a\vec{j} + a\vec{k}\).
+                    <br>\(||\vec{CG}|| = \sqrt{4a^2 + 16a^2 + a^2} = a\sqrt{21}\).
+                    <br>\(\vec{T}_{CG} = T_{CG} \frac{\vec{CG}}{||\vec{CG}||} = \frac{T_{CG}}{\sqrt{21}} (-2\vec{i} - 4\vec{j} + \vec{k})\).
+                </li>
+            </ul>
+
+            <p><strong>Équations de projection des forces (\(\sum \vec{F} = \vec{0}\)) :</strong></p>
+            <div class="math-display">
+                \[ (\vec{i}) : A_x - \frac{T_{DE}}{\sqrt{2}} - \frac{2 T_{CG}}{\sqrt{21}} = 0 \]
+                \[ (\vec{j}) : A_y + \frac{T_{DE}}{\sqrt{2}} - \frac{4 T_{CG}}{\sqrt{21}} = 0 \]
+                \[ (\vec{k}) : A_z - P - Q + \frac{T_{CG}}{\sqrt{21}} = 0 \]
+            </div>
+
+            <p><strong>4- Déterminer les vecteurs moments par rapport au point A. En déduire les équations d'équilibre des moments projetées.</strong></p>
+            
+            <p>Calculons les produits vectoriels \(\vec{r} \wedge \vec{F}\) :</p>
+            <ul>
+                <li>\(\vec{M}_A(\vec{P}) = \vec{AC} \wedge \vec{P} = (2a\vec{i}) \wedge (-P\vec{k}) = 2aP \vec{j}\) (car le poids est au milieu de AB, longueur totale 4a, donc à 2a).</li>
+                <li>\(\vec{M}_A(\vec{Q}) = \vec{AB} \wedge \vec{Q} = (4a\vec{i}) \wedge (-Q\vec{k}) = 4aQ \vec{j}\).</li>
+                <li>\(\vec{M}_A(\vec{T}_{DE}) = \vec{AD} \wedge \vec{T}_{DE} = (a\vec{i}) \wedge \frac{T_{DE}}{\sqrt{2}}(-\vec{i} + \vec{j})\)
+                    <br>\(= \frac{a T_{DE}}{\sqrt{2}} (\vec{i} \wedge \vec{j}) = \frac{a T_{DE}}{\sqrt{2}} \vec{k}\).
+                </li>
+                <li>\(\vec{M}_A(\vec{T}_{CG}) = \vec{AC} \wedge \vec{T}_{CG} = (2a\vec{i}) \wedge \frac{T_{CG}}{\sqrt{21}}(-2\vec{i} - 4\vec{j} + \vec{k})\)
+                    <br>\(= \frac{2a T_{CG}}{\sqrt{21}} [ -4(\vec{i}\wedge\vec{j}) + 1(\vec{i}\wedge\vec{k}) ]\)
+                    <br>\(= \frac{2a T_{CG}}{\sqrt{21}} ( -4\vec{k} - \vec{j} ) = - \frac{2a T_{CG}}{\sqrt{21}}\vec{j} - \frac{8a T_{CG}}{\sqrt{21}}\vec{k}\).
+                </li>
+            </ul>
+
+            <p><strong>Équations de projection des moments (\(\sum \vec{M}_A = \vec{0}\)) :</strong></p>
+            <div class="math-display">
+                \[ M_x : 0 = 0 \]
+                \[ M_y : 2aP + 4aQ - \frac{2a T_{CG}}{\sqrt{21}} = 0 \implies P + 2Q - \frac{T_{CG}}{\sqrt{21}} = 0 \]
+                \[ M_z : \frac{a T_{DE}}{\sqrt{2}} - \frac{8a T_{CG}}{\sqrt{21}} = 0 \implies \frac{T_{DE}}{\sqrt{2}} - \frac{8 T_{CG}}{\sqrt{21}} = 0 \]
+            </div>
+
+            <p><strong>5- Si P=50N et Q=3kN, calculer les tensions \(T_{DE}\) et \(T_{CG}\). En déduire la réaction au point A.</strong></p>
+            <p>Attention aux unités : \(Q = 3 \text{ kN} = 3000 \text{ N}\). \(P = 50 \text{ N}\).</p>
+            
+            <p><strong>Calcul de \(T_{CG}\) (à partir de l'équation \(M_y\)) :</strong></p>
+            <div class="math-display">
+                \[ \frac{T_{CG}}{\sqrt{21}} = P + 2Q = 50 + 2(3000) = 6050 \]
+                \[ T_{CG} = 6050 \sqrt{21} \approx \mathbf{27\,725 \text{ N} \quad (27.7 \text{ kN})} \]
+            </div>
+
+            <p><strong>Calcul de \(T_{DE}\) (à partir de l'équation \(M_z\)) :</strong></p>
+            <div class="math-display">
+                \[ \frac{T_{DE}}{\sqrt{2}} = \frac{8 T_{CG}}{\sqrt{21}} = 8 \left( \frac{T_{CG}}{\sqrt{21}} \right) \]
+                \[ \frac{T_{DE}}{\sqrt{2}} = 8 (6050) = 48400 \]
+                \[ T_{DE} = 48400 \sqrt{2} \approx \mathbf{68\,449 \text{ N} \quad (68.4 \text{ kN})} \]
+            </div>
+
+            <p><strong>Calcul de la réaction \(\vec{R}_A\) :</strong></p>
+            <ul>
+                <li>\(A_z = P + Q - \frac{T_{CG}}{\sqrt{21}} = 50 + 3000 - 6050 = \mathbf{-3000 \text{ N}}\)
+                    <br><em>(La réaction verticale est vers le bas pour contrer la forte traction vers le haut du câble CG).</em></li>
+                <li>\(A_x = \frac{T_{DE}}{\sqrt{2}} + \frac{2 T_{CG}}{\sqrt{21}} = 48400 + 2(6050) = 48400 + 12100 = \mathbf{60\,500 \text{ N}}\).</li>
+                <li>\(A_y = - \frac{T_{DE}}{\sqrt{2}} + \frac{4 T_{CG}}{\sqrt{21}} = -48400 + 4(6050) = -48400 + 24200 = \mathbf{-24\,200 \text{ N}}\).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="en-version" lang="en">
+        <h1>Solid Statics (3D) - Tutorial Sheet n°04 (Continued)</h1>
+        <p class="intro-text">Detailed Solution Exercise 05</p>
+
+        <div class="solution-container">
+            <h2>Exercise 05</h2>
+            <p>A homogeneous bar <strong>AB</strong>, of weight <strong>P</strong> and length <strong>4a</strong>, is fixed to a vertical wall by a spherical hinge at A. The bar is kept perpendicular to the wall by cables <strong>DE</strong> and <strong>CG</strong>. A load of weight <strong>Q</strong> is attached at the free end B.</p>
+            <p><strong>Given:</strong> \(AE=AD=DC=a\), \(AF=4a\), \(FG=a\). P=50N, Q=3kN.</p>
+            <figure style="text-align:center; margin: 1.5em 0;">
+                <img src="fig5.jpg" alt="Exercise figure" class="exercise-figure">
+                <figcaption style="font-style:italic; color:#777; margin-top:0.5em;">Figure: Exercise diagram</figcaption>
+            </figure>
+            
+            <h3>Detailed Solution</h3>
+            
+            <div class="explanation">
+                <strong>Coordinate System Analysis</strong><br>
+                We use a frame \((A, \vec{i}, \vec{j}, \vec{k})\) where:
+                <ul>
+                    <li><strong>X-axis (\(\vec{i}\)):</strong> Along the bar AB.</li>
+                    <li><strong>Y-axis (\(\vec{j}\)):</strong> Horizontal along the wall. \(E\) is at \(+a\), \(F\) is at \(-4a\).</li>
+                    <li><strong>Z-axis (\(\vec{k}\)):</strong> Vertical upwards. \(G\) is at height \(+a\).</li>
+                </ul>
+            </div>
+
+            <p><strong>1- Isolate the system and represent all external forces</strong></p>
+            <p>The system under study is the <strong>bar AB</strong>.</p>
+            <ul>
+                <li><strong>Active Forces:</strong>
+                    <ul>
+                        <li>Weight of the bar \(\vec{P}\) (applied at center of gravity, midpoint of AB).</li>
+                        <li>Load \(\vec{Q}\) (applied at B).</li>
+                    </ul>
+                </li>
+                <li><strong>Constraint Forces (Reactions):</strong>
+                    <ul>
+                        <li>Tension of cable DE: \(\vec{T}_{DE}\) (applied at D).</li>
+                        <li>Tension of cable CG: \(\vec{T}_{CG}\) (applied at C).</li>
+                        <li>Reaction at spherical hinge A: \(\vec{R}_A\) (3 unknown components).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p><strong>2- Write the equilibrium conditions of the system in vector form</strong></p>
+            <p>For a rigid body in static equilibrium, the sum of forces and the sum of moments must be zero:</p>
+            <div class="math-display">
+                \[ \sum \vec{F}_{ext} = \vec{R}_A + \vec{P} + \vec{Q} + \vec{T}_{DE} + \vec{T}_{CG} = \vec{0} \]
+                \[ \sum \vec{M}_{A} = \vec{M}_A(\vec{P}) + \vec{M}_A(\vec{Q}) + \vec{M}_A(\vec{T}_{DE}) + \vec{M}_A(\vec{T}_{CG}) = \vec{0} \]
+                (The moment of \(\vec{R}_A\) is zero because the force passes through A).
+            </div>
+
+            <p><strong>3- Determine the vector expression of each force. Deduce the three projected equilibrium equations.</strong></p>
+            
+            <p><strong>Coordinates of points:</strong><br>
+            \(A(0,0,0)\), \(D(a,0,0)\), \(C(2a,0,0)\), \(B(4a,0,0)\).<br>
+            \(E(0,a,0)\), \(F(0,-4a,0)\), \(G(0,-4a,a)\).</p>
+
+            <p><strong>Force Vectors:</strong></p>
+            <ul>
+                <li>\(\vec{P} = -P \vec{k}\)</li>
+                <li>\(\vec{Q} = -Q \vec{k}\)</li>
+                <li>\(\vec{R}_A = A_x \vec{i} + A_y \vec{j} + A_z \vec{k}\)</li>
+                <li><strong>Tension DE:</strong> Position vector \(\vec{DE} = E - D = -a\vec{i} + a\vec{j}\).
+                    <br>\(||\vec{DE}|| = a\sqrt{2}\).
+                    <br>\(\vec{T}_{DE} = T_{DE} \frac{\vec{DE}}{||\vec{DE}||} = \frac{T_{DE}}{\sqrt{2}} (-\vec{i} + \vec{j})\).
+                </li>
+                <li><strong>Tension CG:</strong> Position vector \(\vec{CG} = G - C = -2a\vec{i} - 4a\vec{j} + a\vec{k}\).
+                    <br>\(||\vec{CG}|| = \sqrt{4a^2 + 16a^2 + a^2} = a\sqrt{21}\).
+                    <br>\(\vec{T}_{CG} = T_{CG} \frac{\vec{CG}}{||\vec{CG}||} = \frac{T_{CG}}{\sqrt{21}} (-2\vec{i} - 4\vec{j} + \vec{k})\).
+                </li>
+            </ul>
+
+            <p><strong>Force Projection Equations (\(\sum \vec{F} = \vec{0}\)):</strong></p>
+            <div class="math-display">
+                \[ (\vec{i}) : A_x - \frac{T_{DE}}{\sqrt{2}} - \frac{2 T_{CG}}{\sqrt{21}} = 0 \]
+                \[ (\vec{j}) : A_y + \frac{T_{DE}}{\sqrt{2}} - \frac{4 T_{CG}}{\sqrt{21}} = 0 \]
+                \[ (\vec{k}) : A_z - P - Q + \frac{T_{CG}}{\sqrt{21}} = 0 \]
+            </div>
+
+            <p><strong>4- Determine the moment vectors with respect to point A. Deduce the projected moment equilibrium equations.</strong></p>
+            
+            <p>Calculating cross products \(\vec{r} \wedge \vec{F}\):</p>
+            <ul>
+                <li>\(\vec{M}_A(\vec{P}) = \vec{AC} \wedge \vec{P} = (2a\vec{i}) \wedge (-P\vec{k}) = 2aP \vec{j}\) (since weight is at midpoint of AB, total length 4a, so at 2a).</li>
+                <li>\(\vec{M}_A(\vec{Q}) = \vec{AB} \wedge \vec{Q} = (4a\vec{i}) \wedge (-Q\vec{k}) = 4aQ \vec{j}\).</li>
+                <li>\(\vec{M}_A(\vec{T}_{DE}) = \vec{AD} \wedge \vec{T}_{DE} = (a\vec{i}) \wedge \frac{T_{DE}}{\sqrt{2}}(-\vec{i} + \vec{j})\)
+                    <br>\(= \frac{a T_{DE}}{\sqrt{2}} (\vec{i} \wedge \vec{j}) = \frac{a T_{DE}}{\sqrt{2}} \vec{k}\).
+                </li>
+                <li>\(\vec{M}_A(\vec{T}_{CG}) = \vec{AC} \wedge \vec{T}_{CG} = (2a\vec{i}) \wedge \frac{T_{CG}}{\sqrt{21}}(-2\vec{i} - 4\vec{j} + \vec{k})\)
+                    <br>\(= \frac{2a T_{CG}}{\sqrt{21}} [ -4(\vec{i}\wedge\vec{j}) + 1(\vec{i}\wedge\vec{k}) ]\)
+                    <br>\(= \frac{2a T_{CG}}{\sqrt{21}} ( -4\vec{k} - \vec{j} ) = - \frac{2a T_{CG}}{\sqrt{21}}\vec{j} - \frac{8a T_{CG}}{\sqrt{21}}\vec{k}\).
+                </li>
+            </ul>
+
+            <p><strong>Moment Projection Equations (\(\sum \vec{M}_A = \vec{0}\)):</strong></p>
+            <div class="math-display">
+                \[ M_x : 0 = 0 \]
+                \[ M_y : 2aP + 4aQ - \frac{2a T_{CG}}{\sqrt{21}} = 0 \implies P + 2Q - \frac{T_{CG}}{\sqrt{21}} = 0 \]
+                \[ M_z : \frac{a T_{DE}}{\sqrt{2}} - \frac{8a T_{CG}}{\sqrt{21}} = 0 \implies \frac{T_{DE}}{\sqrt{2}} - \frac{8 T_{CG}}{\sqrt{21}} = 0 \]
+            </div>
+
+            <p><strong>5- If P=50N and Q=3kN, compute the tensions \(T_{DE}\) and \(T_{CG}\). Deduce the reaction at point A.</strong></p>
+            <p>Pay attention to units: \(Q = 3 \text{ kN} = 3000 \text{ N}\). \(P = 50 \text{ N}\).</p>
+            
+            <p><strong>Calculating \(T_{CG}\) (from equation \(M_y\)):</strong></p>
+            <div class="math-display">
+                \[ \frac{T_{CG}}{\sqrt{21}} = P + 2Q = 50 + 2(3000) = 6050 \]
+                \[ T_{CG} = 6050 \sqrt{21} \approx \mathbf{27\,725 \text{ N} \quad (27.7 \text{ kN})} \]
+            </div>
+
+            <p><strong>Calculating \(T_{DE}\) (from equation \(M_z\)):</strong></p>
+            <div class="math-display">
+                \[ \frac{T_{DE}}{\sqrt{2}} = \frac{8 T_{CG}}{\sqrt{21}} = 8 \left( \frac{T_{CG}}{\sqrt{21}} \right) \]
+                \[ \frac{T_{DE}}{\sqrt{2}} = 8 (6050) = 48400 \]
+                \[ T_{DE} = 48400 \sqrt{2} \approx \mathbf{68\,449 \text{ N} \quad (68.4 \text{ kN})} \]
+            </div>
+
+            <p><strong>Calculating Reaction \(\vec{R}_A\):</strong></p>
+            <ul>
+                <li>\(A_z = P + Q - \frac{T_{CG}}{\sqrt{21}} = 50 + 3000 - 6050 = \mathbf{-3000 \text{ N}}\)
+                    <br><em>(Vertical reaction is downwards to counter the strong upward pull of cable CG).</em></li>
+                <li>\(A_x = \frac{T_{DE}}{\sqrt{2}} + \frac{2 T_{CG}}{\sqrt{21}} = 48400 + 2(6050) = 48400 + 12100 = \mathbf{60\,500 \text{ N}}\).</li>
+                <li>\(A_y = - \frac{T_{DE}}{\sqrt{2}} + \frac{4 T_{CG}}{\sqrt{21}} = -48400 + 4(6050) = -48400 + 24200 = \mathbf{-24\,200 \text{ N}}\).</li>
+            </ul>
+        </div>
+    </div>
 
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
