@@ -155,9 +155,92 @@ Soit un glisseur \( \vec{F}=F\vec{i} \) appliqué au point A.
 </div>
 
 <div class="math-display">
-\[
-\vec{M}_O=-20a^2\vec{i}+12a^2\vec{k}
-\]
+
+     <p>Soit le torseur \( [T_1]_O \) défini au point O, origine d'un repère orthonormal direct \( R(O, \vec{i}, \vec{j}, \vec{k}) \), par les trois vecteurs suivants :</p>
+            <ul>
+                <li>\( \vec{V}_A = -2\vec{i} + 3\vec{j} - 7\vec{k} \) défini au point A(1,0,0)</li>
+                <li>\( \vec{V}_B = 3\vec{i} - \vec{j} - \vec{k} \) défini au point B(0,1,0)</li>
+                <li>\( \vec{V}_C = -\vec{i} - 2\vec{j} + 8\vec{k} \) défini au point C(0,0,1)</li>
+            </ul>
+            <p>Soit \( [T_2]_O \) un torseur défini au point O par ses éléments de réduction \( \vec{R_2} \) et \( \vec{M}_{2O} \) tels que :</p>
+            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \\ \vec{M}_{2O} = -3\vec{i} + 2\vec{j} - 7\vec{k} \end{cases} \]</div>
+            <ol>
+                <li>Déterminer les éléments de réduction de \( [T_1] \) au point O.</li>
+                <li>Déterminer le pas et l'axe central du torseur \( [T_2] \).</li>
+                <li>Calculer la somme des deux torseurs.</li>
+                <li>Calculer le comoment des deux torseurs.</li>
+                <li>Calculer l'invariant scalaire du torseur somme \( [T] = [T_1] + [T_2] \).</li>
+            </ol>
+
+            <div class="sub-branch">
+                <h3>Solution</h3>
+                
+                <h4 style="margin-top: 0.8em;">1. Éléments de réduction de \( [T_1] \) au point O</h4>
+                <p>Le torseur \( [T_1] \) est la somme des torseurs glisseurs associés à \( \vec{V}_A \), \( \vec{V}_B \), et \( \vec{V}_C \).</p>
+                <p><strong>Résultante \( \vec{R_1} \):</strong></p>
+                <div class="math-display">\[ \vec{R_1} = \vec{V}_A + \vec{V}_B + \vec{V}_C \]</div>
+                <div class="math-display">\[ \vec{R_1} = (-2\vec{i} + 3\vec{j} - 7\vec{k}) + (3\vec{i} - \vec{j} - \vec{k}) + (-\vec{i} - 2\vec{j} + 8\vec{k}) \]</div>
+                <div class="math-display">\[ \vec{R_1} = (-2+3-1)\vec{i} + (3-1-2)\vec{j} + (-7-1+8)\vec{k} = \vec{0} \]</div>
+                
+                <p><strong>Moment \( \vec{M}_{1O} \):</strong></p>
+                <div class="math-display">\[ \vec{M}_{1O} = \vec{M}_O(\vec{V}_A) + \vec{M}_O(\vec{V}_B) + \vec{M}_O(\vec{V}_C) \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = (\vec{OA} \wedge \vec{V}_A) + (\vec{OB} \wedge \vec{V}_B) + (\vec{OC} \wedge \vec{V}_C) \]</div>
+                <p>Avec \( \vec{OA} = \vec{i} \), \( \vec{OB} = \vec{j} \), \( \vec{OC} = \vec{k} \):</p>
+                <div class="math-display">\[ \vec{OA} \wedge \vec{V}_A = (\vec{i}) \wedge (-2\vec{i} + 3\vec{j} - 7\vec{k}) = 3(\vec{i}\wedge\vec{j}) - 7(\vec{i}\wedge\vec{k}) = 3\vec{k} - 7(-\vec{j}) = 7\vec{j} + 3\vec{k} \]</div>
+                <div class="math-display">\[ \vec{OB} \wedge \vec{V}_B = (\vec{j}) \wedge (3\vec{i} - \vec{j} - \vec{k}) = 3(\vec{j}\wedge\vec{i}) - (\vec{j}\wedge\vec{k}) = 3(-\vec{k}) - \vec{i} = -\vec{i} - 3\vec{k} \]</div>
+                <div class="math-display">\[ \vec{OC} \wedge \vec{V}_C = (\vec{k}) \wedge (-\vec{i} - 2\vec{j} + 8\vec{k}) = -(\vec{k}\wedge\vec{i}) - 2(\vec{k}\wedge\vec{j}) = -(\vec{j}) - 2(-\vec{i}) = 2\vec{i} - \vec{j} \]</div>
+                <p>Le moment total est :</p>
+                <div class="math-display">\[ \vec{M}_{1O} = (7\vec{j} + 3\vec{k}) + (-\vec{i} - 3\vec{k}) + (2\vec{i} - \vec{j}) = \vec{i} + 6\vec{j} \]</div>
+                <p>Les éléments de réduction de \( [T_1] \) en O sont :</p>
+                <div class="math-display">\[ [T_1]_O = \begin{cases} \vec{R_1} = \vec{0} \\ \vec{M}_{1O} = \vec{i} + 6\vec{j} \end{cases} \]</div>
+                <p>Puisque la résultante est nulle et le moment non nul, \( [T_1] \) est un <strong>torseur couple</strong>.</p>
+                
+                <h4 style="margin-top: 1.5em;">Visualisation 3D (Question 1)</h4>
+                <p>Cette visualisation montre les points d'application A, B, C, les vecteurs glisseurs \( \vec{V}_A, \vec{V}_B, \vec{V}_C \) et le moment résultant \( \vec{M}_{1O} \) (le couple) à l'origine.</p>
+                <div id="plotly-plot-q1-fr" class="plotly-viz"></div>
+
+
+                <h4 style="margin-top: 1.5em;">2. Pas et Axe Central de \( [T_2] \)</h4>
+                <p>Données : \( \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \) et \( \vec{M}_{2O} = -3\vec{i} + 2\vec{j} - 7\vec{k} \).</p>
+                <p><strong>Invariant Scalaire (Automoment) \( I_2 \):</strong></p>
+                <div class="math-display">\[ I_2 = \vec{R_2} \cdot \vec{M}_{2O} = (2)( -3) + (1)(2) + (3)(-7) = -6 + 2 - 21 = -25 \]</div>
+                <p><strong>Norme au carré de la résultante :</strong></p>
+                <div class="math-display">\[ ||\vec{R_2}||^2 = 2^2 + 1^2 + 3^2 = 4 + 1 + 9 = 14 \]</div>
+                <p><strong>Pas \( \lambda_2 \):</strong></p>
+                <div class="math-display">\[ \lambda_2 = \frac{I_2}{||\vec{R_2}||^2} = -\frac{25}{14} \approx -1.786 \]</div>
+                <p><strong>Axe Central \( (\Delta_2) \):</strong></p>
+                <p>L'axe est dirigé par \( \vec{R_2} \) et passe par un point \( P_0 \) tel que \( \vec{OP_0} = \frac{\vec{R_2} \wedge \vec{M}_{2O}}{||\vec{R_2}||^2} \).</p>
+                <div class="math-display">\[ \vec{R_2} \wedge \vec{M}_{2O} = \begin{pmatrix} 2 \\ 1 \\ 3 \end{pmatrix} \wedge \begin{pmatrix} -3 \\ 2 \\ -7 \end{pmatrix} = \begin{pmatrix} (1)(-7) - (3)(2) \\ (3)(-3) - (2)(-7) \\ (2)(2) - (1)(-3) \end{pmatrix} = \begin{pmatrix} -13 \\ 5 \\ 7 \end{pmatrix} \]</div>
+                <div class="math-display">\[ \vec{OP_0} = \frac{1}{14}(-13\vec{i} + 5\vec{j} + 7\vec{k}) = -\frac{13}{14}\vec{i} + \frac{5}{14}\vec{j} + \frac{1}{2}\vec{k} \]</div>
+                <p>L'axe central \( (\Delta_2) \) est la droite passant par \( P_0(-\frac{13}{14}, \frac{5}{14}, \frac{1}{2}) \) et de vecteur directeur \( \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \).</p>
+
+                <h4 style="margin-top: 1.5em;">Visualisation 3D (Question 2)</h4>
+                <p>Cette visualisation montre les éléments de réduction de \( [T_2] \) à l'origine (\( \vec{R_2} \) et \( \vec{M}_{2O} \)) ainsi que son axe central \( (\Delta_2) \).</p>
+                <div id="plotly-plot-q2-fr" class="plotly-viz"></div>
+
+                <h4 style="margin-top: 1.5em;">3. Somme des deux torseurs</h4>
+                <p>Le torseur somme \( [T] = [T_1] + [T_2] \) a pour éléments de réduction en O :</p>
+                <div class="math-display">\[ \vec{R} = \vec{R_1} + \vec{R_2} = \vec{0} + (2\vec{i} + \vec{j} + 3\vec{k}) = 2\vec{i} + \vec{j} + 3\vec{k} \]</div>
+                <div class="math-display">\[ \vec{M}_O = \vec{M}_{1O} + \vec{M}_{2O} = (\vec{i} + 6\vec{j}) + (-3\vec{i} + 2\vec{j} - 7\vec{k}) = -2\vec{i} + 8\vec{j} - 7\vec{k} \]</div>
+                <div class="math-display">\[ [T]_O = \begin{cases} \vec{R} = 2\vec{i} + \vec{j} + 3\vec{k} \\ \vec{M}_O = -2\vec{i} + 8\vec{j} - 7\vec{k} \end{cases} \]</div>
+
+                <h4 style="margin-top: 1.5em;">4. Comoment des deux torseurs</h4>
+                <p>Le comoment (invariant) est donné par \( \mathcal{C} = \vec{R_1} \cdot \vec{M}_{2O} + \vec{R_2} \cdot \vec{M}_{1O} \).</p>
+                <div class="math-display">\[ \mathcal{C} = (\vec{0}) \cdot (-3\vec{i} + 2\vec{j} - 7\vec{k}) + (2\vec{i} + \vec{j} + 3\vec{k}) \cdot (\vec{i} + 6\vec{j} + 0\vec{k}) \]</div>
+                <div class="math-display">\[ \mathcal{C} = 0 + (2)(1) + (1)(6) + (3)(0) = 8 \]</div>
+                
+                <h4 style="margin-top: 1.5em;">5. Invariant scalaire du torseur somme \( [T] \)</h4>
+                <p>L'invariant scalaire \( I \) du torseur somme \( [T] \) est \( I = \vec{R} \cdot \vec{M}_O \).</p>
+                <div class="math-display">\[ I = (2\vec{i} + \vec{j} + 3\vec{k}) \cdot (-2\vec{i} + 8\vec{j} - 7\vec{k}) \]</div>
+                <div class="math-display">\[ I = (2)(-2) + (1)(8) + (3)(-7) = -4 + 8 - 21 = -17 \]</div>
+                <p>L'axe central \( (\Delta) \) du torseur somme \( [T] \) a pour point le plus proche de l'origine \( P_{0,sum} \):</p>
+                <div class="math-display">\[ \vec{R} \wedge \vec{M}_O = \begin{pmatrix} 2 \\ 1 \\ 3 \end{pmatrix} \wedge \begin{pmatrix} -2 \\ 8 \\ -7 \end{pmatrix} = \begin{pmatrix} (1)(-7) - (3)(8) \\ (3)(-2) - (2)(-7) \\ (2)(8) - (1)(-2) \end{pmatrix} = \begin{pmatrix} -31 \\ 8 \\ 18 \end{pmatrix} \]</div>
+                <div class="math-display">\[ \vec{OP}_{0,sum} = \frac{\vec{R} \wedge \vec{M}_O}{||\vec{R}||^2} = \frac{1}{14}(-31\vec{i} + 8\vec{j} + 18\vec{k}) = -\frac{31}{14}\vec{i} + \frac{4}{7}\vec{j} + \frac{9}{7}\vec{k} \]</div>
+
+
+                <h4 style="margin-top: 1.5em;">Visualisation 3D (Questions 3 & 5)</h4>
+                <p>Cette visualisation montre les éléments de réduction du torseur somme \( [T] = [T_1] + [T_2] \) à l'origine (\( \vec{R} \) et \( \vec{M}_O \)) ainsi que son axe central \( (\Delta) \).</p>
+                <div id="plotly-plot-q3-fr" class="plotly-viz"></div>
 </div>
 
 <label>a = <input type="number" id="a1-en" value="1" step="0.1"></label>
