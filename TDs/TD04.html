@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Sheet - Solid Statics (Vector Method)</title>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['\\(', '\\)']],
+            displayMath: [['\\[', '\\]']],
+            macros: {
+              vec: ["{\\overrightarrow{#1}}", 1],
+              i: "\\hat{\\imath}",
+              j: "\\hat{\\jmath}",
+              k: "\\hat{k}",
+              norm: ["\\left\\lVert#1\\right\\rVert", 1]
+            }
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+    <style>
+        body {
+            font-family: "Computer Modern Sans", sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 2em;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        h1 { 
+            font-size: 2em; 
+            text-align: center; 
+            border-bottom: 3px solid #003366; 
+            margin-bottom: 0.5em; 
+            font-family: "Computer Modern Serif", serif;
+            color: #003366;
+        }
+        h2 { 
+            font-size: 1.6em; 
+            font-family: "Computer Modern Serif", serif;
+            color: #D2691E;
+            margin-top: 1.5em;
+            border-left: 5px solid #003366;
+            padding-left: 15px;
+        }
+        h3 { 
+            font-size: 1.3em; 
+            color: #0055A4; 
+            font-family: "Computer Modern Serif", serif;
+            margin-top: 1em;
+            border-bottom: 1px solid #ddd;
+        }
+        .intro-text {
+            text-align: center; 
+            font-family: 'Computer Modern Serif', serif; 
+            color: #555; 
+            font-style: italic;
+            margin-bottom: 2em;
+        }
+        .math-display {
+            margin: 1em 0;
+            padding: 1em;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            overflow-x: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .explanation {
+            background-color: #eef2f5;
+            padding: 15px;
+            border-left: 4px solid #0055A4;
+            margin: 10px 0;
+            font-size: 0.95em;
+        }
+        .explanation strong {
+            color: #0055A4;
+        }
+        ul, ol { margin-left: 1em; }
+        li { margin-bottom: 0.5em; }
+        
+        .solution-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .figure-placeholder {
+            height: 150px;
+            border: 2px dashed #ccc;
+            background-color: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            margin: 1em 0;
+            border-radius: 4px;
+        }
+
+        /* Language Toggle Styles */
+        #language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 70px;
+            height: 34px;
+            background-color: #e9ecef;
+            border-radius: 17px;
+            cursor: pointer;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-button {
+            width: 28px;
+            height: 28px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            transition: left 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #adb5bd;
+        }
+
+        .toggle-text {
+            font-family: "Arial", sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            color: #495057;
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        /* State for EN (default) */
+        #language-toggle .toggle-button {
+            left: 3px;
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCA2MCAzMCI+DQo8Y2xpcFBhdGggaWQ9ImEiPg0KPHBhdGggZD0iTTMwLDAgVjE1IEg2MCBWMEEiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggaWQ9ImIiPg0KPHBhdGggZD0iTTAsMTUgSDMwIFYzMCBIMFYxNU0zMCwwIEg2MCBWMTUgSDMwVjBNMCwwIEgzMCBWMTAgSDBWMCIvPg0KPC9jbGlwUGF0aD4NCjxwYXRoIGQ9Ik0wLDAgVjMwIEg2MCBWMEEiIGZpbGw9IiMwMDI0N0QiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSI2IiBkPSJNMzAsMCA2MCwxNSAwLDE1IE0zMCwzMCAwLDE1IDYwLDE1Ii8+DQo8cGF0aCBzdHJva2U9IiNDRjE0MkIiIHN0cm9rZS13aWR0aD0iNCIgZD0iTTAgMCA2MCAzME0wIDMwIDYwIDAiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSIxMCIgZD0iTTMwLDAgVjMwIi8+DQo8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS13aWR0aD0iMTgiIGQ9Ik0wLDE1IEg2MCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjYiIGQ9Ik0zMCwwIFYzMCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjEwIiBkPSJNLTEsMTUgSDYxIi8+DQo8L3N2Zz4=');
+        }
+        #language-toggle .toggle-text {
+            right: 10px;
+        }
+
+        /* State for FR (active) */
+        #language-toggle.active .toggle-button {
+            left: calc(100% - 28px - 3px);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzIDIiPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjIiIGZpbGw9IiMwMDU1QTEiLz48cmVjdCB4PSIxIiB3aWR0aD0iMSIgaGVpZ2h0PSIyIiBmaWxsPSIjRkZGIi8+PHJlY3QgeD0iMiIgd2lkdGg9IjEiIGhlaWdodD0iMiIgZmlsbD0iI0VEMjlENSIvPjwvc3ZnPg==');
+        }
+        #language-toggle.active .toggle-text {
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="language-toggle">
+        <div class="toggle-button"></div>
+        <span class="toggle-text">EN</span>
+    </div>
+
+    <div id="fr-version" lang="fr" style="display:none;">
+        <h1>Statique du Solide - Fiche de TD n°04</h1>
+        <p class="intro-text">Correction Détaillée (Méthode Vectorielle)</p>
+
+        <div class="solution-container">
+            <h2>Exercice 01</h2>
+            <p>Une sphère homogène d'un poids de 12 kN repose sur deux plans inclinés lisses AB et BC, perpendiculaires l'un à l'autre. Sachant que le plan BC fait un angle de 60° avec l'horizontale, déterminer les réactions exercées par les deux plans inclinés sur la sphère.</p>
+            <div class="figure-placeholder">Figure Exercice 01</div>
+            
+            <h3>Solution Détaillée</h3>
+            
+            <div class="explanation">
+                <strong>Concept Fondamental : Équilibre d'une Particule</strong><br>
+                La sphère est modélisée comme une particule soumise à des forces concourantes au son centre. Pour qu'elle soit en équilibre, la somme vectorielle de toutes les forces doit être nulle :
+                \[ \sum \vec{F} = \vec{0} \]
+                Les surfaces sont "lisses", ce qui signifie qu'il n'y a pas de frottement. Les forces de réaction sont donc purement normales (perpendiculaires) aux surfaces de contact.
+            </div>
+
+            <p><strong>1. Définition du Repère et des Angles</strong></p>
+            <p>Utilisons un repère cartésien standard \((x, y)\) où \( \vec{i} \) est horizontal vers la droite et \( \vec{j} \) est vertical vers le haut.</p>
+            <ul>
+                <li><strong>Plan BC :</strong> Incliné à 60° par rapport à l'horizontale. La normale à ce plan (direction de la réaction \( \vec{R}_{BC} \)) fait un angle de \( 60^\circ \) avec la verticale (l'angle de la normale avec la verticale est égal à l'angle du plan avec l'horizontale). Le vecteur pointe vers le haut et la gauche.</li>
+                <li><strong>Plan AB :</strong> Puisque les plans sont perpendiculaires (\(AB \perp BC\)), l'angle du plan AB avec l'horizontale est de \( 90^\circ - 60^\circ = 30^\circ \). Sa normale fait donc un angle de \( 30^\circ \) avec la verticale. Le vecteur pointe vers le haut et la droite.</li>
+            </ul>
+
+            <p><strong>2. Formulation Vectorielle des Forces</strong></p>
+            <ul>
+                <li><strong>Poids :</strong> \( \vec{W} = -12 \vec{j} \) (kN)</li>
+                <li><strong>Réaction \( \vec{R}_{BC} \) :</strong>
+                    \[ \vec{R}_{BC} = R_{BC} (-\sin(60^\circ)\vec{i} + \cos(60^\circ)\vec{j}) = R_{BC} (-\frac{\sqrt{3}}{2}\vec{i} + 0.5\vec{j}) \]
+                </li>
+                <li><strong>Réaction \( \vec{R}_{AB} \) :</strong>
+                    \[ \vec{R}_{AB} = R_{AB} (\sin(30^\circ)\vec{i} + \cos(30^\circ)\vec{j}) = R_{AB} (0.5\vec{i} + \frac{\sqrt{3}}{2}\vec{j}) \]
+                </li>
+            </ul>
+
+            <p><strong>3. Résolution du Système</strong></p>
+            <p>Appliquons la condition d'équilibre \(\sum \vec{F} = \vec{0}\) composante par composante :</p>
+            
+            <p><em>Sur l'axe x ( horizontal) :</em></p>
+            <div class="math-display">
+                \[ \sum F_x = 0 \implies 0.5 R_{AB} - R_{BC}\frac{\sqrt{3}}{2} = 0 \]
+                \[ \implies R_{AB} = R_{BC}\sqrt{3} \quad \text{--- (Équation 1)} \]
+            </div>
+
+            <p><em>Sur l'axe y (vertical) :</em></p>
+            <div class="math-display">
+                \[ \sum F_y = 0 \implies R_{AB}\frac{\sqrt{3}}{2} + 0.5 R_{BC} - 12 = 0 \quad \text{--- (Équation 2)} \]
+            </div>
+
+            <p>Substituons (1) dans (2) :</p>
+            <div class="math-display">
+                \[ (R_{BC}\sqrt{3})\frac{\sqrt{3}}{2} + 0.5 R_{BC} = 12 \]
+                \[ 1.5 R_{BC} + 0.5 R_{BC} = 12 \]
+                \[ 2 R_{BC} = 12 \implies \mathbf{R_{BC} = 6 \text{ kN}} \]
+            </div>
+
+            <p>Calculons \( R_{AB} \) :</p>
+            <div class="math-display">
+                \[ R_{AB} = 6 \times \sqrt{3} \approx \mathbf{10.39 \text{ kN}} \]
+            </div>
+        </div>
+
+        <div class="solution-container">
+            <h2>Exercice 02</h2>
+            <p>Déterminer la magnitude T de la tension dans le câble de support, et la force de réaction à l'axe A pour la grue représentée. La poutre AB est un profilé I standard de 0,5-m avec une masse linéique de 95 kg/m.</p>
+            <div class="figure-placeholder">Figure Exercice 02</div>
+
+            <h3>Solution Détaillée</h3>
+
+            <div class="explanation">
+                <strong>Concept Fondamental : Moment d'une force (Produit Vectoriel)</strong><br>
+                Le moment d'une force \(\vec{F}\) par rapport à un point A est défini par le produit vectoriel :
+                \[ \vec{M}_A = \vec{r} \wedge \vec{F} \]
+                où \(\vec{r}\) est le vecteur position allant du point de pivot A au point d'application de la force.
+                <br>
+                Pour un corps rigide en équilibre plan (2D) :
+                <ol>
+                    <li>La somme des moments vectoriels par rapport à n'importe quel point est nulle : \(\sum \vec{M}_A = \vec{0}\) (ce qui implique \(\sum M_z = 0\)).</li>
+                    <li>La somme des forces vectorielles est nulle : \(\sum \vec{F} = \vec{0}\).</li>
+                </ol>
+            </div>
+
+            <p><strong>1. Identification des Données et Vecteurs Position</strong></p>
+            <p>Plaçons l'origine au point A : \( A(0,0,0) \).</p>
+            <ul>
+                <li><strong>Poutre AB :</strong> Longueur \( L = 5 \) m. Poids appliqué au centre de gravité \( G \).
+                    <br>Position : \( \vec{r}_G = 2.5 \vec{i} \) m.
+                    <br>Poids : \( W_{beam} = (95 \, \text{kg/m})(5 \, \text{m})(9.81 \, \text{m/s}^2) = 4659.75 \, \text{N} \approx 4.66 \, \text{kN} \).
+                    <br>Vecteur Force : \( \vec{W}_{beam} = -4.66 \vec{j} \) kN.
+                </li>
+                <li><strong>Charge N :</strong> Située à 1.5 m de l'extrémité B, donc à \( 5 - 1.5 = 3.5 \) m de A.
+                    <br>Position : \( \vec{r}_N = 3.5 \vec{i} \) m.
+                    <br>Vecteur Force : \( \vec{N} = -10 \vec{j} \) kN.
+                </li>
+                <li><strong>Câble (Tension T) :</strong> Attaché en B.
+                    <br>Position : \( \vec{r}_B = 5 \vec{i} \) m.
+                    <br>Orientation : Le câble tire vers le mur avec un angle de 25° par rapport à l'horizontale (vers le haut et la gauche).
+                    <br>Vecteur Force : \( \vec{T} = T(-\cos(25^\circ)\vec{i} + \sin(25^\circ)\vec{j}) \).
+                </li>
+            </ul>
+
+            <p><strong>2. Calcul des Moments (Équilibre de Rotation)</strong></p>
+            <p>Calculons le moment de chaque force par rapport à A en utilisant la propriété du produit vectoriel \(\vec{i} \wedge \vec{j} = \vec{k}\) et \(\vec{i} \wedge \vec{i} = \vec{0}\).</p>
+            
+            <div class="math-display">
+                \[ \sum \vec{M}_A = (\vec{r}_G \wedge \vec{W}_{beam}) + (\vec{r}_N \wedge \vec{N}) + (\vec{r}_B \wedge \vec{T}) = \vec{0} \]
+            </div>
+
+            <ul>
+                <li>Moment du Poids :
+                    \[ \vec{M}_W = (2.5\vec{i}) \wedge (-4.66\vec{j}) = -11.65 (\vec{i} \wedge \vec{j}) = -11.65 \vec{k} \, \text{kN}\cdot\text{m} \]
+                </li>
+                <li>Moment de la Charge :
+                    \[ \vec{M}_N = (3.5\vec{i}) \wedge (-10\vec{j}) = -35 \vec{k} \, \text{kN}\cdot\text{m} \]
+                </li>
+                <li>Moment de la Tension :
+                    \[ \vec{M}_T = (5\vec{i}) \wedge [ T(-\cos 25^\circ \vec{i} + \sin 25^\circ \vec{j}) ] \]
+                    \[ \vec{M}_T = 5 T (-\cos 25^\circ (\vec{i} \wedge \vec{i}) + \sin 25^\circ (\vec{i} \wedge \vec{j})) \]
+                    \[ \vec{M}_T = 5 T \sin 25^\circ \vec{k} \approx 2.113 T \vec{k} \]
+                </li>
+            </ul>
+
+            <p>Équation scalaire sur l'axe z :</p>
+            <div class="math-display">
+                \[ 2.113 T - 11.65 - 35 = 0 \]
+                \[ 2.113 T = 46.65 \implies \mathbf{T \approx 22.08 \text{ kN}} \]
+            </div>
+
+            <p><strong>3. Calcul de la Réaction en A (Équilibre de Translation)</strong></p>
+            <p>Soit \( \vec{A} = A_x \vec{i} + A_y \vec{j} \) la réaction au pivot.</p>
+            <div class="math-display">
+                \[ \vec{A} + \vec{W}_{beam} + \vec{N} + \vec{T} = \vec{0} \]
+                \[ \vec{A} = - (\vec{W}_{beam} + \vec{N} + \vec{T}) \]
+            </div>
+            <p>Calculons d'abord le vecteur \( \vec{T} \) :</p>
+            <div class="math-display">
+                \[ \vec{T} = 22.08 (-\cos 25^\circ \vec{i} + \sin 25^\circ \vec{j}) \approx -20.01 \vec{i} + 9.33 \vec{j} \]
+            </div>
+            <p>Somme des forces externes connues :</p>
+            <div class="math-display">
+                \[ \vec{F}_{ext} = (0\vec{i} - 4.66\vec{j}) + (0\vec{i} - 10\vec{j}) + (-20.01\vec{i} + 9.33\vec{j}) \]
+                \[ \vec{F}_{ext} = -20.01 \vec{i} + (-4.66 - 10 + 9.33)\vec{j} = -20.01 \vec{i} - 5.33 \vec{j} \]
+            </div>
+            <p>La réaction est l'opposée :</p>
+            <div class="math-display">
+                \[ \vec{A} = 20.01 \vec{i} + 5.33 \vec{j} \, \text{kN} \]
+            </div>
+            <p>Magnitude de la réaction :</p>
+            <div class="math-display">
+                \[ ||\vec{A}|| = \sqrt{(20.01)^2 + (5.33)^2} \approx \mathbf{20.71 \text{ kN}} \]
+            </div>
+        </div>
+
+        <div class="solution-container">
+            <h2>Exercice 03</h2>
+            <p>Une barre homogène pesant 80 N est reliée par une charnière cylindrique en A à un mur. Elle est maintenue par un câble attaché en B. 
+            <br><strong>Données Géométriques :</strong> A et C sont sur la même verticale (mur). L'angle au sommet A (BAC) est de 120°. L'angle en B (ABC) est de 30°.</p>
+            <div class="figure-placeholder">Figure Exercice 03</div>
+
+            <h3>Solution Détaillée</h3>
+
+            <div class="explanation">
+                <strong>Analyse Géométrique Vectorielle</strong><br>
+                Pour éviter les erreurs de calcul de bras de levier, nous définissons les coordonnées de chaque point dans un repère \((A, \vec{i}, \vec{j})\).
+                <ul>
+                    <li>Le triangle ABC a des angles : \(\hat{A}=120^\circ\), \(\hat{B}=30^\circ\). La somme des angles vaut 180°, donc \(\hat{C} = 180 - 120 - 30 = 30^\circ\).</li>
+                    <li>Le triangle est donc <strong>isocèle</strong> en A (\(AC = AB = L\)).</li>
+                    <li>L'axe AC est vertical. Choisissons A comme origine. L'axe Y pointe vers le haut le long de AC.</li>
+                </ul>
+            </div>
+
+            <p><strong>1. Coordonnées et Vecteurs Position</strong></p>
+            <ul>
+                <li><strong>Point A (Pivot) :</strong> Origine \((0,0)\).</li>
+                <li><strong>Point B :</strong> La barre AB fait un angle de 120° avec la verticale AC.
+                    <br>Angle polaire standard (par rapport à l'axe x horizontal) : Puisque l'axe Y est à 90°, l'angle de la barre est \( 90^\circ - 120^\circ = -30^\circ \) (ou 330°).
+                    <br>\( \vec{r}_B = L (\cos(-30^\circ)\vec{i} + \sin(-30^\circ)\vec{j}) = L(\frac{\sqrt{3}}{2}\vec{i} - 0.5\vec{j}) \).
+                </li>
+                <li><strong>Point G (Centre de gravité) :</strong> Milieu de AB.
+                    <br>\( \vec{r}_G = 0.5 \vec{r}_B = L(0.433\vec{i} - 0.25\vec{j}) \).
+                </li>
+            </ul>
+
+            <p><strong>2. Formulation des Forces</strong></p>
+            <ul>
+                <li><strong>Poids \(\vec{W}\) :</strong> Vertical vers le bas.
+                    <br>\( \vec{W} = -80 \vec{j} \) N.
+                </li>
+                <li><strong>Tension \(\vec{T}\) :</strong> Appliquée en B, dirigée vers C.
+                    <br>Il nous faut le vecteur unitaire \(\vec{u}_{BC}\).
+                    <br>Position de C : Sur l'axe Y à une distance L (triangle isocèle). \( \vec{r}_C = L \vec{j} \).
+                    <br>Vecteur \(\vec{BC} = \vec{r}_C - \vec{r}_B = (0 - 0.866L)\vec{i} + (L - (-0.5L))\vec{j} = L(-0.866\vec{i} + 1.5\vec{j})\).
+                    <br>Angle de ce vecteur : \(\tan \theta = \frac{1.5}{-0.866} = -\sqrt{3}\). Cela correspond à un angle de 120° par rapport à l'horizontale (ou 60° avec la verticale).
+                    <br>Expression vectorielle : \( \vec{T} = T(-\cos(60^\circ)\vec{i} + \sin(60^\circ)\vec{j}) = T(-0.5\vec{i} + 0.866\vec{j}) \).
+                </li>
+            </ul>
+
+            <p><strong>3. Équilibre des Moments en A</strong></p>
+            <div class="math-display">
+                \[ \sum \vec{M}_A = (\vec{r}_G \wedge \vec{W}) + (\vec{r}_B \wedge \vec{T}) = \vec{0} \]
+            </div>
+
+            <p>Calculons les produits vectoriels :</p>
+            <ul>
+                <li>Moment du Poids :
+                    \[ \vec{r}_G \wedge \vec{W} = L(0.433\vec{i} - 0.25\vec{j}) \wedge (-80\vec{j}) \]
+                    \[ = L(0.433)(-80)(\vec{i}\wedge\vec{j}) = -34.64 L \vec{k} \]
+                </li>
+                <li>Moment de la Tension :
+                    \[ \vec{r}_B \wedge \vec{T} = L(0.866\vec{i} - 0.5\vec{j}) \wedge T(-0.5\vec{i} + 0.866\vec{j}) \]
+                    \[ = LT [ (0.866)(0.866)(\vec{i}\wedge\vec{j}) + (-0.5)(-0.5)(\vec{j}\wedge\vec{i}) ] \]
+                    Note: \(\vec{j}\wedge\vec{i} = -\vec{k}\). Attention aux signes.
+                    \[ = LT [ 0.75 \vec{k} - (0.25)(-\vec{k}) ] = LT (0.75 - 0.25)\vec{k} = 0.5 LT \vec{k} \]
+                    <em>Correction signe produit vectoriel:</em> \((x\vec{i} + y\vec{j}) \wedge (F_x\vec{i} + F_y\vec{j}) = (xF_y - yF_x)\vec{k}\).
+                    <br>\( x=0.866, y=-0.5, F_x=-0.5T, F_y=0.866T \).
+                    <br>\( xF_y - yF_x = (0.866)(0.866) - (-0.5)(-0.5) = 0.75 - 0.25 = 0.5 \). Correct.
+                </li>
+            </ul>
+
+            <p>Résolution :</p>
+            <div class="math-display">
+                \[ 0.5 L T - 34.64 L = 0 \]
+                (L s'annule)
+                \[ 0.5 T = 34.64 \implies \mathbf{T = 69.28 \text{ N}} \]
+            </div>
+
+            <p><strong>4. Réaction en A</strong></p>
+            <div class="math-display">
+                \[ \vec{A} = -(\vec{W} + \vec{T}) \]
+                \[ \vec{T} = 69.28(-0.5\vec{i} + 0.866\vec{j}) = -34.64\vec{i} + 60\vec{j} \]
+                \[ \vec{W} = -80\vec{j} \]
+                \[ \vec{A} = -(-34.64\vec{i} + (60 - 80)\vec{j}) = -(-34.64\vec{i} - 20\vec{j}) \]
+                \[ \vec{A} = 34.64\vec{i} + 20\vec{j} \, \text{N} \]
+            </div>
+        </div>
+
+        <div class="solution-container">
+            <h2>Exercice 04</h2>
+            <p>Déterminer la tension dans le câble agissant au point B, ainsi que les réactions au support double A pour le corps rigide ABC.</p>
+            <p><strong>Données :</strong> A(0,0). Angle de la partie AB = 40°. Câble attaché en B, angle de 22° avec l'horizontale. Coordonnées horizontales : \(x_A=0\), \(x_B=300\)mm, \(x_C=575\)mm. Une seule charge verticale de 850 N en C.</p>
+            <div class="figure-placeholder">Figure Exercice 04</div>
+
+            <h3>Solution Détaillée</h3>
+            
+            <p><strong>1. Définition de la Géométrie (Conversion en mètres)</strong></p>
+            <ul>
+                <li><strong>Point A :</strong> Origine \( (0, 0) \).</li>
+                <li><strong>Point B :</strong> \( x_B = 0.3 \) m. La barre AB fait 40° avec l'horizontale.
+                    <br>\( y_B = x_B \tan(40^\circ) = 0.3 \times 0.8391 = 0.2517 \) m.
+                    <br>\( \vec{r}_B = 0.3 \vec{i} + 0.2517 \vec{j} \).
+                </li>
+                <li><strong>Point C :</strong> \( x_C = 0.575 \) m. Le corps ABC est rigide. La géométrie usuelle et les coordonnées impliquent que BC est horizontal.
+                    <br>\( \vec{r}_C = 0.575 \vec{i} + 0.2517 \vec{j} \).
+                </li>
+            </ul>
+
+            <p><strong>2. Vecteurs Forces</strong></p>
+            <ul>
+                <li><strong>Tension (\(\vec{T}\)) :</strong> Appliquée en B. Le câble fait un angle de 22° avec l'horizontale. Il tire vers le support P (gauche).
+                    <br>\( \vec{T} = T (-\cos(22^\circ)\vec{i} + \sin(22^\circ)\vec{j}) \approx T (-0.9272\vec{i} + 0.3746\vec{j}) \).
+                </li>
+                <li><strong>Charge en C (\(\vec{P}\)) :</strong> \( -850 \vec{j} \) N.</li>
+                <li>Note: Il n'y a pas de charge verticale appliquée en B dans cette correction.</li>
+            </ul>
+
+            <p><strong>3. Équilibre des Moments en A</strong></p>
+            <div class="math-display">
+                \[ \sum \vec{M}_A = (\vec{r}_B \wedge \vec{T}) + (\vec{r}_C \wedge \vec{P}) = \vec{0} \]
+            </div>
+
+            <p>Utilisons le calcul déterminant pour les produits vectoriels \((x F_y - y F_x)\vec{k}\) :</p>
+            <ul>
+                <li>Moment de \(\vec{T}\) (Tension en B) :
+                    <br>\( x_B T_y - y_B T_x = 0.3(0.3746 T) - 0.2517(-0.9272 T) \)
+                    <br>\( = T(0.11238 + 0.23337) = 0.34575 T \vec{k} \).
+                </li>
+                <li>Moment de \(\vec{P}\) (Force en C) :
+                    <br>\( x_C(-850) - y_C(0) = 0.575(-850) = -488.75 \vec{k} \).
+                </li>
+            </ul>
+
+            <p>Équation d'équilibre (composante z) :</p>
+            <div class="math-display">
+                \[ 0.34575 T - 488.75 = 0 \]
+                \[ 0.34575 T = 488.75 \]
+                \[ \mathbf{T \approx 1414 \text{ N}} \]
+            </div>
+
+            <p><strong>4. Réaction en A</strong></p>
+            <p>Équilibre des forces : \( \vec{A} + \vec{T} + \vec{P} = \vec{0} \implies \vec{A} = -(\vec{T} + \vec{P}) \).</p>
+            <div class="math-display">
+                \[ \vec{T} = 1414 (-0.9272\vec{i} + 0.3746\vec{j}) \approx -1311 \vec{i} + 530 \vec{j} \]
+                \[ \vec{P} = -850 \vec{j} \]
+                \[ \vec{A} = - [ -1311 \vec{i} + (530 - 850) \vec{j} ] \]
+                \[ \vec{A} = - [ -1311 \vec{i} - 320 \vec{j} ] \]
+                \[ \vec{A} = 1311 \vec{i} + 320 \vec{j} \, \text{N} \]
+            </div>
+            <p><strong>Résultat :</strong>
+            <br>Réaction Horizontale \(A_x \approx 1311\) N.
+            <br>Réaction Verticale \(A_y \approx 320\) N.
+            </p>
+        </div>
+    </div>
+
+    <div id="en-version" lang="en">
+        <h1>Solid Statics - Tutorial Sheet n°04</h1>
+        <p class="intro-text">Detailed Solution (Vector Method)</p>
+
+        <div class="solution-container">
+            <h2>Exercise 01</h2>
+            <p>A homogeneous sphere with a weight of 12 kN rests on two smooth inclined planes AB and BC, which are perpendicular to each other. Knowing that plane BC makes an angle of 60° with the horizontal, determine the reactions exerted by the two inclined planes on the sphere.</p>
+            <div class="figure-placeholder">Figure Exercise 01</div>
+            
+            <h3>Detailed Solution</h3>
+            
+            <div class="explanation">
+                <strong>Core Concept: Particle Equilibrium</strong><br>
+                The sphere is modeled as a particle subjected to concurrent forces at its center. For it to be in equilibrium, the vector sum of all forces must be zero:
+                \[ \sum \vec{F} = \vec{0} \]
+                The surfaces are "smooth", meaning frictionless. Reaction forces are therefore purely normal (perpendicular) to the contact surfaces.
+            </div>
+
+            <p><strong>1. Coordinate System and Angles</strong></p>
+            <p>We use a standard Cartesian coordinate system \((x, y)\) where \( \vec{i} \) is horizontal to the right and \( \vec{j} \) is vertical upwards.</p>
+            <ul>
+                <li><strong>Plane BC:</strong> Inclined at 60° to the horizontal. The normal to this plane (direction of reaction \( \vec{R}_{BC} \)) makes an angle of \( 60^\circ \) with the vertical (angle of normal to vertical equals angle of plane to horizontal). The vector points up and to the left.</li>
+                <li><strong>Plane AB:</strong> Since the planes are perpendicular (\(AB \perp BC\)), the angle of plane AB to the horizontal is \( 90^\circ - 60^\circ = 30^\circ \). The normal to AB therefore makes an angle of \( 30^\circ \) with the vertical. The vector points up and to the right.</li>
+            </ul>
+
+            <p><strong>2. Vector Formulation of Forces</strong></p>
+            <ul>
+                <li><strong>Weight:</strong> \( \vec{W} = -12 \vec{j} \) (kN)</li>
+                <li><strong>Reaction \( \vec{R}_{BC} \):</strong>
+                    \[ \vec{R}_{BC} = R_{BC} (-\sin(60^\circ)\vec{i} + \cos(60^\circ)\vec{j}) = R_{BC} (-\frac{\sqrt{3}}{2}\vec{i} + 0.5\vec{j}) \]
+                </li>
+                <li><strong>Reaction \( \vec{R}_{AB} \):</strong>
+                    \[ \vec{R}_{AB} = R_{AB} (\sin(30^\circ)\vec{i} + \cos(30^\circ)\vec{j}) = R_{AB} (0.5\vec{i} + \frac{\sqrt{3}}{2}\vec{j}) \]
+                </li>
+            </ul>
+
+            <p><strong>3. Solving the System</strong></p>
+            <p>Apply the equilibrium condition \(\sum \vec{F} = \vec{0}\) component by component:</p>
+            
+            <p><em>On the x-axis (horizontal):</em></p>
+            <div class="math-display">
+                \[ \sum F_x = 0 \implies 0.5 R_{AB} - R_{BC}\frac{\sqrt{3}}{2} = 0 \]
+                \[ \implies R_{AB} = R_{BC}\sqrt{3} \quad \text{--- (Equation 1)} \]
+            </div>
+
+            <p><em>On the y-axis (vertical):</em></p>
+            <div class="math-display">
+                \[ \sum F_y = 0 \implies R_{AB}\frac{\sqrt{3}}{2} + 0.5 R_{BC} - 12 = 0 \quad \text{--- (Equation 2)} \]
+            </div>
+
+            <p>Substitute (1) into (2):</p>
+            <div class="math-display">
+                \[ (R_{BC}\sqrt{3})\frac{\sqrt{3}}{2} + 0.5 R_{BC} = 12 \]
+                \[ 1.5 R_{BC} + 0.5 R_{BC} = 12 \]
+                \[ 2 R_{BC} = 12 \implies \mathbf{R_{BC} = 6 \text{ kN}} \]
+            </div>
+
+            <p>Calculate \( R_{AB} \):</p>
+            <div class="math-display">
+                \[ R_{AB} = 6 \times \sqrt{3} \approx \mathbf{10.39 \text{ kN}} \]
+            </div>
+        </div>
+
+        <div class="solution-container">
+            <h2>Exercise 02</h2>
+            <p>Determine the magnitude T of the tension in the supporting cable, and the reaction force at pin A for the jib crane shown. The beam AB is a standard 0.5-m I-beam with a linear mass of 95 kg/m.</p>
+            <div class="figure-placeholder">Figure Exercise 02</div>
+
+            <h3>Detailed Solution</h3>
+
+            <div class="explanation">
+                <strong>Core Concept: Moment of a Force (Cross Product)</strong><br>
+                The moment of a force \(\vec{F}\) about a point A is defined by the cross product:
+                \[ \vec{M}_A = \vec{r} \wedge \vec{F} \]
+                where \(\vec{r}\) is the position vector from the pivot point A to the point of application of the force.
+                <br>
+                For a rigid body in 2D equilibrium:
+                <ol>
+                    <li>The sum of vector moments about any point is zero: \(\sum \vec{M}_A = \vec{0}\) (implies \(\sum M_z = 0\)).</li>
+                    <li>The sum of vector forces is zero: \(\sum \vec{F} = \vec{0}\).</li>
+                </ol>
+            </div>
+
+            <p><strong>1. Data Identification and Position Vectors</strong></p>
+            <p>Set the origin at point A: \( A(0,0,0) \).</p>
+            <ul>
+                <li><strong>Beam AB:</strong> Length \( L = 5 \) m. Weight acts at centroid \( G \).
+                    <br>Position: \( \vec{r}_G = 2.5 \vec{i} \) m.
+                    <br>Weight: \( W_{beam} = (95 \, \text{kg/m})(5 \, \text{m})(9.81 \, \text{m/s}^2) = 4659.75 \, \text{N} \approx 4.66 \, \text{kN} \).
+                    <br>Force Vector: \( \vec{W}_{beam} = -4.66 \vec{j} \) kN.
+                </li>
+                <li><strong>Load N:</strong> Located 1.5 m from tip B, so \( 5 - 1.5 = 3.5 \) m from A.
+                    <br>Position: \( \vec{r}_N = 3.5 \vec{i} \) m.
+                    <br>Force Vector: \( \vec{N} = -10 \vec{j} \) kN.
+                </li>
+                <li><strong>Cable (Tension T):</strong> Attached at B.
+                    <br>Position: \( \vec{r}_B = 5 \vec{i} \) m.
+                    <br>Orientation: The cable pulls towards the wall at an angle of 25° to the horizontal (up and left).
+                    <br>Force Vector: \( \vec{T} = T(-\cos(25^\circ)\vec{i} + \sin(25^\circ)\vec{j}) \).
+                </li>
+            </ul>
+
+            <p><strong>2. Calculating Moments (Rotational Equilibrium)</strong></p>
+            <p>We calculate the moment of each force about A using the cross product property \(\vec{i} \wedge \vec{j} = \vec{k}\) and \(\vec{i} \wedge \vec{i} = \vec{0}\).</p>
+            
+            <div class="math-display">
+                \[ \sum \vec{M}_A = (\vec{r}_G \wedge \vec{W}_{beam}) + (\vec{r}_N \wedge \vec{N}) + (\vec{r}_B \wedge \vec{T}) = \vec{0} \]
+            </div>
+
+            <ul>
+                <li>Moment of Weight:
+                    \[ \vec{M}_W = (2.5\vec{i}) \wedge (-4.66\vec{j}) = -11.65 (\vec{i} \wedge \vec{j}) = -11.65 \vec{k} \, \text{kN}\cdot\text{m} \]
+                </li>
+                <li>Moment of Load:
+                    \[ \vec{M}_N = (3.5\vec{i}) \wedge (-10\vec{j}) = -35 \vec{k} \, \text{kN}\cdot\text{m} \]
+                </li>
+                <li>Moment of Tension:
+                    \[ \vec{M}_T = (5\vec{i}) \wedge [ T(-\cos 25^\circ \vec{i} + \sin 25^\circ \vec{j}) ] \]
+                    \[ \vec{M}_T = 5 T (-\cos 25^\circ (\vec{i} \wedge \vec{i}) + \sin 25^\circ (\vec{i} \wedge \vec{j})) \]
+                    \[ \vec{M}_T = 5 T \sin 25^\circ \vec{k} \approx 2.113 T \vec{k} \]
+                </li>
+            </ul>
+
+            <p>Scalar equation on z-axis:</p>
+            <div class="math-display">
+                \[ 2.113 T - 11.65 - 35 = 0 \]
+                \[ 2.113 T = 46.65 \implies \mathbf{T \approx 22.08 \text{ kN}} \]
+            </div>
+
+            <p><strong>3. Calculating Reaction at A (Translational Equilibrium)</strong></p>
+            <p>Let \( \vec{A} = A_x \vec{i} + A_y \vec{j} \) be the pin reaction.</p>
+            <div class="math-display">
+                \[ \vec{A} + \vec{W}_{beam} + \vec{N} + \vec{T} = \vec{0} \]
+                \[ \vec{A} = - (\vec{W}_{beam} + \vec{N} + \vec{T}) \]
+            </div>
+            <p>First, compute vector \( \vec{T} \):</p>
+            <div class="math-display">
+                \[ \vec{T} = 22.08 (-\cos 25^\circ \vec{i} + \sin 25^\circ \vec{j}) \approx -20.01 \vec{i} + 9.33 \vec{j} \]
+            </div>
+            <p>Sum of known external forces:</p>
+            <div class="math-display">
+                \[ \vec{F}_{ext} = (0\vec{i} - 4.66\vec{j}) + (0\vec{i} - 10\vec{j}) + (-20.01\vec{i} + 9.33\vec{j}) \]
+                \[ \vec{F}_{ext} = -20.01 \vec{i} + (-4.66 - 10 + 9.33)\vec{j} = -20.01 \vec{i} - 5.33 \vec{j} \]
+            </div>
+            <p>The reaction is the opposite:</p>
+            <div class="math-display">
+                \[ \vec{A} = 20.01 \vec{i} + 5.33 \vec{j} \, \text{kN} \]
+            </div>
+            <p>Magnitude of reaction:</p>
+            <div class="math-display">
+                \[ ||\vec{A}|| = \sqrt{(20.01)^2 + (5.33)^2} \approx \mathbf{20.71 \text{ kN}} \]
+            </div>
+        </div>
+
+        <div class="solution-container">
+            <h2>Exercise 03</h2>
+            <p>A homogeneous bar weighing 80 N is connected by a cylindrical hinge at A to a wall. It is held by a cable attached at B. 
+            <br><strong>Geometric Data:</strong> A and C are on the same vertical line (wall). The angle at vertex A (BAC) is 120°. The angle at B (ABC) is 30°.</p>
+            <div class="figure-placeholder">Figure Exercise 03</div>
+
+            <h3>Detailed Solution</h3>
+
+            <div class="explanation">
+                <strong>Vector Geometric Analysis</strong><br>
+                To avoid errors in calculating lever arms manually, we define the coordinates of each point in a frame \((A, \vec{i}, \vec{j})\).
+                <ul>
+                    <li>Triangle ABC has angles: \(\hat{A}=120^\circ\), \(\hat{B}=30^\circ\). Sum is 180°, so \(\hat{C} = 180 - 120 - 30 = 30^\circ\).</li>
+                    <li>The triangle is therefore <strong>isosceles</strong> at A (\(AC = AB = L\)).</li>
+                    <li>Line AC is vertical. Let's choose A as the origin. The Y-axis points upwards along AC.</li>
+                </ul>
+            </div>
+
+            <p><strong>1. Coordinates and Position Vectors</strong></p>
+            <ul>
+                <li><strong>Point A (Pivot):</strong> Origin \((0,0)\).</li>
+                <li><strong>Point B:</strong> Bar AB makes an angle of 120° with the vertical AC.
+                    <br>Standard polar angle (from horizontal x-axis): Since Y-axis is at 90°, the bar's angle is \( 90^\circ - 120^\circ = -30^\circ \) (or 330°).
+                    <br>\( \vec{r}_B = L (\cos(-30^\circ)\vec{i} + \sin(-30^\circ)\vec{j}) = L(\frac{\sqrt{3}}{2}\vec{i} - 0.5\vec{j}) \).
+                </li>
+                <li><strong>Point G (Centroid):</strong> Midpoint of AB.
+                    <br>\( \vec{r}_G = 0.5 \vec{r}_B = L(0.433\vec{i} - 0.25\vec{j}) \).
+                </li>
+            </ul>
+
+            <p><strong>2. Force Formulation</strong></p>
+            <ul>
+                <li><strong>Weight \(\vec{W}\):</strong> Vertical downwards.
+                    <br>\( \vec{W} = -80 \vec{j} \) N.
+                </li>
+                <li><strong>Tension \(\vec{T}\):</strong> Applied at B, directed towards C.
+                    <br>We need the unit vector \(\vec{u}_{BC}\).
+                    <br>Position of C: On Y-axis at distance L (isosceles triangle). \( \vec{r}_C = L \vec{j} \).
+                    <br>Vector \(\vec{BC} = \vec{r}_C - \vec{r}_B = (0 - 0.866L)\vec{i} + (L - (-0.5L))\vec{j} = L(-0.866\vec{i} + 1.5\vec{j})\).
+                    <br>Angle of this vector: \(\tan \theta = \frac{1.5}{-0.866} = -\sqrt{3}\). This corresponds to 120° from horizontal (or 60° with vertical).
+                    <br>Vector expression: \( \vec{T} = T(-\cos(60^\circ)\vec{i} + \sin(60^\circ)\vec{j}) = T(-0.5\vec{i} + 0.866\vec{j}) \).
+                </li>
+            </ul>
+
+            <p><strong>3. Moment Equilibrium at A</strong></p>
+            <div class="math-display">
+                \[ \sum \vec{M}_A = (\vec{r}_G \wedge \vec{W}) + (\vec{r}_B \wedge \vec{T}) = \vec{0} \]
+            </div>
+
+            <p>Calculating cross products:</p>
+            <ul>
+                <li>Moment of Weight:
+                    \[ \vec{r}_G \wedge \vec{W} = L(0.433\vec{i} - 0.25\vec{j}) \wedge (-80\vec{j}) \]
+                    \[ = L(0.433)(-80)(\vec{i}\wedge\vec{j}) = -34.64 L \vec{k} \]
+                </li>
+                <li>Moment of Tension:
+                    \[ \vec{r}_B \wedge \vec{T} = L(0.866\vec{i} - 0.5\vec{j}) \wedge T(-0.5\vec{i} + 0.866\vec{j}) \]
+                    \[ = LT [ (0.866)(0.866)(\vec{i}\wedge\vec{j}) + (-0.5)(-0.5)(\vec{j}\wedge\vec{i}) ] \]
+                    Note: \(\vec{j}\wedge\vec{i} = -\vec{k}\). Watch the signs.
+                    \[ = LT [ 0.75 \vec{k} - (0.25)(-\vec{k}) ] = LT (0.75 - 0.25)\vec{k} = 0.5 LT \vec{k} \]
+                    <em>Cross product check:</em> \((x\vec{i} + y\vec{j}) \wedge (F_x\vec{i} + F_y\vec{j}) = (xF_y - yF_x)\vec{k}\).
+                    <br>\( xF_y - yF_x = (0.866)(0.866) - (-0.5)(-0.5) = 0.75 - 0.25 = 0.5 \). Correct.
+                </li>
+            </ul>
+
+            <p>Solving:</p>
+            <div class="math-display">
+                \[ 0.5 L T - 34.64 L = 0 \]
+                (L cancels out)
+                \[ 0.5 T = 34.64 \implies \mathbf{T = 69.28 \text{ N}} \]
+            </div>
+
+            <p><strong>4. Reaction at A</strong></p>
+            <div class="math-display">
+                \[ \vec{A} = -(\vec{W} + \vec{T}) \]
+                \[ \vec{T} = 69.28(-0.5\vec{i} + 0.866\vec{j}) = -34.64\vec{i} + 60\vec{j} \]
+                \[ \vec{W} = -80\vec{j} \]
+                \[ \vec{A} = -(-34.64\vec{i} + (60 - 80)\vec{j}) = -(-34.64\vec{i} - 20\vec{j}) \]
+                \[ \vec{A} = 34.64\vec{i} + 20\vec{j} \, \text{N} \]
+            </div>
+        </div>
+
+        <div class="solution-container">
+            <h2>Exercise 04</h2>
+            <p>Determine the tension in the cable acting at point B, as well as the reactions at the double support A for the rigid body ABC.</p>
+            <p><strong>Data:</strong> A(0,0). Angle of part AB = 40°. Cable attached at B, angle 22° with horizontal. Horizontal coordinates: \(x_A=0\), \(x_B=300\)mm, \(x_C=575\)mm. Only one vertical load of 850 N at C.</p>
+            <div class="figure-placeholder">Figure Exercise 04</div>
+
+            <h3>Detailed Solution</h3>
+            
+            <p><strong>1. Defining Geometry (Conversion to meters)</strong></p>
+            <ul>
+                <li><strong>Point A:</strong> Origin \( (0, 0) \).</li>
+                <li><strong>Point B:</strong> \( x_B = 0.3 \) m. Bar AB is at 40° to the horizontal.
+                    <br>\( y_B = x_B \tan(40^\circ) = 0.3 \times 0.8391 = 0.2517 \) m.
+                    <br>\( \vec{r}_B = 0.3 \vec{i} + 0.2517 \vec{j} \).
+                </li>
+                <li><strong>Point C:</strong> \( x_C = 0.575 \) m. The body ABC is rigid. Standard geometry implies BC is horizontal.
+                    <br>\( \vec{r}_C = 0.575 \vec{i} + 0.2517 \vec{j} \).
+                </li>
+            </ul>
+
+            <p><strong>2. Force Vectors</strong></p>
+            <ul>
+                <li><strong>Tension (\(\vec{T}\)):</strong> Applied at B. Cable makes 22° angle with horizontal. It pulls left.
+                    <br>\( \vec{T} = T (-\cos(22^\circ)\vec{i} + \sin(22^\circ)\vec{j}) \approx T (-0.9272\vec{i} + 0.3746\vec{j}) \).
+                </li>
+                <li><strong>Load at C (\(\vec{P}\)):</strong> \( -850 \vec{j} \) N.</li>
+                <li>Note: There is no vertical load applied at B in this solution.</li>
+            </ul>
+
+            <p><strong>3. Moment Equilibrium at A</strong></p>
+            <div class="math-display">
+                \[ \sum \vec{M}_A = (\vec{r}_B \wedge \vec{T}) + (\vec{r}_C \wedge \vec{P}) = \vec{0} \]
+            </div>
+
+            <p>Using the determinant calculation \((x F_y - y F_x)\vec{k}\):</p>
+            <ul>
+                <li>Moment of \(\vec{T}\) (Tension at B):
+                    <br>\( x_B T_y - y_B T_x = 0.3(0.3746 T) - 0.2517(-0.9272 T) \)
+                    <br>\( = T(0.11238 + 0.23337) = 0.34575 T \vec{k} \).
+                </li>
+                <li>Moment of \(\vec{P}\) (Force at C):
+                    <br>\( x_C(-850) - y_C(0) = 0.575(-850) = -488.75 \vec{k} \).
+                </li>
+            </ul>
+
+            <p>Equilibrium Equation (z-component):</p>
+            <div class="math-display">
+                \[ 0.34575 T - 488.75 = 0 \]
+                \[ 0.34575 T = 488.75 \]
+                \[ \mathbf{T \approx 1414 \text{ N}} \]
+            </div>
+
+            <p><strong>4. Reaction at A</strong></p>
+            <p>Force Equilibrium: \( \vec{A} + \vec{T} + \vec{P} = \vec{0} \implies \vec{A} = -(\vec{T} + \vec{P}) \).</p>
+            <div class="math-display">
+                \[ \vec{T} = 1414 (-0.9272\vec{i} + 0.3746\vec{j}) \approx -1311 \vec{i} + 530 \vec{j} \]
+                \[ \vec{P} = -850 \vec{j} \]
+                \[ \vec{A} = - [ -1311 \vec{i} + (530 - 850) \vec{j} ] \]
+                \[ \vec{A} = - [ -1311 \vec{i} - 320 \vec{j} ] \]
+                \[ \vec{A} = 1311 \vec{i} + 320 \vec{j} \, \text{N} \]
+            </div>
+            <p><strong>Result:</strong>
+            <br>Horizontal Reaction \(A_x \approx 1311\) N.
+            <br>Vertical Reaction \(A_y \approx 320\) N.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const toggle = document.getElementById('language-toggle');
+            const frVersion = document.getElementById('fr-version');
+            const enVersion = document.getElementById('en-version');
+
+            function setLanguage(lang) {
+                if (lang === 'fr') {
+                    frVersion.style.display = 'block';
+                    enVersion.style.display = 'none';
+                    toggle.classList.add('active');
+                } else { // 'en'
+                    frVersion.style.display = 'none';
+                    enVersion.style.display = 'block';
+                    toggle.classList.remove('active');
+                }
+            }
+            
+            toggle.addEventListener('click', () => {
+                const isFrench = toggle.classList.contains('active');
+                if (isFrench) {
+                    setLanguage('en');
+                } else {
+                    setLanguage('fr');
+                }
+            });
+
+            // Set initial state to EN
+            setLanguage('en'); 
+        });
+    </script>
+</body>
+</html>
