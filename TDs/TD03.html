@@ -663,7 +663,149 @@
         </div>
 
     </div>
+<div id="fr-version" lang="fr" style="display:none;">
+        <h1>Mécanique Rationnelle - Fiche de TD n°03</h1>
+        <p style="text-align:center; font-family: 'Computer Modern Serif', serif; color: #555; margin-top:-0.5em; margin-bottom:1.5em;">Les Torseurs</p>
 
+        <div class="solution-branch">
+            <h2 class="question">Exercice 04</h2>
+            <p>Dans le repère \( R(O, \vec{i}, \vec{j}, \vec{k}) \), considérer les points A(3,0,0) et B(-1,2,1) dans l'espace affine.</p>
+            <p>Soit \( \vec{V}(M) \) un champ de vecteurs équiprojectif défini comme suit :</p>
+            <div class="math-display">\[ \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix}, \vec{V}(A) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \vec{V}(B) = \begin{pmatrix} 2 \\ -1 \\ 9 \end{pmatrix} \]</div>
+            <ol>
+                <li>Déterminer le vecteur résultant \( \vec{R} \) du torseur associé au champ \( \vec{V}(M) \).</li>
+                <li>En déduire l'expression du champ de vecteurs \( \vec{V}(M) \) en tout point M(x, y, z) de l'espace.</li>
+                <li>Déterminer l'axe central \( \Delta \) du torseur.</li>
+            </ol>
+            
+            <div class="sub-branch">
+                <h3>Solution</h3>
+                
+                <h3 style="margin-top: 0.8em;">1. Détermination du vecteur résultant \( \vec{R} \)</h3>
+                <p><strong>Explication :</strong> Pour un champ de vecteurs équiprojectif (associé à un torseur), la relation fondamentale entre les vecteurs en two points P et Q est donnée par la formule de transport : \( \vec{V}(P) = \vec{V}(Q) + \vec{R} \wedge \vec{QP} \), où \( \vec{R} \) est la résultante du torseur. Nous pouvons utiliser les points O et A pour trouver \( \vec{R} \).</p>
+                <p>Posons \( \vec{R} = R_x\vec{i} + R_y\vec{j} + R_z\vec{k} \). En utilisant les points A et O :</p>
+                <div class="math-display">\[ \vec{V}(A) = \vec{V}(O) + \vec{R} \wedge \vec{OA} \]</div>
+                <p>D'abord, calculons les termes connus :</p>
+                <div class="math-display">\[ \vec{V}(A) - \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} - \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ -3 \end{pmatrix} \]</div>
+                <div class="math-display">\[ \vec{OA} = A - O = \begin{pmatrix} 3 \\ 0 \\ 0 \end{pmatrix} \]</div>
+                <p>Calculons le produit vectoriel :</p>
+                <div class="math-display">\[ \vec{R} \wedge \vec{OA} = \begin{pmatrix} R_x \\ R_y \\ R_z \end{pmatrix} \wedge \begin{pmatrix} 3 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} R_y(0) - R_z(0) \\ R_z(3) - R_x(0) \\ R_x(0) - R_y(3) \end{pmatrix} = \begin{pmatrix} 0 \\ 3R_z \\ -3R_y \end{pmatrix} \]</div>
+                <p>En égalisant les deux côtés :</p>
+                <div class="math-display">\[ \begin{pmatrix} 0 \\ 0 \\ -3 \end{pmatrix} = \begin{pmatrix} 0 \\ 3R_z \\ -3R_y \end{pmatrix} \]</div>
+                <p>Cela nous donne \( 3R_z = 0 \implies R_z = 0 \) et \( -3R_y = -3 \implies R_y = 1 \). La résultante est donc de la forme \( \vec{R} = R_x\vec{i} + 1\vec{j} + 0\vec{k} \).</p>
+                <p>Pour trouver \( R_x \), utilisons les points B et O :</p>
+                <div class="math-display">\[ \vec{V}(B) = \vec{V}(O) + \vec{R} \wedge \vec{OB} \]</div>
+                <div class="math-display">\[ \vec{V}(B) - \vec{V}(O) = \begin{pmatrix} 2 \\ -1 \\ 9 \end{pmatrix} - \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix} = \begin{pmatrix} 1 \\ -2 \\ 5 \end{pmatrix} \]</div>
+                <div class="math-display">\[ \vec{OB} = B - O = \begin{pmatrix} -1 \\ 2 \\ 1 \end{pmatrix} \]</div>
+                <div class="math-display">\[ \vec{R} \wedge \vec{OB} = \begin{pmatrix} R_x \\ 1 \\ 0 \end{pmatrix} \wedge \begin{pmatrix} -1 \\ 2 \\ 1 \end{pmatrix} = \begin{pmatrix} 1(1) - 0(2) \\ 0(-1) - R_x(1) \\ R_x(2) - 1(-1) \end{pmatrix} = \begin{pmatrix} 1 \\ -R_x \\ 2R_x + 1 \end{pmatrix} \]</div>
+                <p>En égalisant :</p>
+                <div class="math-display">\[ \begin{pmatrix} 1 \\ -2 \\ 5 \end{pmatrix} = \begin{pmatrix} 1 \\ -R_x \\ 2R_x + 1 \end{pmatrix} \]</div>
+                <p>La deuxième ligne nous donne \( -R_x = -2 \implies R_x = 2 \). Vérifions avec la troisième ligne : \( 2R_x + 1 = 2(2) + 1 = 5 \). C'est cohérent.</p>
+                <p><strong>Résultat :</strong> Le vecteur résultant est \( \vec{R} = 2\vec{i} + \vec{j} \).</p>
+
+                <h3 style="margin-top: 0.8em;">2. Expression du champ de vecteurs \( \vec{V}(M) \)</h3>
+                <p><strong>Explication :</strong> Maintenant que nous avons la résultante \( \vec{R} \) et le vecteur en un point (par exemple \( \vec{V}(O) \)), nous pouvons trouver l'expression du champ en tout point \( M(x, y, z) \) en utilisant la même formule de transport.</p>
+                <div class="math-display">\[ \vec{V}(M) = \vec{V}(O) + \vec{R} \wedge \vec{OM} \]</div>
+                <p>Avec \( \vec{OM} = x\vec{i} + y\vec{j} + z\vec{k} \), \( \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix} \) et \( \vec{R} = \begin{pmatrix} 2 \\ 1 \\ 0 \end{pmatrix} \).</p>
+                <div class="math-display">\[ \vec{R} \wedge \vec{OM} = \begin{pmatrix} 2 \\ 1 \\ 0 \end{pmatrix} \wedge \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1(z) - 0(y) \\ 0(x) - 2(z) \\ 2(y) - 1(x) \end{pmatrix} = \begin{pmatrix} z \\ -2z \\ 2y - x \end{pmatrix} \]</div>
+                <p>En ajoutant \( \vec{V}(O) \) :</p>
+                <div class="math-display">\[ \vec{V}(M) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix} + \begin{pmatrix} z \\ -2z \\ 2y - x \end{pmatrix} = \begin{pmatrix} 1 + z \\ 1 - 2z \\ 4 - x + 2y \end{pmatrix} \]</div>
+                <p><strong>Résultat :</strong> L'expression du champ de vecteurs est \( \vec{V}(M) = (1+z)\vec{i} + (1-2z)\vec{j} + (4-x+2y)\vec{k} \).</p>
+
+                <h3 style="margin-top: 0.8em;">3. Détermination de l'axe central \( \Delta \)</h3>
+                <p><strong>Explication :</strong> L'axe central \( \Delta \) est l'ensemble (le lieu) des points P dans l'espace où le champ de vecteurs \( \vec{V}(P) \) est colinéaire (parallèle) à la résultante \( \vec{R} \). Mathématiquement, cela signifie que leur produit vectoriel est nul : \( \vec{V}(P) \wedge \vec{R} = \vec{0} \).</p>
+                <p>Soit \( P(x, y, z) \) un point sur l'axe central. Nous avons :</p>
+                <div class="math-display">\[ \vec{V}(P) \wedge \vec{R} = \begin{pmatrix} 1 + z \\ 1 - 2z \\ 4 - x + 2y \end{pmatrix} \wedge \begin{pmatrix} 2 \\ 1 \\ 0 \end{pmatrix} = \vec{0} \]</div>
+                <p>Calculons le produit vectoriel :</p>
+                <div class="math-display">\[ \begin{pmatrix} (1-2z)(0) - (4-x+2y)(1) \\ (4-x+2y)(2) - (1+z)(0) \\ (1+z)(1) - (1-2z)(2) \end{pmatrix} = \begin{pmatrix} -(4-x+2y) \\ 2(4-x+2y) \\ (1+z) - (2-4z) \end{pmatrix} = \begin{pmatrix} x - 2y - 4 \\ 8 - 2x + 4y \\ 5z - 1 \end{pmatrix} \]</div>
+                <p>Pour que ce vecteur soit nul, chaque composant doit être nul :</p>
+                <div class="math-display">\[ \begin{cases} x - 2y - 4 = 0 \\ 8 - 2x + 4y = 0 \\ 5z - 1 = 0 \end{cases} \]</div>
+                <p>De la troisième équation, nous avons \( 5z = 1 \implies z = 1/5 \).</p>
+                <p>La deuxième équation est \( 8 - 2x + 4y = 2(4 - x + 2y) = 0 \), ce qui se simplifie en \( 4 - x + 2y = 0 \), ou \( x - 2y - 4 = 0 \). C'est la même que la première équation.</p>
+                <p><strong>Résultat :</strong> L'axe central \( \Delta \) est une droite définie par l'intersection de deux plans :</p>
+                <div class="math-display">\[ \Delta : \begin{cases} x - 2y - 4 = 0 \\ z = 1/5 \end{cases} \]</div>
+                <p>(Note : On peut paramétrer cette droite. Soit \( y = t \), alors \( x = 4 + 2t \). La droite est \( P(t) = (4+2t, t, 1/5) \), qui passe par le point \( (4, 0, 1/5) \) et a pour vecteur directeur \( (2, 1, 0) \), qui est bien \( \vec{R} \).)</p>
+                
+                <h3 style="margin-top: 0.8em;">4. Visualisation 3D</h3>
+                <p>Ceci est une visualisation 3D interactive de la configuration du problème. Vous pouvez cliquer et faire glisser pour pivoter, et utiliser la molette de la souris pour zoomer.</p>
+                <p style="font-size: 0.9em; font-style: italic;">La visualisation montre les points O, A, B ; les vecteurs \( \vec{V}(O) \), \( \vec{V}(A) \), \( \vec{V}(B) \) (bleu) ; la résultante \( \vec{R} \) (vert) ; et l'axe central \( \Delta \) (ligne rouge pointillée).</p>
+                <div id="plotly-plot-fr" class="plotly-viz"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="en-version" lang="en">
+        <h1>Rational Mechanics - Tutorial Sheet n°03</h1>
+        <p style="text-align:center; font-family: 'Computer Modern Serif', serif; color: #555; margin-top:-0.5em; margin-bottom:1.5em;">The Torsors</p>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercise 04</h2>
+            <p>In the reference frame \( R(O, \vec{i}, \vec{j}, \vec{k}) \), consider the points A(3,0,0) and B(-1,2,1) in the affine space.</p>
+            <p>Let \( \vec{V}(M) \) be an equiprojective vector field defined as follows:</p>
+            <div class="math-display">\[ \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix}, \vec{V}(A) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \vec{V}(B) = \begin{pmatrix} 2 \\ -1 \\ 9 \end{pmatrix} \]</div>
+            <ol>
+                <li>Determine the resultant vector \( \vec{R} \) of the torsor associated with the field \( \vec{V}(M) \).</li>
+                <li>Deduce the expression of the vector field \( \vec{V}(M) \) at any point M(x, y, z) in the space.</li>
+                <li>Determine the central axis \( \Delta \) of the torsor.</li>
+            </ol>
+            
+            <div class="sub-branch">
+                <h3>Solution</h3>
+                
+                <h3 style="margin-top: 0.8em;">1. Determine the resultant vector \( \vec{R} \)</h3>
+                <p><strong>Explanation:</strong> For an equiprojective vector field (associated with a torsor), the fundamental relationship between the vectors at two points P and Q is given by the transport formula: \( \vec{V}(P) = \vec{V}(Q) + \vec{R} \wedge \vec{QP} \), where \( \vec{R} \) is the torsor's resultant. We can use points O and A to find \( \vec{R} \).</p>
+                <p>Let \( \vec{R} = R_x\vec{i} + R_y\vec{j} + R_z\vec{k} \). Using points A and O:</p>
+                <div class="math-display">\[ \vec{V}(A) = \vec{V}(O) + \vec{R} \wedge \vec{OA} \]</div>
+                <p>First, let's calculate the known terms:</p>
+                <div class="math-display">\[ \vec{V}(A) - \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} - \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ -3 \end{pmatrix} \]</div>
+                <div class="math-display">\[ \vec{OA} = A - O = \begin{pmatrix} 3 \\ 0 \\ 0 \end{pmatrix} \]</div>
+                <p>Now, we compute the cross product:</p>
+                <div class="math-display">\[ \vec{R} \wedge \vec{OA} = \begin{pmatrix} R_x \\ R_y \\ R_z \end{pmatrix} \wedge \begin{pmatrix} 3 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} R_y(0) - R_z(0) \\ R_z(3) - R_x(0) \\ R_x(0) - R_y(3) \end{pmatrix} = \begin{pmatrix} 0 \\ 3R_z \\ -3R_y \end{pmatrix} \]</div>
+                <p>Equating the two sides:</p>
+                <div class="math-display">\[ \begin{pmatrix} 0 \\ 0 \\ -3 \end{pmatrix} = \begin{pmatrix} 0 \\ 3R_z \\ -3R_y \end{pmatrix} \]</div>
+                <p>This gives us \( 3R_z = 0 \implies R_z = 0 \) and \( -3R_y = -3 \implies R_y = 1 \). So, the resultant is of the form \( \vec{R} = R_x\vec{i} + 1\vec{j} + 0\vec{k} \).</p>
+                <p>To find \( R_x \), let's use points B and O:</p>
+                <div class="math-display">\[ \vec{V}(B) = \vec{V}(O) + \vec{R} \wedge \vec{OB} \]</div>
+                <div class="math-display">\[ \vec{V}(B) - \vec{V}(O) = \begin{pmatrix} 2 \\ -1 \\ 9 \end{pmatrix} - \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix} = \begin{pmatrix} 1 \\ -2 \\ 5 \end{pmatrix} \]</div>
+                <div class="math-display">\[ \vec{OB} = B - O = \begin{pmatrix} -1 \\ 2 \\ 1 \end{pmatrix} \]</div>
+                <div class="math-display">\[ \vec{R} \wedge \vec{OB} = \begin{pmatrix} R_x \\ 1 \\ 0 \end{pmatrix} \wedge \begin{pmatrix} -1 \\ 2 \\ 1 \end{pmatrix} = \begin{pmatrix} 1(1) - 0(2) \\ 0(-1) - R_x(1) \\ R_x(2) - 1(-1) \end{pmatrix} = \begin{pmatrix} 1 \\ -R_x \\ 2R_x + 1 \end{pmatrix} \]</div>
+                <p>Equating them:</p>
+                <div class="math-display">\[ \begin{pmatrix} 1 \\ -2 \\ 5 \end{pmatrix} = \begin{pmatrix} 1 \\ -R_x \\ 2R_x + 1 \end{pmatrix} \]</div>
+                <p>The second line gives us \( -R_x = -2 \implies R_x = 2 \). Let's check with the third line: \( 2R_x + 1 = 2(2) + 1 = 5 \). It is consistent.</p>
+                <p><strong>Result:</strong> The resultant vector is \( \vec{R} = 2\vec{i} + \vec{j} \).</p>
+
+                <h3 style="margin-top: 0.8em;">2. Expression of the vector field \( \vec{V}(M) \)</h3>
+                <p><strong>Explanation:</strong> Now that we have the resultant \( \vec{R} \) and the vector at a point (e.g., \( \vec{V}(O) \)), we can find the field's expression at any point \( M(x, y, z) \) using the transport formula.</p>
+                <div class="math-display">\[ \vec{V}(M) = \vec{V}(O) + \vec{R} \wedge \vec{OM} \]</div>
+                <p>With \( \vec{OM} = x\vec{i} + y\vec{j} + z\vec{k} \), \( \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix} \), and \( \vec{R} = \begin{pmatrix} 2 \\ 1 \\ 0 \end{pmatrix} \).</p>
+                <div class="math-display">\[ \vec{R} \wedge \vec{OM} = \begin{pmatrix} 2 \\ 1 \\ 0 \end{pmatrix} \wedge \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1(z) - 0(y) \\ 0(x) - 2(z) \\ 2(y) - 1(x) \end{pmatrix} = \begin{pmatrix} z \\ -2z \\ 2y - x \end{pmatrix} \]</div>
+                <p>Adding \( \vec{V}(O) \) :</p>
+                <div class="math-display">\[ \vec{V}(M) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix} + \begin{pmatrix} z \\ -2z \\ 2y - x \end{pmatrix} = \begin{pmatrix} 1 + z \\ 1 - 2z \\ 4 - x + 2y \end{pmatrix} \]</div>
+                <p><strong>Result:</strong> The vector field expression is \( \vec{V}(M) = (1+z)\vec{i} + (1-2z)\vec{j} + (4-x+2y)\vec{k} \).</p>
+
+                <h3 style="margin-top: 0.8em;">3. Determine the central axis \( \Delta \)</h3>
+                <p><strong>Explanation:</strong> The central axis \( \Delta \) is the locus (set) of points P in space where the vector field \( \vec{V}(P) \) is collinear (parallel) to the resultant \( \vec{R} \). Mathematically, this means their cross product is zero: \( \vec{V}(P) \wedge \vec{R} = \vec{0} \).</p>
+                <p>Let \( P(x, y, z) \) be a point on the central axis. We have:</p>
+                <div class="math-display">\[ \vec{V}(P) \wedge \vec{R} = \begin{pmatrix} 1 + z \\ 1 - 2z \\ 4 - x + 2y \end{pmatrix} \wedge \begin{pmatrix} 2 \\ 1 \\ 0 \end{pmatrix} = \vec{0} \]</div>
+                <p>Calculating the cross product:</p>
+                <div class="math-display">\[ \begin{pmatrix} (1-2z)(0) - (4-x+2y)(1) \\ (4-x+2y)(2) - (1+z)(0) \\ (1+z)(1) - (1-2z)(2) \end{pmatrix} = \begin{pmatrix} -(4-x+2y) \\ 2(4-x+2y) \\ (1+z) - (2-4z) \end{pmatrix} = \begin{pmatrix} x - 2y - 4 \\ 8 - 2x + 4y \\ 5z - 1 \end{pmatrix} \]</div>
+                <p>For this vector to be zero, each component must be zero:</p>
+                <div class="math-display">\[ \begin{cases} x - 2y - 4 = 0 \\ 8 - 2x + 4y = 0 \\ 5z - 1 = 0 \end{cases} \]</div>
+                <p>From the third equation, we get \( 5z = 1 \implies z = 1/5 \).</p>
+                <p>The second equation is \( 8 - 2x + 4y = 2(4 - x + 2y) = 0 \), which simplifies to \( 4 - x + 2y = 0 \), or \( x - 2y - 4 = 0 \). This is identical to the first equation.</p>
+                <p><strong>Result:</strong> The central axis \( \Delta \) is the line defined by the intersection of two planes:</p>
+                <div class="math-display">\[ \Delta : \begin{cases} x - 2y - 4 = 0 \\ z = 1/5 \end{cases} \]</div>
+                <p>(Note: We can parameterize this line. Let \( y = t \), then \( x = 4 + 2t \). The line is \( P(t) = (4+2t, t, 1/5) \), which passes through the point \( (4, 0, 1/5) \) and has the direction vector \( (2, 1, 0) \), which is indeed \( \vec{R} \).)</p>
+
+                <h3 style="margin-top: 0.8em;">4. 3D Visualization</h3>
+                <p>This is an interactive 3D visualization of the problem setup. You can click and drag to rotate, and use the mouse wheel to zoom.</p>
+                <p style="font-size: 0.9em; font-style: italic;">The visualization shows points O, A, B; the vectors \( \vec{V}(O) \), \( \vec{V}(A) \), \( \vec{V}(B) \) (blue); the resultant \( \vec{R} \) (green); and the central axis \( \Delta \) (dotted red line).</p>
+                <div id="plotly-plot-en" class="plotly-viz"></div>
+            </div>
+        </div>
+
+    </div>
     <script>
         // Use window.onload to ensure all scripts (like Plotly) are loaded first
         window.onload = function() {
