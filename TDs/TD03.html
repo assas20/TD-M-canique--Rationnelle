@@ -21,6 +21,9 @@
     <script type="text/javascript" id="MathJax-script" async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
     </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min/plotly.min.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
     <style>
         body {
@@ -43,6 +46,7 @@
             margin-top: 0.4em;
             margin-bottom: 0.4em;
         }
+        /* Removed 'overflow-x: auto;' */
         .math-display {
             margin-top: 0.5em;
             margin-bottom: 0.5em;
@@ -50,7 +54,6 @@
             background-color: #f8f8f8;
             border: 1px solid #eee;
             border-radius: 4px;
-            overflow-x: auto;
         }
         ul, ol { margin-top: 0.3em; margin-bottom: 0.3em; margin-left: 0; padding-left: 1.5em; }
         li { margin-bottom: 0.2em; }
@@ -82,18 +85,6 @@
             left: -25px;
             top: 0.8em;
         }
-        .figure-placeholder {
-            height: 120px;
-            border: 2px dashed #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #888;
-            font-style: italic;
-            margin-top: 1em;
-            margin-bottom: 1em;
-        }
          .sub-branch {
             position: relative;
             padding-left: 20px;
@@ -117,6 +108,17 @@
             width: 15px;
             left: -20px;
             top: 0.6em;
+        }
+
+        /* === UPDATED CSS FOR PLOTLY VISUALIZATION === */
+        .plotly-viz {
+            width: 100%; /* Behave normally on desktop */
+            min-width: 500px; /* Force a minimum width for mobile */
+            height: 500px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 1em;
+            touch-action: none; /* This prevents the browser from stealing pinch/drag events */
         }
 
         /* Language Toggle Styles */
@@ -163,7 +165,7 @@
         /* State for EN (default/not active) */
         #language-toggle .toggle-button {
             left: 3px;
-            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCA2MCAzMCI+DQo8Y2xpcFBhdGggaWQ9ImEiPg0KPHBhdGggZD0iTTMwLDAgVjE1IEg2MCBWMEEiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggaWQ9ImIiPg0KPHBhdGggZD0iTTAsMTUgSDMwIFYzMCBIMFYxNU0zMCwwIEg2MCBWMTUgSDMwVjBNMCwwIEgzMCBWMTAgSDBWMCIvPg0KPC9jbGlwUGF0aD4NCjxwYXRoIGQ9Ik0wLDAgVjMwIEg2MCBWMEEiIGZpbGw9IiMwMDI0N0QiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSI2IiBkPSJNMzAsMCA2MCwxNSAwLDE1IE0zMCwzMCAwLDE1IDYwLDE1Ii8+DQo8cGF0aCBzdHJva2U9IiNDRjE0MkIiIHN0cm9rZS13aWR0aD0iNCIgZD0iTTAgMCA2MCAzME0wIDMwIDYwIDAiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSIxMCIgZD0iTTMwLDAgVjMwIi8+DQo8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS13aWR0aD0iMTgiIGQ9Ik0wLDE1IEg2MCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjYiIGQ9Ik0zMCwwIFYzMCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjEwIiBkPSJNLTEsMTUgSDYxIi8+DQo8L3N2Zz4=');
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCA2MCAzMCI+DQo8Y2xpcFBhdGggaWQ9ImEiPg0KPHBhdGggZD0iTTMwLDAgVjE1IEg2MCBWMEEiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggaWQ9ImIiPg0KPHBhdGggZD0iTTAsMTUgSDMwIFYzMCBIMFYxNU0zMCwwIEg2MC BWMTUgSDMwVjBNMCwwIEgzMCBWMTAgSDBWMCIvPg0KPC9jbGlwUGF0aD4NCjxwYXRoIGQ9Ik0wLDAgVjMwIEg2MC BWMEEiIGZpbGw9IiMwMDI0N0QiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSI2IiBkPSJNMzAsMCA2MCwxNSAwLDE1IE0zMCwzMCAwLDE1IDYwLDE1Ii8+DQo8cGF0aCBzdHJva2U9IiNDRjE0MkIiIHN0cm9rZS13aWR0aD0iNCIgZD0iTTAgMCA2MCAzME0wIDMwIDYwIDAiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSIxMCIgZD0iTTMwLDAgVjMwIi8+DQo8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS13aWR0aD0iMTgiIGQ9Ik0wLDE1IEg2MCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjYiIGQ9Ik0zMCwwIFYzMCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjEwIiBkPSJNLTEsMTUgSDYxIi8+DQo8L3N2Zz4=');
         }
         #language-toggle .toggle-text {
             right: 12px;
@@ -195,63 +197,46 @@
             <h2 class="question">Exercice 01</h2>
             <p>Considérant les vecteurs suivants \( \vec{OA} = 3a\vec{i} \), \( \vec{OB} = 4a\vec{j} \) et \( \vec{OC} = 5a\vec{k} \).</p>
             <p>Déterminer le torseur en O des vecteurs \( \vec{AB} \) et \( \vec{CB} \).</p>
-        </div>
+            
+            <div class="sub-branch">
+                <h3>Solution</h3>
+                <p>Le torseur \( [T] \) au point O est la somme des torseurs glisseurs associés aux vecteurs \( \vec{AB} \) et \( \vec{CB} \). Ses éléments de réduction sont la résultante \( \vec{R} \) et le moment \( \vec{M}_O \).</p>
+                
+                <h3 style="margin-top: 0.8em;">1. Calcul de la Résultante \( \vec{R} \)</h3>
+                <p>La résultante est la somme des vecteurs :</p>
+                <div class="math-display">\[ \vec{R} = \vec{AB} + \vec{CB} \]</div>
+                <p>On calcule d'abord \( \vec{AB} \) et \( \vec{CB} \) :</p>
+                <div class="math-display">\[ \vec{AB} = \vec{OB} - \vec{OA} = (4a\vec{j}) - (3a\vec{i}) = -3a\vec{i} + 4a\vec{j} \]</div>
+                <div class="math-display">\[ \vec{CB} = \vec{OB} - \vec{OC} = (4a\vec{j}) - (5a\vec{k}) = 4a\vec{j} - 5a\vec{k} \]</div>
+                <p>La résultante totale est :</p>
+                <div class="math-display">\[ \vec{R} = (-3a\vec{i} + 4a\vec{j}) + (4a\vec{j} - 5a\vec{k}) \]</div>
+                <div class="math-display">\[ \vec{R} = -3a\vec{i} + 8a\vec{j} - 5a\vec{k} \]</div>
 
-        <div class="solution-branch">
-            <h2 class="question">Exercice 02</h2>
-            <p>Soit le torseur \( [T_1]_O \) défini au point O, origine d'un repère orthonormal direct \( R(O, \vec{i}, \vec{j}, \vec{k}) \), par les trois vecteurs suivants :</p>
-            <ul>
-                <li>\( \vec{V}_A = -2\vec{i} + 3\vec{j} - 7\vec{k} \) défini au point A(1,0,0)</li>
-                <li>\( \vec{V}_B = 3\vec{i} - \vec{j} - \vec{k} \) défini au point B(0,1,0)</li>
-                <li>\( \vec{V}_C = -\vec{i} - 2\vec{j} + 8\vec{k} \) défini au point C(0,0,1)</li>
-            </ul>
-            <p>Soit \( [T_2]_O \) un torseur défini au point O par ses éléments de réduction \( \vec{R_2} \) et \( \vec{M}_{2O} \) tels que :</p>
-            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \\ \vec{M}_{2O} = -3\vec{i} + 2\vec{j} - 7\vec{k} \end{cases} \]</div>
-            <ol>
-                <li>Déterminer les éléments de réduction de \( [T_1] \) au point O.</li>
-                <li>Déterminer le pas et l'axe central du torseur \( [T_2] \).</li>
-                <li>Calculer la somme des deux torseurs.</li>
-                <li>Calculer le comoment des deux torseurs.</li>
-                <li>Calculer l'invariant scalaire du torseur somme \( [T] = [T_1] + [T_2] \).</li>
-            </ol>
-        </div>
+                <h3 style="margin-top: 0.8em;">2. Calcul du Moment \( \vec{M}_O \)</h3>
+                <p>Le moment total en O est la somme des moments de chaque glisseur en O.</p>
+                <div class="math-display">\[ \vec{M}_O = \vec{M}_O(\vec{AB}) + \vec{M}_O(\vec{CB}) \]</div>
+                <p>Le moment d'un glisseur \( \vec{V} \) passant par un point P par rapport à O est \( \vec{OP} \wedge \vec{V} \). On utilise le point A pour \( \vec{AB} \) et le point C pour \( \vec{CB} \).</p>
+                <div class="math-display">\[ \vec{M}_O(\vec{AB}) = \vec{OA} \wedge \vec{AB} = (3a\vec{i}) \wedge (-3a\vec{i} + 4a\vec{j}) \]</div>
+                <div class="math-display">\[ \vec{M}_O(\vec{AB}) = (3a\vec{i} \wedge -3a\vec{i}) + (3a\vec{i} \wedge 4a\vec{j}) = \vec{0} + 12a^2(\vec{i} \wedge \vec{j}) = 12a^2\vec{k} \]</div>
+                <div class="math-display">\[ \vec{M}_O(\vec{CB}) = \vec{OC} \wedge \vec{CB} = (5a\vec{k}) \wedge (4a\vec{j} - 5a\vec{k}) \]</div>
+                <div class="math-display">\[ \vec{M}_O(\vec{CB}) = (5a\vec{k} \wedge 4a\vec{j}) + (5a\vec{k} \wedge -5a\vec{k}) = 20a^2(\vec{k} \wedge \vec{j}) + \vec{0} = -20a^2\vec{i} \]</div>
+                <p>Le moment total est :</p>
+                <div class="math-display">\[ \vec{M}_O = 12a^2\vec{k} - 20a^2\vec{i} = -20a^2\vec{i} + 12a^2\vec{k} \]</div>
 
-        <div class="solution-branch">
-            <h2 class="question">Exercice 03</h2>
-            <p>Soit A un point de l'espace dans \( R(O, \vec{i}, \vec{j}, \vec{k}) \), avec \( \vec{OA} = -\frac{21}{9}\vec{i} - \frac{4}{9}\vec{j} - \frac{12}{9}\vec{k} \) et un vecteur \( \vec{V_1} = -3\vec{i} + \vec{j} + 3\vec{k} \) dont l'axe passe par le point A.</p>
-            <p>Soit \( [T_2]_O \) un torseur défini au point O par ses éléments de réduction \( \vec{R_2} \) et \( \vec{M}_{2O} \) tels que :</p>
-            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = (a-4)\vec{i} + a\vec{j} + 3a\vec{k} \\ \vec{M}_{2O} = (2a+9)\vec{j} + (-3a - \frac{2}{3})\vec{k} \end{cases} \]</div>
-            <ol>
-                <li>Déterminer les éléments de réduction du torseur \( [T_1]_O \) dont la résultante est le vecteur \( \vec{V_1} \).</li>
-                <li>Pour quelle valeur de \( \alpha \) les deux torseurs sont-ils égaux ?</li>
-                <li>En déduire le pas et l'axe central du torseur \( [T_2]_O \) pour cette valeur de \( \alpha \).</li>
-                <li>Calculer le produit des deux torseurs pour \( \alpha = 2 \).</li>
-            </ol>
-        </div>
+                <h3 style="margin-top: 0.8em;">3. Torseur en O</h3>
+                <p>Les éléments de réduction du torseur \( [T] \) au point O sont :</p>
+                <div class="math-display">\[ [T]_O = \begin{cases} \vec{R} = -3a\vec{i} + 8a\vec{j} - 5a\vec{k} \\ \vec{M}_O = -20a^2\vec{i} + 12a^2\vec{k} \end{cases} \]</div>
 
-        <div class="solution-branch">
-            <h2 class="question">Exercice 04</h2>
-            <p>Dans le repère \( R(O, \vec{i}, \vec{j}, \vec{k}) \), considérer les points A(3,0,0) et B(-1,2,1) dans l'espace affine.</p>
-            <p>Soit \( \vec{V}(M) \) un champ de vecteurs équiprojectif défini comme suit :</p>
-            <div class="math-display">\[ \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix}, \vec{V}(A) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \vec{V}(B) = \begin{pmatrix} 2 \\ -1 \\ 9 \end{pmatrix} \]</div>
-            <ol>
-                <li>Déterminer le vecteur résultant \( \vec{R} \) du torseur associé au champ \( \vec{V}(M) \).</li>
-                <li>En déduire l'expression du champ de vecteurs \( \vec{V}(M) \) en tout point M(x, y, z) de l'espace.</li>
-                <li>Déterminer l'axe central \( \Delta \) du torseur.</li>
-            </ol>
-        </div>
-
-        <div class="solution-branch">
-            <h2 class="question">Exercice 05</h2>
-            <p>Dans un repère orthonormal direct \( R(O, \vec{i}, \vec{j}, \vec{k}) \), on considère le champ de vecteurs \( \vec{V}(M) \) dont les composantes sont définies en fonction des coordonnées (x, y, z) de M par :</p>
-            <div class="math-display">\[ \begin{cases} V_x = 1 + 3y - tz \\ V_y = -3x + 2tz \\ V_z = 2 + tx - t^2y \end{cases} \]</div>
-            <ol>
-                <li>Calculer le vecteur \( \vec{V}(M) \) au point O.</li>
-                <li>Pour quelles valeurs de t ce champ est-il antisymétrique ?</li>
-                <li>Pour chaque valeur de t trouvée, déterminer les éléments de réduction du torseur (résultante et moment en O).</li>
-                <li>Décomposer le torseur associé à \( \vec{V}(M) \) en une somme d'un couple et d'un glisseur, et indiquer les éléments de réduction.</li>
-                <li>Déterminer la position de l'axe central du torseur pour t = 0 et t = 2.</li>
-            </ol>
+                <div style="margin-top: 1.5em; margin-bottom: 0.5em;">
+                    <label for="a-input-fr" style="font-weight: bold; font-family: 'Computer Modern Serif', serif;">Définir la valeur de 'a': </label>
+                    <input type="number" id="a-input-fr" value="1" step="0.1" style="width: 60px; font-family: 'Computer Modern Sans', sans-serif; padding: 2px;">
+                </div>
+                
+                <h3 style="margin-top: 0.8em;">4. Visualisation 3D</h3>
+                <p>Ceci est une visualisation 3D interactive de la configuration du problème. Vous pouvez cliquer et faire glisser pour pivoter, et utiliser la molette de la souris pour zoomer.</p>
+                <p style="font-size: 0.9em; font-style: italic;">Remarque : Le vecteur moment \( \vec{M}_O \) (violet) est affiché à une échelle de 1/4 pour une meilleure lisibilité.</p>
+                <div id="plotly-plot-fr" class="plotly-viz"></div>
+                </div>
         </div>
 
     </div>
@@ -264,73 +249,287 @@
             <h2 class="question">Exercise 01</h2>
             <p>Considering the following vectors \( \vec{OA} = 3a\vec{i} \), \( \vec{OB} = 4a\vec{j} \) and \( \vec{OC} = 5a\vec{k} \).</p>
             <p>Determine the torsor at O of the vectors \( \vec{AB} \) and \( \vec{CB} \).</p>
-        </div>
+            
+            <div class="sub-branch">
+                <h3>Solution</h3>
+                <p>The torsor \( [T] \) at point O is the sum of the slider torsors associated with the vectors \( \vec{AB} \) and \( \vec{CB} \). Its reduction elements are the resultant \( \vec{R} \) and the moment \( \vec{M}_O \).</p>
+                
+                <h3 style="margin-top: 0.8em;">1. Calculation of the Resultant \( \vec{R} \)</h3>
+                <p>The resultant is the sum of the vectors:</p>
+                <div class="math-display">\[ \vec{R} = \vec{AB} + \vec{CB} \]</div>
+                <p>First, we calculate \( \vec{AB} \) and \( \vec{CB} \):</p>
+                <div class="math-display">\[ \vec{AB} = \vec{OB} - \vec{OA} = (4a\vec{j}) - (3a\vec{i}) = -3a\vec{i} + 4a\vec{j} \]</div>
+                <div class="math-display">\[ \vec{CB} = \vec{OB} - \vec{OC} = (4a\vec{j}) - (5a\vec{k}) = 4a\vec{j} - 5a\vec{k} \]</div>
+                <p>The total resultant is:</p>
+                <div class="math-display">\[ \vec{R} = (-3a\vec{i} + 4a\vec{j}) + (4a\vec{j} - 5a\vec{k}) \]</div>
+                <div class="math-display">\[ \vec{R} = -3a\vec{i} + 8a\vec{j} - 5a\vec{k} \]</div>
 
-        <div class="solution-branch">
-            <h2 class="question">Exercise 02</h2>
-            <p>Let the torsor \( [T_1]_O \) be defined at point O, the origin of a direct orthonormal frame \( R(O, \vec{i}, \vec{j}, \vec{k}) \), by the three following vectors:</p>
-            <ul>
-                <li>\( \vec{V}_A = -2\vec{i} + 3\vec{j} - 7\vec{k} \) defined at point A(1,0,0)</li>
-                <li>\( \vec{V}_B = 3\vec{i} - \vec{j} - \vec{k} \) defined at point B(0,1,0)</li>
-                <li>\( \vec{V}_C = -\vec{i} - 2\vec{j} + 8\vec{k} \) defined at point C(0,0,1)</li>
-            </ul>
-            <p>Let \( [T_2]_O \) be a torsor defined at point O by its reduction elements \( \vec{R_2} \) and \( \vec{M}_{2O} \) such that:</p>
-            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \\ \vec{M}_{2O} = -3\vec{i} + 2\vec{j} - 7\vec{k} \end{cases} \]</div>
-            <ol>
-                <li>Determine the reduction elements of \( [T_1] \) at point O.</li>
-                <li>Determine the pitch and the central axis of the torsor \( [T_2] \).</li>
-                <li>Calculate the sum of the two torsors.</li>
-                <li>Calculate the comoment of the two torsors.</li>
-                <li>Calculate the scalar invariant of the sum torsor \( [T] = [T_1] + [T_2] \).</li>
-            </ol>
-        </div>
+                <h3 style="margin-top: 0.8em;">2. Calculation of the Moment \( \vec{M}_O \)</h3>
+                <p>The total moment at O is the sum of the moments of each slider at O.</p>
+                <div class="math-display">\[ \vec{M}_O = \vec{M}_O(\vec{AB}) + \vec{M}_O(\vec{CB}) \]</div>
+                <p>The moment of a slider \( \vec{V} \) passing through a point P with respect to O is \( \vec{OP} \wedge \vec{V} \). We use point A for \( \vec{AB} \) and point C for \( \vec{CB} \).</p>
+                <div class="math-display">\[ \vec{M}_O(\vec{AB}) = \vec{OA} \wedge \vec{AB} = (3a\vec{i}) \wedge (-3a\vec{i} + 4a\vec{j}) \]</div>
+                <div class="math-display">\[ \vec{M}_O(\vec{AB}) = (3a\vec{i} \wedge -3a\vec{i}) + (3a\vec{i} \wedge 4a\vec{j}) = \vec{0} + 12a^2(\vec{i} \wedge \vec{j}) = 12a^2\vec{k} \]</div>
+                <div class="math-display">\[ \vec{M}_O(\vec{CB}) = \vec{OC} \wedge \vec{CB} = (5a\vec{k}) \wedge (4a\vec{j} - 5a\vec{k}) \]</div>
+                <div class="math-display">\[ \vec{M}_O(\vec{CB}) = (5a\vec{k} \wedge 4a\vec{j}) + (5a\vec{k} \wedge -5a\vec{k}) = 20a^2(\vec{k} \wedge \vec{j}) + \vec{0} = -20a^2\vec{i} \]</div>
+                <p>The total moment is:</p>
+                <div class="math-display">\[ \vec{M}_O = 12a^2\vec{k} - 20a^2\vec{i} = -20a^2\vec{i} + 12a^2\vec{k} \]</div>
 
-        <div class="solution-branch">
-            <h2 class="question">Exercise 03</h2>
-            <p>Let A be a point in space in \( R(O, \vec{i}, \vec{j}, \vec{k}) \), with \( \vec{OA} = - \frac{21}{9}\vec{i} - \frac{4}{9}\vec{j} - \frac{12}{9}\vec{k} \) and a vector \( \vec{V_1} = -3\vec{i} + \vec{j} + 3\vec{k} \) whose axis passes through point A.</p>
-            <p>Let \( [T_2]_O \) be a torsor defined at point O by its reduction elements \( \vec{R_2} \) and \( \vec{M}_{2O} \) such that:</p>
-            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = (a-4)\vec{i} + a\vec{j} + 3a\vec{k} \\ \vec{M}_{2O} = (2a+9)\vec{j} + (-3a - \frac{2}{3})\vec{k} \end{cases} \]</div>
-            <ol>
-                <li>Determine the reduction elements of the torsor \( [T_1]_O \) whose resultant is the vector \( \vec{V_1} \).</li>
-                <li>For what value of \( \alpha \) are the two torsors equal?</li>
-                <li>Deduce the pitch and the central axis of the torsor \( [T_2]_O \) for this value of \( \alpha \).</li>
-                <li>Calculate the product of the two torsors for \( \alpha = 2 \).</li>
-            </ol>
-        </div>
+                <h3 style="margin-top: 0.8em;">3. Torsor at O</h3>
+                <p>The reduction elements of the torsor \( [T] \) at point O are:</p>
+                <div class="math-display">\[ [T]_O = \begin{cases} \vec{R} = -3a\vec{i} + 8a\vec{j} - 5a\vec{k} \\ \vec{M}_O = -20a^2\vec{i} + 12a^2\vec{k} \end{cases} \]</div>
 
-        <div class="solution-branch">
-            <h2 class="question">Exercise 04</h2>
-            <p>In the reference frame \( R(O, \vec{i}, \vec{j}, \vec{k}) \), consider the points A(3,0,0) and B(-1,2,1) in the affine space.</p>
-            <p>Let \( \vec{V}(M) \) be an equiprojective vector field defined as follows:</p>
-            <div class="math-display">\[ \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix}, \vec{V}(A) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \vec{V}(B) = \begin{pmatrix} 2 \\ -1 \\ 9 \end{pmatrix} \]</div>
-            <ol>
-                <li>Determine the resultant vector \( \vec{R} \) of the torsor associated with the field \( \vec{V}(M) \).</li>
-                <li>Deduce the expression of the vector field \( \vec{V}(M) \) at any point M(x, y, z) in the space.</li>
-                <li>Determine the central axis \( \Delta \) of the torsor.</li>
-            </ol>
-        </div>
+                <div style="margin-top: 1.5em; margin-bottom: 0.5em;">
+                    <label for="a-input-en" style="font-weight: bold; font-family: 'Computer Modern Serif', serif;">Set value for 'a': </label>
+                    <input type="number" id="a-input-en" value="1" step="0.1" style="width: 60px; font-family: 'Computer Modern Sans', sans-serif; padding: 2px;">
+                </div>
 
-        <div class="solution-branch">
-            <h2 class="question">Exercise 05</h2>
-            <p>In a direct orthonormal frame \( R(O, \vec{i}, \vec{j}, \vec{k}) \) we consider the vector field \( \vec{V}(M) \) whose components are defined as a function of the coordinates (x, y, z) of M by:</p>
-            <div class="math-display">\[ \begin{cases} V_x = 1 + 3y - tz \\ V_y = -3x + 2tz \\ V_z = 2 + tx - t^2y \end{cases} \]</div>
-            <ol>
-                <li>Calculate the vector \( \vec{V}(M) \) at point O.</li>
-                <li>For which values of t is this field antisymmetric?</li>
-                <li>For each value of t found, determine the reduction elements of the torsor (resultant and moment at O).</li>
-                <li>Decompose the torsor associated with \( \vec{V}(M) \) into a sum of a couple and a slider, and indicate the reduction elements.</li>
-                <li>Determine the position of the central axis of the torsor for t = 0 and t = 2.</li>
-            </ol>
+                <h3 style="margin-top: 0.8em;">4. 3D Visualization</h3>
+                <p>This is an interactive 3D visualization of the problem setup. You can click and drag to rotate, and use the mouse wheel to zoom.</p>
+                <p style="font-size: 0.9em; font-style: italic;">Note: The moment vector \( \vec{M}_O \) (purple) is scaled by 1/4 for visualization.</p>
+                <div id="plotly-plot-en" class="plotly-viz"></div>
+                </div>
         </div>
 
     </div>
 
     <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
+        // Use window.onload to ensure all scripts (like Plotly) are loaded first
+        window.onload = function() {
+            // --- Get all persistent elements ---
             const toggle = document.getElementById('language-toggle');
             const toggleText = toggle.querySelector('.toggle-text');
             const frVersion = document.getElementById('fr-version');
             const enVersion = document.getElementById('en-version');
+            const inputFr = document.getElementById('a-input-fr');
+            const inputEn = document.getElementById('a-input-en');
+
+            // --- Plotly 3D Render Function (now takes 'a' as parameter) ---
+            function renderPlot(targetDivId, a) {
+                // Check if Plotly is loaded
+                if (typeof Plotly === 'undefined') {
+                    console.error('Plotly.js is not loaded.');
+                    document.getElementById(targetDivId).innerHTML = '<p style="color:red; text-align:center;">Error: 3D plot library (Plotly) failed to load. Please check network connection or ad-blockers.</p>';
+                    return;
+                }
+                
+                const a_sq = a * a;
+                const momentScaleFactor = 4;
+                const arrowSize = 0.1;
+
+                // 1. Data for Points (O, A, B, C)
+                const points = {
+                    x: [0, 3*a, 0, 0], // O, A, B, C
+                    y: [0, 0, 4*a, 0],
+                    z: [0, 0, 0, 5*a],
+                    mode: 'markers+text',
+                    type: 'scatter3d',
+                    name: 'Points',
+                    text: [
+                        `O (0,0,0)`, 
+                        `A (${(3*a).toFixed(1)},0,0)`, 
+                        `B (0,${(4*a).toFixed(1)},0)`, 
+                        `C (0,0,${(5*a).toFixed(1)})`
+                    ],
+                    textposition: 'top center',
+                    marker: { size: 6, color: '#003366' },
+                    textfont: { color: 'black', size: 12, family: 'Computer Modern Sans' }
+                };
+
+                // 2. Data for Position Vectors (OA, OB, OC) - dashed
+                const posVectors = {
+                    x: [0, 3*a, null, 0, 0, null, 0, 0], // OA, OB, OC
+                    y: [0, 0, null, 0, 4*a, null, 0, 0],
+                    z: [0, 0, null, 0, 0, null, 0, 5*a],
+                    mode: 'lines',
+                    type: 'scatter3d',
+                    name: 'Position Vectors',
+                    line: { color: 'grey', width: 2, dash: 'dash' }
+                };
+
+                // 3. Data for Vector AB (from A to B)
+                const vecAB_line = {
+                    x: [3*a, 0], // A to B
+                    y: [0, 4*a],
+                    z: [0, 0],
+                    mode: 'lines',
+                    type: 'scatter3d',
+                    name: 'Vector AB',
+                    line: { color: '#D2691E', width: 6 }
+                };
+
+                // 4. Data for Vector CB (from C to B)
+                const vecCB_line = {
+                    x: [0, 0], // C to B
+                    y: [0, 4*a],
+                    z: [5*a, 0],
+                    mode: 'lines',
+                    type: 'scatter3d',
+                    name: 'Vector CB',
+                    line: { color: '#0055A4', width: 6 }
+                };
+
+                // 5. Trace for Resultant R
+                const vecR_line = {
+                    x: [0, -3*a], // O to R_tip
+                    y: [0, 8*a],
+                    z: [0, -5*a],
+                    mode: 'lines',
+                    type: 'scatter3d',
+                    name: 'Resultant R',
+                    line: { color: 'green', width: 6 }
+                };
+
+                // 6. Trace for Scaled Moment M_O
+                const M_tip_x = -20 * a_sq / momentScaleFactor;
+                const M_tip_z = 12 * a_sq / momentScaleFactor;
+                const vecM_line = {
+                    x: [0, M_tip_x], // O to M_tip (scaled)
+                    y: [0, 0],
+                    z: [0, M_tip_z],
+                    mode: 'lines',
+                    type: 'scatter3d',
+                    name: 'Moment M_O (scaled by 1/' + momentScaleFactor + ')',
+                    line: { color: 'purple', width: 6 }
+                };
+
+                // === Create separate cone traces for each arrow ===
+                
+                // Arrowhead for AB
+                const arrow_AB = {
+                    type: 'cone',
+                    x: [0], y: [4*a], z: [0], // Tip at B
+                    u: [-3*a], v: [4*a], w: [0], // Vector AB
+                    sizeref: arrowSize, anchor: 'tip', showscale: false,
+                    colorscale: [[0, '#D2691E'], [1, '#D2691E']],
+                    showlegend: false, hoverinfo: 'skip'
+                };
+
+                // Arrowhead for CB
+                const arrow_CB = {
+                    type: 'cone',
+                    x: [0], y: [4*a], z: [0], // Tip at B
+                    u: [0], v: [4*a], w: [-5*a], // Vector CB
+                    sizeref: arrowSize, anchor: 'tip', showscale: false,
+                    colorscale: [[0, '#0055A4'], [1, '#0055A4']],
+                    showlegend: false, hoverinfo: 'skip'
+                };
+
+                // Arrowhead for R
+                const arrow_R = {
+                    type: 'cone',
+                    x: [-3*a], y: [8*a], z: [-5*a], // Tip at R_tip
+                    u: [-3*a], v: [8*a], w: [-5*a], // Vector R
+                    sizeref: arrowSize, anchor: 'tip', showscale: false,
+                    colorscale: [[0, 'green'], [1, 'green']],
+                    showlegend: false, hoverinfo: 'skip'
+                };
+                
+                // Arrowhead for M
+                const arrow_M = {
+                    type: 'cone',
+                    x: [M_tip_x], y: [0], z: [M_tip_z], // Tip at M_tip
+                    u: [M_tip_x], v: [0], w: [M_tip_z], // Vector M
+                    sizeref: arrowSize, anchor: 'tip', showscale: false,
+                    colorscale: [[0, 'purple'], [1, 'purple']],
+                    showlegend: false, hoverinfo: 'skip'
+                };
+
+                // === Add text labels near arrow tips ===
+                const text_labels = {
+                    type: 'scatter3d',
+                    mode: 'text',
+                    x: [
+                        0,               // AB tip
+                        0.3 * a,         // CB tip (slight offset)
+                        -3*a,            // R tip
+                        M_tip_x - 0.3*a  // M_O tip (slight offset)
+                    ],
+                    y: [
+                        4*a + 0.3*a,     // AB tip (slight offset)
+                        4*a,             // CB tip
+                        8*a + 0.3*a,     // R tip (slight offset)
+                        0                // M_O tip
+                    ],
+                    z: [
+                        0,               // AB tip
+                        0,               // CB tip
+                        -5*a,            // R tip
+                        M_tip_z          // M_O tip
+                    ],
+                    text: ['AB', 'CB', 'R', 'M_O'],
+                    textfont: {
+                        color: 'black',
+                        size: 12,
+                        family: 'Computer Modern Sans',
+                        weight: 'bold'
+                    },
+                    showlegend: false,
+                    hoverinfo: 'skip'
+                };
+
+                // Add all traces to the data array
+                const data = [
+                    points, posVectors, 
+                    vecAB_line, vecCB_line, vecR_line, vecM_line,
+                    arrow_AB, arrow_CB, arrow_R, arrow_M,
+                    text_labels // Add text labels trace
+                ];
+
+                // === UPDATED: Title and Legend alignment/style ===
+                const layout = {
+                    title: {
+                        text: `Exercise 1 Visualization (a=${a})`,
+                        font: { family: 'Computer Modern Serif', size: 16 },
+                        y: 0.98, // Place it high (relative to margin)
+                        x: 0.05, // 5% from the left edge
+                        xanchor: 'left', // Anchor the text from its left
+                        yanchor: 'top'
+                    },
+                    scene: {
+                        xaxis: { title: 'X-axis (i)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
+                        yaxis: { title: 'Y-axis (j)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
+                        zaxis: { title: 'Z-axis (k)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
+                        aspectmode: 'data', // Keep aspect ratio consistent
+                        camera: { eye: {x: 1.5, y: 1.5, z: 1.0} }
+                    },
+                    margin: { l: 0, r: 0, b: 0, t: 80 }, // Increased top margin to 80px
+                    legend: { 
+                        font: { family: 'Computer Modern Sans', size: 10 }, // Smaller font
+                        y: 0.9, // Place it just below the title
+                        x: 0.05, // 5% from the left edge
+                        xanchor: 'left', // Anchor from its left
+                        yanchor: 'top', // Anchor from its top
+                        bgcolor: 'rgba(248, 249, 250, 0.85)', // More transparent
+                        bordercolor: '#ccc',
+                        borderwidth: 1
+                    }
+                };
+                
+                var plotDiv = document.getElementById(targetDivId);
+                // The config object (3rd arg) controls the modebar. 'displaylogo: false' removes the Plotly logo.
+                Plotly.newPlot(targetDivId, data, layout, {responsive: true, displaylogo: false});
+            }
+            // --- End Plotly Function ---
+
+
+            // --- New master function to read 'a' and call renderPlot ---
+            function updatePlot() {
+                let targetDivId;
+                let a_value_string;
+
+                if (frVersion.style.display === 'block') {
+                    targetDivId = 'plotly-plot-fr';
+                    a_value_string = inputFr.value;
+                } else {
+                    targetDivId = 'plotly-plot-en';
+                    a_value_string = inputEn.value;
+                }
+
+                const a = parseFloat(a_value_string) || 1; // Default to 1 if input is invalid
+                
+                renderPlot(targetDivId, a);
+            }
 
             // Function to set the page state based on language
             function setLanguage(lang) {
@@ -345,11 +544,14 @@
                     toggle.classList.remove('active');
                     toggleText.textContent = 'EN';
                 }
+                // Update the plot for the newly visible language
+                updatePlot();
             }
             
-            // Event listener for the toggle click
+            // --- Event Listeners ---
+
+            // Listener for the language toggle
             toggle.addEventListener('click', () => {
-                // Check current state by looking at the class
                 const isFrench = toggle.classList.contains('active');
                 if (isFrench) {
                     setLanguage('en');
@@ -358,9 +560,13 @@
                 }
             });
 
+            // Listeners for the 'a' input fields
+            inputFr.addEventListener('input', updatePlot);
+            inputEn.addEventListener('input', updatePlot);
+
             // Set initial state to English on page load
             setLanguage('en'); 
-        });
+        };
     </script>
 
 </body>
