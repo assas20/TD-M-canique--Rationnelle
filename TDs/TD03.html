@@ -493,234 +493,219 @@
             const toggleText = toggle.querySelector('.toggle-text');
             const frVersion = document.getElementById('fr-version');
             const enVersion = document.getElementById('en-version');
-            const inputFr = document.getElementById('a-input-fr');
-            const inputEn = document.getElementById('a-input-en');
+            const plotlyConfig = {responsive: true, displaylogo: false};
 
-            // --- Plotly 3D Render Function (now takes 'a' as parameter) ---
-            function renderPlot(targetDivId, a) {
-                // Check if Plotly is loaded
-                if (typeof Plotly === 'undefined') {
-                    console.error('Plotly.js is not loaded.');
-                    document.getElementById(targetDivId).innerHTML = '<p style="color:red; text-align:center;">Error: 3D plot library (Plotly) failed to load. Please check network connection or ad-blockers.</p>';
-                    return;
+            const commonLayout = {
+                scene: {
+                    xaxis: { title: 'X-axis (i)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
+                    yaxis: { title: 'Y-axis (j)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
+                    zaxis: { title: 'Z-axis (k)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
+                    aspectmode: 'data', // Keep aspect ratio consistent
+                    camera: { eye: {x: 1.5, y: 1.5, z: 1.0} }
+                },
+                margin: { l: 0, r: 0, b: 0, t: 80 }, // Increased top margin to 80px
+                legend: { 
+                    font: { family: 'Computer Modern Sans', size: 10 }, // Smaller font
+                    y: 0.9, // Place it just below the title
+                    x: 0.05, // 5% from the left edge
+                    xanchor: 'left', // Anchor from its left
+                    yanchor: 'top', // Anchor from its top
+                    bgcolor: 'rgba(248, 249, 250, 0.85)', // More transparent
+                    bordercolor: '#ccc',
+                    borderwidth: 1
                 }
-                
-                const a_sq = a * a;
-                const momentScaleFactor = 4;
-                const arrowSize = 0.1;
+            };
+            
+            function createTitle(text) {
+                return {
+                    text: text,
+                    font: { family: 'Computer Modern Serif', size: 16 },
+                    y: 0.98, x: 0.05, xanchor: 'left', yanchor: 'top'
+                };
+            }
+            
+            function getArrowHead(tip, vec, color, sizeRef) {
+                return {
+                    type: 'cone',
+                    x: [tip[0]], y: [tip[1]], z: [tip[2]],
+                    u: [vec[0]], v: [vec[1]], w: [vec[2]],
+                    sizeref: sizeRef, anchor: 'tip', showscale: false,
+                    colorscale: [[0, color], [1, color]],
+                    showlegend: false, hoverinfo: 'skip'
+                };
+            }
 
-                // 1. Data for Points (O, A, B, C)
+            // --- Plotly 3D Render Function 1 (for Q1) ---
+            function renderPlot_Q1(targetDivId) {
+                if (typeof Plotly === 'undefined') return;
+                const arrowSize = 0.1; // User requested 0.1
+
                 const points = {
-                    x: [0, 3*a, 0, 0], // O, A, B, C
-                    y: [0, 0, 4*a, 0],
-                    z: [0, 0, 0, 5*a],
-                    mode: 'markers+text',
-                    type: 'scatter3d',
-                    name: 'Points',
-                    text: [
-                        `O (0,0,0)`, 
-                        `A (${(3*a).toFixed(1)},0,0)`, 
-                        `B (0,${(4*a).toFixed(1)},0)`, 
-                        `C (0,0,${(5*a).toFixed(1)})`
-                    ],
+                    x: [0, 1, 0, 0], // O, A, B, C
+                    y: [0, 0, 1, 0],
+                    z: [0, 0, 0, 1],
+                    mode: 'markers+text', type: 'scatter3d', name: 'Points',
+                    text: [`O (0,0,0)`, `A (1,0,0)`, `B (0,1,0)`, `C (0,0,1)`],
                     textposition: 'top center',
                     marker: { size: 6, color: '#003366' },
                     textfont: { color: 'black', size: 12, family: 'Computer Modern Sans' }
                 };
 
-                // 2. Data for Position Vectors (OA, OB, OC) - dashed
                 const posVectors = {
-                    x: [0, 3*a, null, 0, 0, null, 0, 0], // OA, OB, OC
-                    y: [0, 0, null, 0, 4*a, null, 0, 0],
-                    z: [0, 0, null, 0, 0, null, 0, 5*a],
-                    mode: 'lines',
-                    type: 'scatter3d',
-                    name: 'Position Vectors',
+                    x: [0, 1, null, 0, 0, null, 0, 0], // OA, OB, OC
+                    y: [0, 0, null, 0, 1, null, 0, 0],
+                    z: [0, 0, null, 0, 0, null, 0, 1],
+                    mode: 'lines', type: 'scatter3d', name: 'Position Vectors',
                     line: { color: 'grey', width: 2, dash: 'dash' }
                 };
 
-                // 3. Data for Vector AB (from A to B)
-                const vecAB_line = {
-                    x: [3*a, 0], // A to B
-                    y: [0, 4*a],
-                    z: [0, 0],
-                    mode: 'lines',
-                    type: 'scatter3d',
-                    name: 'Vector AB',
+                // V_A at A: (-2, 3, -7) at (1,0,0). Tip: (-1, 3, -7)
+                const vecV_A = {
+                    x: [1, -1], y: [0, 3], z: [0, -7],
+                    mode: 'lines', type: 'scatter3d', name: 'V_A',
                     line: { color: '#D2691E', width: 6 }
                 };
-
-                // 4. Data for Vector CB (from C to B)
-                const vecCB_line = {
-                    x: [0, 0], // C to B
-                    y: [0, 4*a],
-                    z: [5*a, 0],
-                    mode: 'lines',
-                    type: 'scatter3d',
-                    name: 'Vector CB',
+                // V_B at B: (3, -1, -1) at (0,1,0). Tip: (3, 0, -1)
+                const vecV_B = {
+                    x: [0, 3], y: [1, 0], z: [0, -1],
+                    mode: 'lines', type: 'scatter3d', name: 'V_B',
                     line: { color: '#0055A4', width: 6 }
                 };
-
-                // 5. Trace for Resultant R
-                const vecR_line = {
-                    x: [0, -3*a], // O to R_tip
-                    y: [0, 8*a],
-                    z: [0, -5*a],
-                    mode: 'lines',
-                    type: 'scatter3d',
-                    name: 'Resultant R',
+                // V_C at C: (-1, -2, 8) at (0,0,1). Tip: (-1, -2, 9)
+                const vecV_C = {
+                    x: [0, -1], y: [0, -2], z: [1, 9],
+                    mode: 'lines', type: 'scatter3d', name: 'V_C',
                     line: { color: 'green', width: 6 }
                 };
-
-                // 6. Trace for Scaled Moment M_O
-                const M_tip_x = -20 * a_sq / momentScaleFactor;
-                const M_tip_z = 12 * a_sq / momentScaleFactor;
-                const vecM_line = {
-                    x: [0, M_tip_x], // O to M_tip (scaled)
-                    y: [0, 0],
-                    z: [0, M_tip_z],
-                    mode: 'lines',
-                    type: 'scatter3d',
-                    name: 'Moment M_O (scaled by 1/' + momentScaleFactor + ')',
+                // M_1O at O: (1, 6, 0) at (0,0,0). Tip: (1, 6, 0)
+                const vecM_1O = {
+                    x: [0, 1], y: [0, 6], z: [0, 0],
+                    mode: 'lines', type: 'scatter3d', name: 'Moment M_1O (Couple)',
                     line: { color: 'purple', width: 6 }
                 };
 
-                // === Create separate cone traces for each arrow ===
-                
-                // Arrowhead for AB
-                const arrow_AB = {
-                    type: 'cone',
-                    x: [0], y: [4*a], z: [0], // Tip at B
-                    u: [-3*a], v: [4*a], w: [0], // Vector AB
-                    sizeref: arrowSize, anchor: 'tip', showscale: false,
-                    colorscale: [[0, '#D2691E'], [1, '#D2691E']],
-                    showlegend: false, hoverinfo: 'skip'
-                };
-
-                // Arrowhead for CB
-                const arrow_CB = {
-                    type: 'cone',
-                    x: [0], y: [4*a], z: [0], // Tip at B
-                    u: [0], v: [4*a], w: [-5*a], // Vector CB
-                    sizeref: arrowSize, anchor: 'tip', showscale: false,
-                    colorscale: [[0, '#0055A4'], [1, '#0055A4']],
-                    showlegend: false, hoverinfo: 'skip'
-                };
-
-                // Arrowhead for R
-                const arrow_R = {
-                    type: 'cone',
-                    x: [-3*a], y: [8*a], z: [-5*a], // Tip at R_tip
-                    u: [-3*a], v: [8*a], w: [-5*a], // Vector R
-                    sizeref: arrowSize, anchor: 'tip', showscale: false,
-                    colorscale: [[0, 'green'], [1, 'green']],
-                    showlegend: false, hoverinfo: 'skip'
-                };
-                
-                // Arrowhead for M
-                const arrow_M = {
-                    type: 'cone',
-                    x: [M_tip_x], y: [0], z: [M_tip_z], // Tip at M_tip
-                    u: [M_tip_x], v: [0], w: [M_tip_z], // Vector M
-                    sizeref: arrowSize, anchor: 'tip', showscale: false,
-                    colorscale: [[0, 'purple'], [1, 'purple']],
-                    showlegend: false, hoverinfo: 'skip'
-                };
-
-                // === Add text labels near arrow tips ===
-                const text_labels = {
-                    type: 'scatter3d',
-                    mode: 'text',
-                    x: [
-                        0,               // AB tip
-                        0.3 * a,         // CB tip (slight offset)
-                        -3*a,            // R tip
-                        M_tip_x - 0.3*a  // M_O tip (slight offset)
-                    ],
-                    y: [
-                        4*a + 0.3*a,     // AB tip (slight offset)
-                        4*a,             // CB tip
-                        8*a + 0.3*a,     // R tip (slight offset)
-                        0                // M_O tip
-                    ],
-                    z: [
-                        0,               // AB tip
-                        0,               // CB tip
-                        -5*a,            // R tip
-                        M_tip_z          // M_O tip
-                    ],
-                    text: ['AB', 'CB', 'R', 'M_O'],
-                    textfont: {
-                        color: 'black',
-                        size: 12,
-                        family: 'Computer Modern Sans',
-                        weight: 'bold'
-                    },
-                    showlegend: false,
-                    hoverinfo: 'skip'
-                };
-
-                // Add all traces to the data array
                 const data = [
-                    points, posVectors, 
-                    vecAB_line, vecCB_line, vecR_line, vecM_line,
-                    arrow_AB, arrow_CB, arrow_R, arrow_M,
-                    text_labels // Add text labels trace
+                    points, posVectors, vecV_A, vecV_B, vecV_C, vecM_1O,
+                    getArrowHead([-1, 3, -7], [-2, 3, -7], '#D2691E', arrowSize),
+                    getArrowHead([3, 0, -1], [3, -1, -1], '#0055A4', arrowSize),
+                    getArrowHead([-1, -2, 9], [-1, -2, 8], 'green', arrowSize),
+                    getArrowHead([1, 6, 0], [1, 6, 0], 'purple', arrowSize)
                 ];
 
-                // === UPDATED: Title and Legend alignment/style ===
-                const layout = {
-                    title: {
-                        text: `Exercise 1 Visualization (a=${a})`,
-                        font: { family: 'Computer Modern Serif', size: 16 },
-                        y: 0.98, // Place it high (relative to margin)
-                        x: 0.05, // 5% from the left edge
-                        xanchor: 'left', // Anchor the text from its left
-                        yanchor: 'top'
-                    },
-                    scene: {
-                        xaxis: { title: 'X-axis (i)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
-                        yaxis: { title: 'Y-axis (j)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
-                        zaxis: { title: 'Z-axis (k)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
-                        aspectmode: 'data', // Keep aspect ratio consistent
-                        camera: { eye: {x: 1.5, y: 1.5, z: 1.0} }
-                    },
-                    margin: { l: 0, r: 0, b: 0, t: 80 }, // Increased top margin to 80px
-                    legend: { 
-                        font: { family: 'Computer Modern Sans', size: 10 }, // Smaller font
-                        y: 0.9, // Place it just below the title
-                        x: 0.05, // 5% from the left edge
-                        xanchor: 'left', // Anchor from its left
-                        yanchor: 'top', // Anchor from its top
-                        bgcolor: 'rgba(248, 249, 250, 0.85)', // More transparent
-                        bordercolor: '#ccc',
-                        borderwidth: 1
-                    }
+                let layout = {...commonLayout};
+                layout.title = createTitle('Exercise 02: [T1] Visualization (Question 1)');
+                Plotly.newPlot(targetDivId, data, layout, plotlyConfig);
+            }
+
+            // --- Plotly 3D Render Function 2 (for Q2) ---
+            function renderPlot_Q2(targetDivId) {
+                if (typeof Plotly === 'undefined') return;
+                const arrowSize = 0.1; // User requested 0.1
+
+                // R_2 at O: (2, 1, 3)
+                const vecR_2 = {
+                    x: [0, 2], y: [0, 1], z: [0, 3],
+                    mode: 'lines', type: 'scatter3d', name: 'Resultant R_2',
+                    line: { color: 'blue', width: 6 }
+                };
+                // M_2O at O: (-3, 2, -7)
+                const vecM_2O = {
+                    x: [0, -3], y: [0, 2], z: [0, -7],
+                    mode: 'lines', type: 'scatter3d', name: 'Moment M_2O',
+                    line: { color: 'red', width: 6 }
                 };
                 
-                var plotDiv = document.getElementById(targetDivId);
-                // The config object (3rd arg) controls the modebar. 'displaylogo: false' removes the Plotly logo.
-                Plotly.newPlot(targetDivId, data, layout, {responsive: true, displaylogo: false});
-            }
-            // --- End Plotly Function ---
-
-
-            // --- New master function to read 'a' and call renderPlot ---
-            function updatePlot() {
-                let targetDivId;
-                let a_value_string;
-
-                if (frVersion.style.display === 'block') {
-                    targetDivId = 'plotly-plot-fr';
-                    a_value_string = inputFr.value;
-                } else {
-                    targetDivId = 'plotly-plot-en';
-                    a_value_string = inputEn.value;
-                }
-
-                const a = parseFloat(a_value_string) || 1; // Default to 1 if input is invalid
+                // Central Axis (Delta_2)
+                const P0_2 = [-13/14, 5/14, 7/14];
+                const R_2 = [2, 1, 3];
+                const t_scale = 2;
+                const P1 = [P0_2[0] - t_scale*R_2[0], P0_2[1] - t_scale*R_2[1], P0_2[2] - t_scale*R_2[2]];
+                const P2 = [P0_2[0] + t_scale*R_2[0], P0_2[1] + t_scale*R_2[1], P0_2[2] + t_scale*R_2[2]];
                 
-                renderPlot(targetDivId, a);
+                const axis_Delta_2 = {
+                    x: [P1[0], P2[0]], y: [P1[1], P2[1]], z: [P1[2], P2[2]],
+                    mode: 'lines', type: 'scatter3d', name: 'Central Axis (Delta_2)',
+                    line: { color: 'magenta', width: 4, dash: 'dash' } // Changed from cyan
+                };
+                
+                const P0_2_point = {
+                    x: [P0_2[0]], y: [P0_2[1]], z: [P0_2[2]],
+                    mode: 'markers+text', type: 'scatter3d', name: 'Point P_0 (on Axis)',
+                    text: ['P_0_2'], textposition: 'top center',
+                    marker: { size: 5, color: 'magenta' } // Changed from cyan
+                };
+
+                const data = [
+                    vecR_2, vecM_2O, axis_Delta_2, P0_2_point,
+                    getArrowHead([2, 1, 3], [2, 1, 3], 'blue', arrowSize),
+                    getArrowHead([-3, 2, -7], [-3, 2, -7], 'red', arrowSize)
+                ];
+
+                let layout = {...commonLayout};
+                layout.title = createTitle('Exercise 02: [T2] Visualization (Question 2)');
+                Plotly.newPlot(targetDivId, data, layout, plotlyConfig);
+            }
+            
+            // --- Plotly 3D Render Function 3 (for Q3/Q5) ---
+            function renderPlot_Q3_Q5(targetDivId) {
+                if (typeof Plotly === 'undefined') return;
+                const arrowSize = 0.1; // User requested 0.1
+
+                // R_sum at O: (2, 1, 3)
+                const vecR_sum = {
+                    x: [0, 2], y: [0, 1], z: [0, 3],
+                    mode: 'lines', type: 'scatter3d', name: 'Sum Resultant R_sum',
+                    line: { color: 'green', width: 6 }
+                };
+                // M_sum at O: (-2, 8, -7)
+                const vecM_sum = {
+                    x: [0, -2], y: [0, 8], z: [0, -7],
+                    mode: 'lines', type: 'scatter3d', name: 'Sum Moment M_sum',
+                    line: { color: 'orange', width: 6 }
+                };
+                
+                // Central Axis (Delta_sum)
+                const P0_sum = [-31/14, 8/14, 18/14];
+                const R_sum = [2, 1, 3];
+                const t_scale = 2;
+                const P1 = [P0_sum[0] - t_scale*R_sum[0], P0_sum[1] - t_scale*R_sum[1], P0_sum[2] - t_scale*R_sum[2]];
+                const P2 = [P0_sum[0] + t_scale*R_sum[0], P0_sum[1] + t_scale*R_sum[1], P0_sum[2] + t_scale*R_sum[2]];
+                
+                const axis_Delta_sum = {
+                    x: [P1[0], P2[0]], y: [P1[1], P2[1]], z: [P1[2], P2[2]],
+                    mode: 'lines', type: 'scatter3d', name: 'Central Axis (Delta_sum)',
+                    line: { color: 'magenta', width: 4, dash: 'dash' }
+                };
+                
+                const P0_sum_point = {
+                    x: [P0_sum[0]], y: [P0_sum[1]], z: [P0_sum[2]],
+                    mode: 'markers+text', type: 'scatter3d', name: 'Point P_0_sum (on Axis)',
+                    text: ['P_0_sum'], textposition: 'top center',
+                    marker: { size: 5, color: 'magenta' }
+                };
+
+                const data = [
+                    vecR_sum, vecM_sum, axis_Delta_sum, P0_sum_point,
+                    getArrowHead([2, 1, 3], [2, 1, 3], 'green', arrowSize),
+                    getArrowHead([-2, 8, -7], [-2, 8, -7], 'orange', arrowSize)
+                ];
+
+                let layout = {...commonLayout};
+                layout.title = createTitle('Exercise 02: [T_sum] Visualization (Q3 & Q5)');
+                Plotly.newPlot(targetDivId, data, layout, plotlyConfig);
+            }
+            
+            // --- Master update function ---
+            function updatePlots() {
+                if (frVersion.style.display === 'block') {
+                    renderPlot_Q1('plotly-plot-q1-fr');
+                    renderPlot_Q2('plotly-plot-q2-fr');
+                    renderPlot_Q3_Q5('plotly-plot-q3-fr');
+                } else {
+                    renderPlot_Q1('plotly-plot-q1-en');
+                    renderPlot_Q2('plotly-plot-q2-en');
+                    renderPlot_Q3_Q5('plotly-plot-q3-en');
+                }
             }
 
             // Function to set the page state based on language
@@ -736,13 +721,11 @@
                     toggle.classList.remove('active');
                     toggleText.textContent = 'EN';
                 }
-                // Update the plot for the newly visible language
-                updatePlot();
+                // Update the plots for the newly visible language
+                updatePlots();
             }
             
             // --- Event Listeners ---
-
-            // Listener for the language toggle
             toggle.addEventListener('click', () => {
                 const isFrench = toggle.classList.contains('active');
                 if (isFrench) {
@@ -751,10 +734,6 @@
                     setLanguage('fr');
                 }
             });
-
-            // Listeners for the 'a' input fields
-            inputFr.addEventListener('input', updatePlot);
-            inputEn.addEventListener('input', updatePlot);
 
             // Set initial state to English on page load
             setLanguage('en'); 
