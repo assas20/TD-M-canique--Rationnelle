@@ -480,6 +480,189 @@
         </div>
 
     </div>
+<!-- ===== VERSION FRANÇAISE ===== -->
+    <div id="fr-version" lang="fr" style="display:none;">
+        <h1>Mécanique Rationnelle - Fiche de TD n°03</h1>
+        <p style="text-align:center; font-family: 'Computer Modern Serif', serif; color: #555; margin-top:-0.5em; margin-bottom:1.5em;">Les Torseurs</p>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercice 03</h2>
+            <p>Soit A un point de l'espace dans \( R(O, \vec{i}, \vec{j}, \vec{k}) \), avec \( \vec{OA} = -\frac{21}{9}\vec{i} - \frac{4}{9}\vec{j} - \frac{12}{9}\vec{k} \) et un vecteur \( \vec{V_1} = -3\vec{i} + \vec{j} + 3\vec{k} \) dont l'axe passe par le point A.</p>
+            <p>Soit \( [T_2]_O \) un torseur défini au point O par ses éléments de réduction \( \vec{R_2} \) et \( \vec{M}_{2O} \) tels que :</p>
+            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = (a-4)\vec{i} + a\vec{j} + 3a\vec{k} \\ \vec{M}_{2O} = (2a+9)\vec{j} + (-3a - \frac{2}{3})\vec{k} \end{cases} \]</div>
+            <ol>
+                <li>Déterminer les éléments de réduction du torseur \( [T_1]_O \) dont la résultante est le vecteur \( \vec{V_1} \).</li>
+                <li>Pour quelle valeur de \( a \) les deux torseurs sont-ils égaux ? (noté \( \alpha \) dans l'énoncé original)</li>
+                <li>En déduire le pas et l'axe central du torseur \( [T_2]_O \) pour cette valeur de \( a \).</li>
+                <li>Calculer le produit (comoment) des deux torseurs pour \( a = 2 \).</li>
+            </ol>
+            
+            <div class="sub-branch">
+                <h3>Solution</h3>
+                
+                <h3 style="margin-top: 0.8em;">1. Éléments de réduction de \( [T_1] \) en O</h3>
+                <p>Le torseur \( [T_1] \) est un glisseur, car il est défini par un vecteur \( \vec{V_1} \) et un point A sur son axe. Ses éléments de réduction en O sont :</p>
+                <p><strong>Résultante \( \vec{R_1} \) :</strong></p>
+                <div class="math-display">\[ \vec{R_1} = \vec{V_1} = -3\vec{i} + \vec{j} + 3\vec{k} \]</div>
+                <p><strong>Moment \( \vec{M}_{1O} \) :</strong> Le moment est calculé par la formule de Varignon.</p>
+                <div class="math-display">\[ \vec{M}_{1O} = \vec{OA} \wedge \vec{R_1} \]</div>
+                <p>On simplifie d'abord \( \vec{OA} \): \( \vec{OA} = -\frac{7}{3}\vec{i} - \frac{4}{9}\vec{j} - \frac{4}{3}\vec{k} \)</p>
+                <div class="math-display">\[ \vec{M}_{1O} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ -\frac{7}{3} & -\frac{4}{9} & -\frac{4}{3} \\ -3 & 1 & 3 \end{vmatrix} \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = \vec{i} \left( (-\frac{4}{9})(3) - (-\frac{4}{3})(1) \right) - \vec{j} \left( (-\frac{7}{3})(3) - (-\frac{4}{3})(-3) \right) + \vec{k} \left( (-\frac{7}{3})(1) - (-\frac{4}{9})(-3) \right) \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = \vec{i} \left( -\frac{12}{9} + \frac{4}{3} \right) - \vec{j} \left( -7 - 4 \right) + \vec{k} \left( -\frac{7}{3} - \frac{12}{9} \right) \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = \vec{i} \left( -\frac{4}{3} + \frac{4}{3} \right) - \vec{j} (-11) + \vec{k} \left( -\frac{7}{3} - \frac{4}{3} \right) \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = 0\vec{i} + 11\vec{j} - \frac{11}{3}\vec{k} \]</div>
+                <p>Les éléments de réduction de \( [T_1] \) en O sont :</p>
+                <div class="math-display">\[ [T_1]_O = \begin{cases} \vec{R_1} = -3\vec{i} + \vec{j} + 3\vec{k} \\ \vec{M}_{1O} = 11\vec{j} - \frac{11}{3}\vec{k} \end{cases} \]</div>
+
+                <h3 style="margin-top: 0.8em;">2. Condition d'égalité \( [T_1] = [T_2] \)</h3>
+                <p>Deux torseurs sont égaux si leurs éléments de réduction au même point (ici O) sont égaux. On doit avoir \( \vec{R_1} = \vec{R_2} \) ET \( \vec{M}_{1O} = \vec{M}_{2O} \).</p>
+                <p><strong>Égalité des résultantes \( \vec{R_1} = \vec{R_2} \) :</strong></p>
+                <div class="math-display">\[ -3\vec{i} + \vec{j} + 3\vec{k} = (a-4)\vec{i} + a\vec{j} + 3a\vec{k} \]</div>
+                <p>En identifiant les composantes :</p>
+                <ul>
+                    <li>Composante \( \vec{i} \): \( -3 = a - 4 \implies a = 1 \)</li>
+                    <li>Composante \( \vec{j} \): \( 1 = a \implies a = 1 \)</li>
+                    <li>Composante \( \vec{k} \): \( 3 = 3a \implies a = 1 \)</li>
+                </ul>
+                <p>La seule valeur possible est \( a = 1 \). Vérifions si les moments sont aussi égaux pour \( a = 1 \).</p>
+                <p><strong>Égalité des moments \( \vec{M}_{1O} = \vec{M}_{2O} \) pour \( a = 1 \) :</strong></p>
+                <div class="math-display">\[ \vec{M}_{1O} = 11\vec{j} - \frac{11}{3}\vec{k} \]</div>
+                <div class="math-display">\[ \vec{M}_{2O} = (2(1)+9)\vec{j} + (-3(1) - \frac{2}{3})\vec{k} = 11\vec{j} + (-\frac{9}{3} - \frac{2}{3})\vec{k} = 11\vec{j} - \frac{11}{3}\vec{k} \]</div>
+                <p>Les moments sont égaux. Donc, les deux torseurs sont égaux pour \( a = 1 \).</p>
+                
+                <h3 style="margin-top: 0.8em;">3. Pas et Axe Central de \( [T_2] \) pour \( a = 1 \)</h3>
+                <p>Puisque \( [T_2] = [T_1] \) pour \( a = 1 \), et que \( [T_1] \) est un glisseur (défini par un vecteur et son axe), le torseur \( [T_2] \) est aussi un glisseur pour \( a = 1 \).</p>
+                <p><strong>Pas (p) :</strong></p>
+                <p>Par définition, le pas d'un glisseur est nul. \( p = 0 \).</p>
+                <p>Vérification par le calcul de l'invariant scalaire :</p>
+                <div class="math-display">\[ I = \vec{R_2} \cdot \vec{M}_{2O} = (-3\vec{i} + \vec{j} + 3\vec{k}) \cdot (11\vec{j} - \frac{11}{3}\vec{k}) \]</div>
+                <div class="math-display">\[ I = (-3)(0) + (1)(11) + (3)(-\frac{11}{3}) = 0 + 11 - 11 = 0 \]</div>
+                <div class="math-display">\[ p = \frac{I}{\|\vec{R_2}\|^2} = \frac{0}{\|\vec{R_2}\|^2} = 0 \]</div>
+                <p><strong>Axe Central (\( \Delta \)) :</strong></p>
+                <p>L'axe central de \( [T_2] \) (pour \( a=1 \)) est le même que l'axe de \( [T_1] \). Il s'agit de la droite passant par le point \( A(-\frac{7}{3}, -\frac{4}{9}, -\frac{4}{3}) \) et de vecteur directeur \( \vec{R_1} = \vec{R_2} = -3\vec{i} + \vec{j} + 3\vec{k} \).</p>
+                
+                <h3 style="margin-top: 0.8em;">4. Produit (Comoment) pour \( a = 2 \)</h3>
+                <p>Le produit (ou comoment) des deux torseurs est donné par :</p>
+                <div class="math-display">\[ \mathcal{C}([T_1], [T_2]) = \vec{R_1} \cdot \vec{M}_{2O} + \vec{R_2} \cdot \vec{M}_{1O} \]</div>
+                <p>Pour \( a = 2 \), nous avons :</p>
+                <p>\( [T_1]_O \) (inchangé) :</p>
+                <div class="math-display">\[ \vec{R_1} = -3\vec{i} + \vec{j} + 3\vec{k} \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = 11\vec{j} - \frac{11}{3}\vec{k} \]</div>
+                <p>\( [T_2]_O \) (avec \( a=2 \)) :</p>
+                <div class="math-display">\[ \vec{R_2} = (2-4)\vec{i} + 2\vec{j} + 3(2)\vec{k} = -2\vec{i} + 2\vec{j} + 6\vec{k} \]</div>
+                <div class="math-display">\[ \vec{M}_{2O} = (2(2)+9)\vec{j} + (-3(2) - \frac{2}{3})\vec{k} = 13\vec{j} - \frac{20}{3}\vec{k} \]</div>
+                <p>Calculons les deux termes du comoment :</p>
+                <div class="math-display">\[ \vec{R_1} \cdot \vec{M}_{2O} = (-3, 1, 3) \cdot (0, 13, -\frac{20}{3}) = (0) + (1)(13) + (3)(-\frac{20}{3}) = 13 - 20 = -7 \]</div>
+                <div class="math-display">\[ \vec{R_2} \cdot \vec{M}_{1O} = (-2, 2, 6) \cdot (0, 11, -\frac{11}{3}) = (0) + (2)(11) + (6)(-\frac{11}{3}) = 22 - 22 = 0 \]</div>
+                <p>Le comoment est :</p>
+                <div class="math-display">\[ \mathcal{C} = -7 + 0 = -7 \]</div>
+
+                <div style="margin-top: 1.5em; margin-bottom: 0.5em;">
+                    <label for="a-input-fr" style="font-weight: bold; font-family: 'Computer Modern Serif', serif;">Définir la valeur de 'a': </label>
+                    <input type="number" id="a-input-fr" value="1" step="0.1" style="width: 60px; font-family: 'Computer Modern Sans', sans-serif; padding: 2px;">
+                </div>
+                
+                <h3 style="margin-top: 0.8em;">5. Visualisation 3D</h3>
+                <p>Ceci est une visualisation 3D interactive de la configuration du problème. Vous pouvez changer la valeur de 'a' ci-dessus pour voir comment le torseur \( [T_2] \) (en rouge/orange) change. Pour \( a=1 \), \( [T_1] \) et \( [T_2] \) se superposent parfaitement.</p>
+                <p style="font-size: 0.9em; font-style: italic;">Remarque : Les vecteurs moments \( \vec{M}_{1O} \) et \( \vec{M}_{2O} \) sont affichés à une échelle de 1/5 pour une meilleure lisibilité.</p>
+                <div id="plotly-plot-fr" class="plotly-viz"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== ENGLISH VERSION ===== -->
+    <div id="en-version" lang="en">
+        <h1>Rational Mechanics - Tutorial Sheet n°03</h1>
+        <p style="text-align:center; font-family: 'Computer Modern Serif', serif; color: #555; margin-top:-0.5em; margin-bottom:1.5em;">The Torsors</p>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercise 03</h2>
+            <p>Let A be a point in space in \( R(O, \vec{i}, \vec{j}, \vec{k}) \), with \( \vec{OA} = - \frac{21}{9}\vec{i} - \frac{4}{9}\vec{j} - \frac{12}{9}\vec{k} \) and a vector \( \vec{V_1} = -3\vec{i} + \vec{j} + 3\vec{k} \) whose axis passes through point A.</p>
+            <p>Let \( [T_2]_O \) be a torsor defined at point O by its reduction elements \( \vec{R_2} \) and \( \vec{M}_{2O} \) such that:</p>
+            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = (a-4)\vec{i} + a\vec{j} + 3a\vec{k} \\ \vec{M}_{2O} = (2a+9)\vec{j} + (-3a - \frac{2}{3})\vec{k} \end{cases} \]</div>
+            <ol>
+                <li>Determine the reduction elements of the torsor \( [T_1]_O \) whose resultant is the vector \( \vec{V_1} \).</li>
+                <li>For what value of \( a \) are the two torsors equal? (noted \( \alpha \) in the original problem)</li>
+                <li>Deduce the pitch and the central axis of the torsor \( [T_2]_O \) for this value of \( a \).</li>
+                <li>Calculate the product (comoment) of the two torsors for \( a = 2 \).</li>
+            </ol>
+            
+            <div class="sub-branch">
+                <h3>Solution</h3>
+                
+                <h3 style="margin-top: 0.8em;">1. Reduction Elements of \( [T_1] \) at O</h3>
+                <p>The torsor \( [T_1] \) is a slider, as it is defined by a vector \( \vec{V_1} \) and a point A on its axis. Its reduction elements at O are:</p>
+                <p><strong>Resultant \( \vec{R_1} \):</strong></p>
+                <div class="math-display">\[ \vec{R_1} = \vec{V_1} = -3\vec{i} + \vec{j} + 3\vec{k} \]</div>
+                <p><strong>Moment \( \vec{M}_{1O} \):</strong> The moment is calculated using Varignon's theorem.</p>
+                <div class="math-display">\[ \vec{M}_{1O} = \vec{OA} \wedge \vec{R_1} \]</div>
+                <p>First, we simplify \( \vec{OA} \): \( \vec{OA} = -\frac{7}{3}\vec{i} - \frac{4}{9}\vec{j} - \frac{4}{3}\vec{k} \)</p>
+                <div class="math-display">\[ \vec{M}_{1O} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ -\frac{7}{3} & -\frac{4}{9} & -\frac{4}{3} \\ -3 & 1 & 3 \end{vmatrix} \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = \vec{i} \left( (-\frac{4}{9})(3) - (-\frac{4}{3})(1) \right) - \vec{j} \left( (-\frac{7}{3})(3) - (-\frac{4}{3})(-3) \right) + \vec{k} \left( (-\frac{7}{3})(1) - (-\frac{4}{9})(-3) \right) \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = \vec{i} \left( -\frac{12}{9} + \frac{4}{3} \right) - \vec{j} \left( -7 - 4 \right) + \vec{k} \left( -\frac{7}{3} - \frac{12}{9} \right) \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = \vec{i} \left( -\frac{4}{3} + \frac{4}{3} \right) - \vec{j} (-11) + \vec{k} \left( -\frac{7}{3} - \frac{4}{3} \right) \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = 0\vec{i} + 11\vec{j} - \frac{11}{3}\vec{k} \]</div>
+                <p>The reduction elements of \( [T_1] \) at O are:</p>
+                <div class="math-display">\[ [T_1]_O = \begin{cases} \vec{R_1} = -3\vec{i} + \vec{j} + 3\vec{k} \\ \vec{M}_{1O} = 11\vec{j} - \frac{11}{3}\vec{k} \end{cases} \]</div>
+
+                <h3 style="margin-top: 0.8em;">2. Equality Condition \( [T_1] = [T_2] \)</h3>
+                <p>Two torsors are equal if their reduction elements at the same point (here O) are equal. We must have \( \vec{R_1} = \vec{R_2} \) AND \( \vec{M}_{1O} = \vec{M}_{2O} \).</p>
+                <p><strong>Equality of Resultants \( \vec{R_1} = \vec{R_2} \):</strong></p>
+                <div class="math-display">\[ -3\vec{i} + \vec{j} + 3\vec{k} = (a-4)\vec{i} + a\vec{j} + 3a\vec{k} \]</div>
+                <p>By identifying the components:</p>
+                <ul>
+                    <li>\( \vec{i} \) component: \( -3 = a - 4 \implies a = 1 \)</li>
+                    <li>\( \vec{j} \) component: \( 1 = a \implies a = 1 \)</li>
+                    <li>\( \vec{k} \) component: \( 3 = 3a \implies a = 1 \)</li>
+                </ul>
+                <p>The only possible value is \( a = 1 \). Let's check if the moments are also equal for \( a = 1 \).</p>
+                <p><strong>Equality of Moments \( \vec{M}_{1O} = \vec{M}_{2O} \) for \( a = 1 \):</strong></p>
+                <div class="math-display">\[ \vec{M}_{1O} = 11\vec{j} - \frac{11}{3}\vec{k} \]</div>
+                <div class="math-display">\[ \vec{M}_{2O} = (2(1)+9)\vec{j} + (-3(1) - \frac{2}{3})\vec{k} = 11\vec{j} + (-\frac{9}{3} - \frac{2}{3})\vec{k} = 11\vec{j} - \frac{11}{3}\vec{k} \]</div>
+                <p>The moments are equal. Therefore, the two torsors are equal for \( a = 1 \).</p>
+                
+                <h3 style="margin-top: 0.8em;">3. Pitch and Central Axis of \( [T_2] \) for \( a = 1 \)</h3>
+                <p>Since \( [T_2] = [T_1] \) for \( a = 1 \), and \( [T_1] \) is a slider (defined by a vector and its axis), the torsor \( [T_2] \) is also a slider for \( a = 1 \).</p>
+                <p><strong>Pitch (p):</strong></p>
+                <p>By definition, the pitch of a slider is zero. \( p = 0 \).</p>
+                <p>Verification by calculating the scalar invariant:</p>
+                <div class="math-display">\[ I = \vec{R_2} \cdot \vec{M}_{2O} = (-3\vec{i} + \vec{j} + 3\vec{k}) \cdot (11\vec{j} - \frac{11}{3}\vec{k}) \]</div>
+                <div class="math-display">\[ I = (-3)(0) + (1)(11) + (3)(-\frac{11}{3}) = 0 + 11 - 11 = 0 \]</div>
+                <div class="math-display">\[ p = \frac{I}{\|\vec{R_2}\|^2} = \frac{0}{\|\vec{R_2}\|^2} = 0 \]</div>
+                <p><strong>Central Axis (\( \Delta \)):</strong></p>
+                <p>The central axis of \( [T_2] \) (for \( a=1 \)) is the same as the axis of \( [T_1] \). It is the line passing through point \( A(-\frac{7}{3}, -\frac{4}{9}, -\frac{4}{3}) \) with direction vector \( \vec{R_1} = \vec{R_2} = -3\vec{i} + \vec{j} + 3\vec{k} \).</p>
+                
+                <h3 style="margin-top: 0.8em;">4. Product (Comoment) for \( a = 2 \)</h3>
+                <p>The product (or comoment) of the two torsors is given by:</p>
+                <div class="math-display">\[ \mathcal{C}([T_1], [T_2]) = \vec{R_1} \cdot \vec{M}_{2O} + \vec{R_2} \cdot \vec{M}_{1O} \]</div>
+                <p>For \( a = 2 \), we have:</p>
+                <p>\( [T_1]_O \) (unchanged):</p>
+                <div class="math-display">\[ \vec{R_1} = -3\vec{i} + \vec{j} + 3\vec{k} \]</div>
+                <div class="math-display">\[ \vec{M}_{1O} = 11\vec{j} - \frac{11}{3}\vec{k} \]</div>
+                <p>\( [T_2]_O \) (with \( a=2 \)):</p>
+                <div class="math-display">\[ \vec{R_2} = (2-4)\vec{i} + 2\vec{j} + 3(2)\vec{k} = -2\vec{i} + 2\vec{j} + 6\vec{k} \]</div>
+                <div class="math-display">\[ \vec{M}_{2O} = (2(2)+9)\vec{j} + (-3(2) - \frac{2}{3})\vec{k} = 13\vec{j} - \frac{20}{3}\vec{k} \]</div>
+                <p>Calculate the two terms of the comoment:</p>
+                <div class="math-display">\[ \vec{R_1} \cdot \vec{M}_{2O} = (-3, 1, 3) \cdot (0, 13, -\frac{20}{3}) = (0) + (1)(13) + (3)(-\frac{20}{3}) = 13 - 20 = -7 \]</div>
+                <div class="math-display">\[ \vec{R_2} \cdot \vec{M}_{1O} = (-2, 2, 6) \cdot (0, 11, -\frac{11}{3}) = (0) + (2)(11) + (6)(-\frac{11}{3}) = 22 - 22 = 0 \]</div>
+                <p>The comoment is:</p>
+                <div class="math-display">\[ \mathcal{C} = -7 + 0 = -7 \]</div>
+
+                <div style="margin-top: 1.5em; margin-bottom: 0.5em;">
+                    <label for="a-input-en" style="font-weight: bold; font-family: 'Computer Modern Serif', serif;">Set value for 'a': </label>
+                    <input type="number" id="a-input-en" value="1" step="0.1" style="width: 60px; font-family: 'Computer Modern Sans', sans-serif; padding: 2px;">
+                </div>
+
+                <h3 style="margin-top: 0.8em;">5. 3D Visualization</h3>
+                <p>This is an interactive 3D visualization of the problem setup. You can change the value of 'a' above to see how torsor \( [T_2] \) (in red/orange) changes. For \( a=1 \), \( [T_1] \) and \( [T_2] \) overlap perfectly.</p>
+                <p style="font-size: 0.9em; font-style: italic;">Note: The moment vectors \( \vec{M}_{1O} \) and \( \vec{M}_{2O} \) are scaled by 1/5 for visualization.</p>
+                <div id="plotly-plot-en" class="plotly-viz"></div>
+            </div>
+        </div>
+
+    </div>
 
     <script>
         // Use window.onload to ensure all scripts (like Plotly) are loaded first
