@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutorial Sheet - The Torsors - Solution Ex 02</title>
+    <title>Tutorial Sheet - The Torsors</title>
     <script>
         MathJax = {
           tex: {
@@ -21,9 +21,6 @@
     <script type="text/javascript" id="MathJax-script" async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
     </script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min/plotly.min.js"></script>
-    
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
     <style>
         body {
@@ -40,14 +37,12 @@
         h1 { font-size: 1.8em; text-align: center; border-bottom: 2px solid #003366; margin-bottom: 0.8em; font-family: "Computer Modern Serif", serif;}
         h2 { font-size: 1.5em; font-family: "Computer Modern Serif", serif;}
         h3 { font-size: 1.2em; border-bottom: none; color: #0055A4; font-family: "Computer Modern Serif", serif;}
-        h4 { font-size: 1.1em; color: #333; font-family: "Computer Modern Serif", serif; margin-top: 0.8em; margin-bottom: 0.1em; }
         mjx-container {
             font-size: 105% !important;
             text-align: left !important;
             margin-top: 0.4em;
             margin-bottom: 0.4em;
         }
-        /* Removed 'overflow-x: auto;' */
         .math-display {
             margin-top: 0.5em;
             margin-bottom: 0.5em;
@@ -55,6 +50,7 @@
             background-color: #f8f8f8;
             border: 1px solid #eee;
             border-radius: 4px;
+            overflow-x: auto;
         }
         ul, ol { margin-top: 0.3em; margin-bottom: 0.3em; margin-left: 0; padding-left: 1.5em; }
         li { margin-bottom: 0.2em; }
@@ -86,6 +82,18 @@
             left: -25px;
             top: 0.8em;
         }
+        .figure-placeholder {
+            height: 120px;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
          .sub-branch {
             position: relative;
             padding-left: 20px;
@@ -97,33 +105,18 @@
         .sub-branch:not(:last-child) {
             padding-bottom: 0.4em;
         }
-        .sub-branch > h3, .sub-branch > h4 {
+        .sub-branch > h3 {
             position: relative;
-            margin-top: 0.8em;
+            margin-top: 0;
         }
-        .sub-branch > h3::before, .sub-branch > h4::before {
+        .sub-branch > h3::before {
             content: "";
             position: absolute;
             background-color: black;
             height: 1px;
             width: 15px;
             left: -20px;
-            top: 0.6em; /* Adjust as needed */
-        }
-        .sub-branch > h4::before {
-             top: 0.8em; /* Adjust for h4 */
-        }
-
-
-        /* === UPDATED CSS FOR PLOTLY VISUALIZATION === */
-        .plotly-viz {
-            width: 100%; /* Behave normally on desktop */
-            min-width: 500px; /* Force a minimum width for mobile */
-            height: 500px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-top: 1em;
-            touch-action: none; /* This prevents the browser from stealing pinch/drag events */
+            top: 0.6em;
         }
 
         /* Language Toggle Styles */
@@ -170,7 +163,7 @@
         /* State for EN (default/not active) */
         #language-toggle .toggle-button {
             left: 3px;
-            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCA2MCAzMCI+DQo8Y2xpcFBhdGggaWQ9ImEiPg0KPHBhdGggZD0iTTMwLDAgVjE1IEg2MCBWMEEiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggaWQ9ImIiPg0KPHBhdGggZD0iTTAsMTUgSDMwIFYzMCBIMFYxNU0zMCwwIEg2MCBWMTUgSDMwVjBNMCwwIEgzMCBWMTAgSDBWMCIvPg0KPC9jbGlwUGF0aD4NCjxwYXRoIGQ9Ik0wLDAgVjMwIEg2MC BWMEEiIGZpbGw9IiMwMDI0N0QiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSI2IiBkPSJNMzAsMCA2MCwxNSAwLDE1IE0zMCwzMCAwLDE1IDYwLDE1Ii8+DQo8cGF0aCBzdHJva2U9IiNDRjE0MkIiIHN0cm9rZS13aWR0aD0iNCIgZD0iTTAgMCA2MCAzME0wIDMwIDYwIDAiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSIxMCIgZD0iTTMwLDAgVjMwIi8+DQo8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS13aWR0aD0iMTgiIGQ9Ik0wLDE1IEg2MCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjYiIGQ9Ik0zMCwwIFYzMCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjEwIiBkPSJNLTEsMTUgSDYxIi8+DQo8L3N2Zz4=');
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCA2MCAzMCI+DQo8Y2xpcFBhdGggaWQ9ImEiPg0KPHBhdGggZD0iTTMwLDAgVjE1IEg2MCBWMEEiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggaWQ9ImIiPg0KPHBhdGggZD0iTTAsMTUgSDMwIFYzMCBIMFYxNU0zMCwwIEg2MCBWMTUgSDMwVjBNMCwwIEgzMCBWMTAgSDBWMCIvPg0KPC9jbGlwUGF0aD4NCjxwYXRoIGQ9Ik0wLDAgVjMwIEg2MCBWMEEiIGZpbGw9IiMwMDI0N0QiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSI2IiBkPSJNMzAsMCA2MCwxNSAwLDE1IE0zMCwzMCAwLDE1IDYwLDE1Ii8+DQo8cGF0aCBzdHJva2U9IiNDRjE0MkIiIHN0cm9rZS13aWR0aD0iNCIgZD0iTTAgMCA2MCAzME0wIDMwIDYwIDAiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSIxMCIgZD0iTTMwLDAgVjMwIi8+DQo8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS13aWR0aD0iMTgiIGQ9Ik0wLDE1IEg2MCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjYiIGQ9Ik0zMCwwIFYzMCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjEwIiBkPSJNLTEsMTUgSDYxIi8+DQo8L3N2Zz4=');
         }
         #language-toggle .toggle-text {
             right: 12px;
@@ -197,7 +190,13 @@
     <div id="fr-version" lang="fr" style="display:none;">
         <h1>Mécanique Rationnelle - Fiche de TD n°03</h1>
         <p style="text-align:center; font-family: 'Computer Modern Serif', serif; color: #555; margin-top:-0.5em; margin-bottom:1.5em;">Les Torseurs</p>
-        
+
+        <div class="solution-branch">
+            <h2 class="question">Exercice 01</h2>
+            <p>Considérant les vecteurs suivants \( \vec{OA} = 3a\vec{i} \), \( \vec{OB} = 4a\vec{j} \) et \( \vec{OC} = 5a\vec{k} \).</p>
+            <p>Déterminer le torseur en O des vecteurs \( \vec{AB} \) et \( \vec{CB} \).</p>
+        </div>
+
         <div class="solution-branch">
             <h2 class="question">Exercice 02</h2>
             <p>Soit le torseur \( [T_1]_O \) défini au point O, origine d'un repère orthonormal direct \( R(O, \vec{i}, \vec{j}, \vec{k}) \), par les trois vecteurs suivants :</p>
@@ -215,77 +214,44 @@
                 <li>Calculer le comoment des deux torseurs.</li>
                 <li>Calculer l'invariant scalaire du torseur somme \( [T] = [T_1] + [T_2] \).</li>
             </ol>
+        </div>
 
-            <div class="sub-branch">
-                <h3>Solution</h3>
-                
-                <h4 style="margin-top: 0.8em;">1. Éléments de réduction de \( [T_1] \) au point O</h4>
-                <p>Le torseur \( [T_1] \) est la somme des torseurs glisseurs associés à \( \vec{V}_A \), \( \vec{V}_B \), et \( \vec{V}_C \).</p>
-                <p><strong>Résultante \( \vec{R_1} \):</strong></p>
-                <div class="math-display">\[ \vec{R_1} = \vec{V}_A + \vec{V}_B + \vec{V}_C \]</div>
-                <div class="math-display">\[ \vec{R_1} = (-2\vec{i} + 3\vec{j} - 7\vec{k}) + (3\vec{i} - \vec{j} - \vec{k}) + (-\vec{i} - 2\vec{j} + 8\vec{k}) \]</div>
-                <div class="math-display">\[ \vec{R_1} = (-2+3-1)\vec{i} + (3-1-2)\vec{j} + (-7-1+8)\vec{k} = \vec{0} \]</div>
-                
-                <p><strong>Moment \( \vec{M}_{1O} \):</strong></p>
-                <div class="math-display">\[ \vec{M}_{1O} = \vec{M}_O(\vec{V}_A) + \vec{M}_O(\vec{V}_B) + \vec{M}_O(\vec{V}_C) \]</div>
-                <div class="math-display">\[ \vec{M}_{1O} = (\vec{OA} \wedge \vec{V}_A) + (\vec{OB} \wedge \vec{V}_B) + (\vec{OC} \wedge \vec{V}_C) \]</div>
-                <p>Avec \( \vec{OA} = \vec{i} \), \( \vec{OB} = \vec{j} \), \( \vec{OC} = \vec{k} \):</p>
-                <div class="math-display">\[ \vec{OA} \wedge \vec{V}_A = (\vec{i}) \wedge (-2\vec{i} + 3\vec{j} - 7\vec{k}) = 3(\vec{i}\wedge\vec{j}) - 7(\vec{i}\wedge\vec{k}) = 3\vec{k} - 7(-\vec{j}) = 7\vec{j} + 3\vec{k} \]</div>
-                <div class="math-display">\[ \vec{OB} \wedge \vec{V}_B = (\vec{j}) \wedge (3\vec{i} - \vec{j} - \vec{k}) = 3(\vec{j}\wedge\vec{i}) - (\vec{j}\wedge\vec{k}) = 3(-\vec{k}) - \vec{i} = -\vec{i} - 3\vec{k} \]</div>
-                <div class="math-display">\[ \vec{OC} \wedge \vec{V}_C = (\vec{k}) \wedge (-\vec{i} - 2\vec{j} + 8\vec{k}) = -(\vec{k}\wedge\vec{i}) - 2(\vec{k}\wedge\vec{j}) = -(\vec{j}) - 2(-\vec{i}) = 2\vec{i} - \vec{j} \]</div>
-                <p>Le moment total est :</p>
-                <div class="math-display">\[ \vec{M}_{1O} = (7\vec{j} + 3\vec{k}) + (-\vec{i} - 3\vec{k}) + (2\vec{i} - \vec{j}) = \vec{i} + 6\vec{j} \]</div>
-                <p>Les éléments de réduction de \( [T_1] \) en O sont :</p>
-                <div class="math-display">\[ [T_1]_O = \begin{cases} \vec{R_1} = \vec{0} \\ \vec{M}_{1O} = \vec{i} + 6\vec{j} \end{cases} \]</div>
-                <p>Puisque la résultante est nulle et le moment non nul, \( [T_1] \) est un <strong>torseur couple</strong>.</p>
-                
-                <h4 style="margin-top: 1.5em;">Visualisation 3D (Question 1)</h4>
-                <p>Cette visualisation montre les points d'application A, B, C, les vecteurs glisseurs \( \vec{V}_A, \vec{V}_B, \vec{V}_C \) et le moment résultant \( \vec{M}_{1O} \) (le couple) à l'origine.</p>
-                <div id="plotly-plot-q1-fr" class="plotly-viz"></div>
+        <div class="solution-branch">
+            <h2 class="question">Exercice 03</h2>
+            <p>Soit A un point de l'espace dans \( R(O, \vec{i}, \vec{j}, \vec{k}) \), avec \( \vec{OA} = -\frac{21}{9}\vec{i} - \frac{4}{9}\vec{j} - \frac{12}{9}\vec{k} \) et un vecteur \( \vec{V_1} = -3\vec{i} + \vec{j} + 3\vec{k} \) dont l'axe passe par le point A.</p>
+            <p>Soit \( [T_2]_O \) un torseur défini au point O par ses éléments de réduction \( \vec{R_2} \) et \( \vec{M}_{2O} \) tels que :</p>
+            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = (a-4)\vec{i} + a\vec{j} + 3a\vec{k} \\ \vec{M}_{2O} = (2a+9)\vec{j} + (-3a - \frac{2}{3})\vec{k} \end{cases} \]</div>
+            <ol>
+                <li>Déterminer les éléments de réduction du torseur \( [T_1]_O \) dont la résultante est le vecteur \( \vec{V_1} \).</li>
+                <li>Pour quelle valeur de \( \alpha \) les deux torseurs sont-ils égaux ?</li>
+                <li>En déduire le pas et l'axe central du torseur \( [T_2]_O \) pour cette valeur de \( \alpha \).</li>
+                <li>Calculer le produit des deux torseurs pour \( \alpha = 2 \).</li>
+            </ol>
+        </div>
 
+        <div class="solution-branch">
+            <h2 class="question">Exercice 04</h2>
+            <p>Dans le repère \( R(O, \vec{i}, \vec{j}, \vec{k}) \), considérer les points A(3,0,0) et B(-1,2,1) dans l'espace affine.</p>
+            <p>Soit \( \vec{V}(M) \) un champ de vecteurs équiprojectif défini comme suit :</p>
+            <div class="math-display">\[ \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix}, \vec{V}(A) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \vec{V}(B) = \begin{pmatrix} 2 \\ -1 \\ 9 \end{pmatrix} \]</div>
+            <ol>
+                <li>Déterminer le vecteur résultant \( \vec{R} \) du torseur associé au champ \( \vec{V}(M) \).</li>
+                <li>En déduire l'expression du champ de vecteurs \( \vec{V}(M) \) en tout point M(x, y, z) de l'espace.</li>
+                <li>Déterminer l'axe central \( \Delta \) du torseur.</li>
+            </ol>
+        </div>
 
-                <h4 style="margin-top: 1.5em;">2. Pas et Axe Central de \( [T_2] \)</h4>
-                <p>Données : \( \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \) et \( \vec{M}_{2O} = -3\vec{i} + 2\vec{j} - 7\vec{k} \).</p>
-                <p><strong>Invariant Scalaire (Automoment) \( I_2 \):</strong></p>
-                <div class="math-display">\[ I_2 = \vec{R_2} \cdot \vec{M}_{2O} = (2)( -3) + (1)(2) + (3)(-7) = -6 + 2 - 21 = -25 \]</div>
-                <p><strong>Norme au carré de la résultante :</strong></p>
-                <div class="math-display">\[ ||\vec{R_2}||^2 = 2^2 + 1^2 + 3^2 = 4 + 1 + 9 = 14 \]</div>
-                <p><strong>Pas \( \lambda_2 \):</strong></p>
-                <div class="math-display">\[ \lambda_2 = \frac{I_2}{||\vec{R_2}||^2} = -\frac{25}{14} \approx -1.786 \]</div>
-                <p><strong>Axe Central \( (\Delta_2) \):</strong></p>
-                <p>L'axe est dirigé par \( \vec{R_2} \) et passe par un point \( P_0 \) tel que \( \vec{OP_0} = \frac{\vec{R_2} \wedge \vec{M}_{2O}}{||\vec{R_2}||^2} \).</p>
-                <div class="math-display">\[ \vec{R_2} \wedge \vec{M}_{2O} = \begin{pmatrix} 2 \\ 1 \\ 3 \end{pmatrix} \wedge \begin{pmatrix} -3 \\ 2 \\ -7 \end{pmatrix} = \begin{pmatrix} (1)(-7) - (3)(2) \\ (3)(-3) - (2)(-7) \\ (2)(2) - (1)(-3) \end{pmatrix} = \begin{pmatrix} -13 \\ 5 \\ 7 \end{pmatrix} \]</div>
-                <div class="math-display">\[ \vec{OP_0} = \frac{1}{14}(-13\vec{i} + 5\vec{j} + 7\vec{k}) = -\frac{13}{14}\vec{i} + \frac{5}{14}\vec{j} + \frac{1}{2}\vec{k} \]</div>
-                <p>L'axe central \( (\Delta_2) \) est la droite passant par \( P_0(-\frac{13}{14}, \frac{5}{14}, \frac{1}{2}) \) et de vecteur directeur \( \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \).</p>
-
-                <h4 style="margin-top: 1.5em;">Visualisation 3D (Question 2)</h4>
-                <p>Cette visualisation montre les éléments de réduction de \( [T_2] \) à l'origine (\( \vec{R_2} \) et \( \vec{M}_{2O} \)) ainsi que son axe central \( (\Delta_2) \).</p>
-                <div id="plotly-plot-q2-fr" class="plotly-viz"></div>
-
-                <h4 style="margin-top: 1.5em;">3. Somme des deux torseurs</h4>
-                <p>Le torseur somme \( [T] = [T_1] + [T_2] \) a pour éléments de réduction en O :</p>
-                <div class="math-display">\[ \vec{R} = \vec{R_1} + \vec{R_2} = \vec{0} + (2\vec{i} + \vec{j} + 3\vec{k}) = 2\vec{i} + \vec{j} + 3\vec{k} \]</div>
-                <div class="math-display">\[ \vec{M}_O = \vec{M}_{1O} + \vec{M}_{2O} = (\vec{i} + 6\vec{j}) + (-3\vec{i} + 2\vec{j} - 7\vec{k}) = -2\vec{i} + 8\vec{j} - 7\vec{k} \]</div>
-                <div class="math-display">\[ [T]_O = \begin{cases} \vec{R} = 2\vec{i} + \vec{j} + 3\vec{k} \\ \vec{M}_O = -2\vec{i} + 8\vec{j} - 7\vec{k} \end{cases} \]</div>
-
-                <h4 style="margin-top: 1.5em;">4. Comoment des deux torseurs</h4>
-                <p>Le comoment (invariant) est donné par \( \mathcal{C} = \vec{R_1} \cdot \vec{M}_{2O} + \vec{R_2} \cdot \vec{M}_{1O} \).</p>
-                <div class="math-display">\[ \mathcal{C} = (\vec{0}) \cdot (-3\vec{i} + 2\vec{j} - 7\vec{k}) + (2\vec{i} + \vec{j} + 3\vec{k}) \cdot (\vec{i} + 6\vec{j} + 0\vec{k}) \]</div>
-                <div class="math-display">\[ \mathcal{C} = 0 + (2)(1) + (1)(6) + (3)(0) = 8 \]</div>
-                
-                <h4 style="margin-top: 1.5em;">5. Invariant scalaire du torseur somme \( [T] \)</h4>
-                <p>L'invariant scalaire \( I \) du torseur somme \( [T] \) est \( I = \vec{R} \cdot \vec{M}_O \).</p>
-                <div class="math-display">\[ I = (2\vec{i} + \vec{j} + 3\vec{k}) \cdot (-2\vec{i} + 8\vec{j} - 7\vec{k}) \]</div>
-                <div class="math-display">\[ I = (2)(-2) + (1)(8) + (3)(-7) = -4 + 8 - 21 = -17 \]</div>
-                <p>L'axe central \( (\Delta) \) du torseur somme \( [T] \) a pour point le plus proche de l'origine \( P_{0,sum} \):</p>
-                <div class="math-display">\[ \vec{R} \wedge \vec{M}_O = \begin{pmatrix} 2 \\ 1 \\ 3 \end{pmatrix} \wedge \begin{pmatrix} -2 \\ 8 \\ -7 \end{pmatrix} = \begin{pmatrix} (1)(-7) - (3)(8) \\ (3)(-2) - (2)(-7) \\ (2)(8) - (1)(-2) \end{pmatrix} = \begin{pmatrix} -31 \\ 8 \\ 18 \end{pmatrix} \]</div>
-                <div class="math-display">\[ \vec{OP}_{0,sum} = \frac{\vec{R} \wedge \vec{M}_O}{||\vec{R}||^2} = \frac{1}{14}(-31\vec{i} + 8\vec{j} + 18\vec{k}) = -\frac{31}{14}\vec{i} + \frac{4}{7}\vec{j} + \frac{9}{7}\vec{k} \]</div>
-
-
-                <h4 style="margin-top: 1.5em;">Visualisation 3D (Questions 3 & 5)</h4>
-                <p>Cette visualisation montre les éléments de réduction du torseur somme \( [T] = [T_1] + [T_2] \) à l'origine (\( \vec{R} \) et \( \vec{M}_O \)) ainsi que son axe central \( (\Delta) \).</p>
-                <div id="plotly-plot-q3-fr" class="plotly-viz"></div>
-            </div>
+        <div class="solution-branch">
+            <h2 class="question">Exercice 05</h2>
+            <p>Dans un repère orthonormal direct \( R(O, \vec{i}, \vec{j}, \vec{k}) \), on considère le champ de vecteurs \( \vec{V}(M) \) dont les composantes sont définies en fonction des coordonnées (x, y, z) de M par :</p>
+            <div class="math-display">\[ \begin{cases} V_x = 1 + 3y - tz \\ V_y = -3x + 2tz \\ V_z = 2 + tx - t^2y \end{cases} \]</div>
+            <ol>
+                <li>Calculer le vecteur \( \vec{V}(M) \) au point O.</li>
+                <li>Pour quelles valeurs de t ce champ est-il antisymétrique ?</li>
+                <li>Pour chaque valeur de t trouvée, déterminer les éléments de réduction du torseur (résultante et moment en O).</li>
+                <li>Décomposer le torseur associé à \( \vec{V}(M) \) en une somme d'un couple et d'un glisseur, et indiquer les éléments de réduction.</li>
+                <li>Déterminer la position de l'axe central du torseur pour t = 0 et t = 2.</li>
+            </ol>
         </div>
 
     </div>
@@ -293,6 +259,12 @@
     <div id="en-version" lang="en">
         <h1>Rational Mechanics - Tutorial Sheet n°03</h1>
         <p style="text-align:center; font-family: 'Computer Modern Serif', serif; color: #555; margin-top:-0.5em; margin-bottom:1.5em;">The Torsors</p>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercise 01</h2>
+            <p>Considering the following vectors \( \vec{OA} = 3a\vec{i} \), \( \vec{OB} = 4a\vec{j} \) and \( \vec{OC} = 5a\vec{k} \).</p>
+            <p>Determine the torsor at O of the vectors \( \vec{AB} \) and \( \vec{CB} \).</p>
+        </div>
 
         <div class="solution-branch">
             <h2 class="question">Exercise 02</h2>
@@ -311,302 +283,54 @@
                 <li>Calculate the comoment of the two torsors.</li>
                 <li>Calculate the scalar invariant of the sum torsor \( [T] = [T_1] + [T_2] \).</li>
             </ol>
-            
-            <div class="sub-branch">
-                <h3>Solution</h3>
-                
-                <h4 style="margin-top: 0.8em;">1. Reduction elements of \( [T_1] \) at point O</h4>
-                <p>The torsor \( [T_1] \) is the sum of the slider torsors associated with \( \vec{V}_A \), \( \vec{V}_B \), and \( \vec{V}_C \).</p>
-                <p><strong>Resultant \( \vec{R_1} \):</strong></p>
-                <div class="math-display">\[ \vec{R_1} = \vec{V}_A + \vec{V}_B + \vec{V}_C \]</div>
-                <div class="math-display">\[ \vec{R_1} = (-2\vec{i} + 3\vec{j} - 7\vec{k}) + (3\vec{i} - \vec{j} - \vec{k}) + (-\vec{i} - 2\vec{j} + 8\vec{k}) \]</div>
-                <div class="math-display">\[ \vec{R_1} = (-2+3-1)\vec{i} + (3-1-2)\vec{j} + (-7-1+8)\vec{k} = \vec{0} \]</div>
-                
-                <p><strong>Moment \( \vec{M}_{1O} \):</strong></p>
-                <div class="math-display">\[ \vec{M}_{1O} = \vec{M}_O(\vec{V}_A) + \vec{M}_O(\vec{V}_B) + \vec{M}_O(\vec{V}_C) \]</div>
-                <div class="math-display">\[ \vec{M}_{1O} = (\vec{OA} \wedge \vec{V}_A) + (\vec{OB} \wedge \vec{V}_B) + (\vec{OC} \wedge \vec{V}_C) \]</div>
-                <p>With \( \vec{OA} = \vec{i} \), \( \vec{OB} = \vec{j} \), \( \vec{OC} = \vec{k} \):</p>
-                <div class="math-display">\[ \vec{OA} \wedge \vec{V}_A = (\vec{i}) \wedge (-2\vec{i} + 3\vec{j} - 7\vec{k}) = 3(\vec{i}\wedge\vec{j}) - 7(\vec{i}\wedge\vec{k}) = 3\vec{k} - 7(-\vec{j}) = 7\vec{j} + 3\vec{k} \]</div>
-                <div class="math-display">\[ \vec{OB} \wedge \vec{V}_B = (\vec{j}) \wedge (3\vec{i} - \vec{j} - \vec{k}) = 3(\vec{j}\wedge\vec{i}) - (\vec{j}\wedge\vec{k}) = 3(-\vec{k}) - \vec{i} = -\vec{i} - 3\vec{k} \]</div>
-                <div class="math-display">\[ \vec{OC} \wedge \vec{V}_C = (\vec{k}) \wedge (-\vec{i} - 2\vec{j} + 8\vec{k}) = -(\vec{k}\wedge\vec{i}) - 2(\vec{k}\wedge\vec{j}) = -(\vec{j}) - 2(-\vec{i}) = 2\vec{i} - \vec{j} \]</div>
-                <p>The total moment is:</p>
-                <div class="math-display">\[ \vec{M}_{1O} = (7\vec{j} + 3\vec{k}) + (-\vec{i} - 3\vec{k}) + (2\vec{i} - \vec{j}) = \vec{i} + 6\vec{j} \]</div>
-                <p>The reduction elements of \( [T_1] \) at O are:</p>
-                <div class="math-display">\[ [T_1]_O = \begin{cases} \vec{R_1} = \vec{0} \\ \vec{M}_{1O} = \vec{i} + 6\vec{j} \end{cases} \]</div>
-                <p>Since the resultant is zero and the moment is non-zero, \( [T_1] \) is a <strong>couple torsor</strong>.</p>
-                
-                <h4 style="margin-top: 1.5em;">3D Visualization (Question 1)</h4>
-                <p>This visualization shows the application points A, B, C, the slider vectors \( \vec{V}_A, \vec{V}_B, \vec{V}_C \), and the resultant moment \( \vec{M}_{1O} \) (the couple) at the origin.</p>
-                <div id="plotly-plot-q1-en" class="plotly-viz"></div>
+        </div>
 
+        <div class="solution-branch">
+            <h2 class="question">Exercise 03</h2>
+            <p>Let A be a point in space in \( R(O, \vec{i}, \vec{j}, \vec{k}) \), with \( \vec{OA} = - \frac{21}{9}\vec{i} - \frac{4}{9}\vec{j} - \frac{12}{9}\vec{k} \) and a vector \( \vec{V_1} = -3\vec{i} + \vec{j} + 3\vec{k} \) whose axis passes through point A.</p>
+            <p>Let \( [T_2]_O \) be a torsor defined at point O by its reduction elements \( \vec{R_2} \) and \( \vec{M}_{2O} \) such that:</p>
+            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = (a-4)\vec{i} + a\vec{j} + 3a\vec{k} \\ \vec{M}_{2O} = (2a+9)\vec{j} + (-3a - \frac{2}{3})\vec{k} \end{cases} \]</div>
+            <ol>
+                <li>Determine the reduction elements of the torsor \( [T_1]_O \) whose resultant is the vector \( \vec{V_1} \).</li>
+                <li>For what value of \( \alpha \) are the two torsors equal?</li>
+                <li>Deduce the pitch and the central axis of the torsor \( [T_2]_O \) for this value of \( \alpha \).</li>
+                <li>Calculate the product of the two torsors for \( \alpha = 2 \).</li>
+            </ol>
+        </div>
 
-                <h4 style="margin-top: 1.5em;">2. Pitch and Central Axis of \( [T_2] \)</h4>
-                <p>Given: \( \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \) and \( \vec{M}_{2O} = -3\vec{i} + 2\vec{j} - 7\vec{k} \).</p>
-                <p><strong>Scalar Invariant (Automoment) \( I_2 \):</strong></p>
-                <div class="math-display">\[ I_2 = \vec{R_2} \cdot \vec{M}_{2O} = (2)( -3) + (1)(2) + (3)(-7) = -6 + 2 - 21 = -25 \]</div>
-                <p><strong>Squared norm of the resultant:</strong></p>
-                <div class="math-display">\[ ||\vec{R_2}||^2 = 2^2 + 1^2 + 3^2 = 4 + 1 + 9 = 14 \]</div>
-                <p><strong>Pitch \( \lambda_2 \):</strong></p>
-                <div class="math-display">\[ \lambda_2 = \frac{I_2}{||\vec{R_2}||^2} = -\frac{25}{14} \approx -1.786 \]</div>
-                <p><strong>Central Axis \( (\Delta_2) \):</strong></p>
-                <p>The axis is directed by \( \vec{R_2} \) and passes through a point \( P_0 \) such that \( \vec{OP_0} = \frac{\vec{R_2} \wedge \vec{M}_{2O}}{||\vec{R_2}||^2} \).</p>
-                <div class="math-display">\[ \vec{R_2} \wedge \vec{M}_{2O} = \begin{pmatrix} 2 \\ 1 \\ 3 \end{pmatrix} \wedge \begin{pmatrix} -3 \\ 2 \\ -7 \end{pmatrix} = \begin{pmatrix} (1)(-7) - (3)(2) \\ (3)(-3) - (2)(-7) \\ (2)(2) - (1)(-3) \end{pmatrix} = \begin{pmatrix} -13 \\ 5 \\ 7 \end{pmatrix} \]</div>
-                <div class="math-display">\[ \vec{OP_0} = \frac{1}{14}(-13\vec{i} + 5\vec{j} + 7\vec{k}) = -\frac{13}{14}\vec{i} + \frac{5}{14}\vec{j} + \frac{1}{2}\vec{k} \]</div>
-                <p>The central axis \( (\Delta_2) \) is the line passing through \( P_0(-\frac{13}{14}, \frac{5}{14}, \frac{1}{2}) \) and with direction vector \( \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \).</p>
+        <div class="solution-branch">
+            <h2 class="question">Exercise 04</h2>
+            <p>In the reference frame \( R(O, \vec{i}, \vec{j}, \vec{k}) \), consider the points A(3,0,0) and B(-1,2,1) in the affine space.</p>
+            <p>Let \( \vec{V}(M) \) be an equiprojective vector field defined as follows:</p>
+            <div class="math-display">\[ \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix}, \vec{V}(A) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \vec{V}(B) = \begin{pmatrix} 2 \\ -1 \\ 9 \end{pmatrix} \]</div>
+            <ol>
+                <li>Determine the resultant vector \( \vec{R} \) of the torsor associated with the field \( \vec{V}(M) \).</li>
+                <li>Deduce the expression of the vector field \( \vec{V}(M) \) at any point M(x, y, z) in the space.</li>
+                <li>Determine the central axis \( \Delta \) of the torsor.</li>
+            </ol>
+        </div>
 
-                <h4 style="margin-top: 1.5em;">3D Visualization (Question 2)</h4>
-                <p>This visualization shows the reduction elements of \( [T_2] \) at the origin (\( \vec{R_2} \) and \( \vec{M}_{2O} \)) as well as its central axis \( (\Delta_2) \).</p>
-                <div id="plotly-plot-q2-en" class="plotly-viz"></div>
-
-                <h4 style="margin-top: 1.5em;">3. Sum of the two torsors</h4>
-                <p>The sum torsor \( [T] = [T_1] + [T_2] \) has reduction elements at O:</p>
-                <div class="math-display">\[ \vec{R} = \vec{R_1} + \vec{R_2} = \vec{0} + (2\vec{i} + \vec{j} + 3\vec{k}) = 2\vec{i} + \vec{j} + 3\vec{k} \]</div>
-                <div class="math-display">\[ \vec{M}_O = \vec{M}_{1O} + \vec{M}_{2O} = (\vec{i} + 6\vec{j}) + (-3\vec{i} + 2\vec{j} - 7\vec{k}) = -2\vec{i} + 8\vec{j} - 7\vec{k} \]</div>
-                <div class="math-display">\[ [T]_O = \begin{cases} \vec{R} = 2\vec{i} + \vec{j} + 3\vec{k} \\ \vec{M}_O = -2\vec{i} + 8\vec{j} - 7\vec{k} \end{cases} \]</div>
-
-                <h4 style="margin-top: 1.5em;">4. Comoment of the two torsors</h4>
-                <p>The comoment (invariant) is given by \( \mathcal{C} = \vec{R_1} \cdot \vec{M}_{2O} + \vec{R_2} \cdot \vec{M}_{1O} \).</p>
-                <div class="math-display">\[ \mathcal{C} = (\vec{0}) \cdot (-3\vec{i} + 2\vec{j} - 7\vec{k}) + (2\vec{i} + \vec{j} + 3\vec{k}) \cdot (\vec{i} + 6\vec{j} + 0\vec{k}) \]</div>
-                <div class="math-display">\[ \mathcal{C} = 0 + (2)(1) + (1)(6) + (3)(0) = 8 \]</div>
-                
-                <h4 style="margin-top: 1.5em;">5. Scalar invariant of the sum torsor \( [T] \)</h4>
-                <p>The scalar invariant \( I \) of the sum torsor \( [T] \) is \( I = \vec{R} \cdot \vec{M}_O \).</p>
-                <div class="math-display">\[ I = (2\vec{i} + \vec{j} + 3\vec{k}) \cdot (-2\vec{i} + 8\vec{j} - 7\vec{k}) \]</div>
-                <div class="math-display">\[ I = (2)(-2) + (1)(8) + (3)(-7) = -4 + 8 - 21 = -17 \]</div>
-                <p>The central axis \( (\Delta) \) of the sum torsor \( [T] \) has a closest point to the origin \( P_{0,sum} \):</p>
-                <div class="math-display">\[ \vec{R} \wedge \vec{M}_O = \begin{pmatrix} 2 \\ 1 \\ 3 \end{pmatrix} \wedge \begin{pmatrix} -2 \\ 8 \\ -7 \end{pmatrix} = \begin{pmatrix} (1)(-7) - (3)(8) \\ (3)(-2) - (2)(-7) \\ (2)(8) - (1)(-2) \end{pmatrix} = \begin{pmatrix} -31 \\ 8 \\ 18 \end{pmatrix} \]</div>
-                <div class="math-display">\[ \vec{OP}_{0,sum} = \frac{\vec{R} \wedge \vec{M}_O}{||\vec{R}||^2} = \frac{1}{14}(-31\vec{i} + 8\vec{j} + 18\vec{k}) = -\frac{31}{14}\vec{i} + \frac{4}{7}\vec{j} + \frac{9}{7}\vec{k} \]</div>
-
-                <h4 style="margin-top: 1.5em;">3D Visualization (Questions 3 & 5)</h4>
-                <p>This visualization shows the reduction elements of the sum torsor \( [T] = [T_1] + [T_2] \) at the origin (\( \vec{R} \) and \( \vec{M}_O \)) as well as its central axis \( (\Delta) \).</p>
-                <div id="plotly-plot-q3-en" class="plotly-viz"></div>
-            </div>
+        <div class="solution-branch">
+            <h2 class="question">Exercise 05</h2>
+            <p>In a direct orthonormal frame \( R(O, \vec{i}, \vec{j}, \vec{k}) \) we consider the vector field \( \vec{V}(M) \) whose components are defined as a function of the coordinates (x, y, z) of M by:</p>
+            <div class="math-display">\[ \begin{cases} V_x = 1 + 3y - tz \\ V_y = -3x + 2tz \\ V_z = 2 + tx - t^2y \end{cases} \]</div>
+            <ol>
+                <li>Calculate the vector \( \vec{V}(M) \) at point O.</li>
+                <li>For which values of t is this field antisymmetric?</li>
+                <li>For each value of t found, determine the reduction elements of the torsor (resultant and moment at O).</li>
+                <li>Decompose the torsor associated with \( \vec{V}(M) \) into a sum of a couple and a slider, and indicate the reduction elements.</li>
+                <li>Determine the position of the central axis of the torsor for t = 0 and t = 2.</li>
+            </ol>
         </div>
 
     </div>
 
     <script>
-        // Use window.onload to ensure all scripts (like Plotly) are loaded first
-        window.onload = function() {
-            // --- Get all persistent elements ---
+        window.addEventListener('DOMContentLoaded', (event) => {
             const toggle = document.getElementById('language-toggle');
             const toggleText = toggle.querySelector('.toggle-text');
             const frVersion = document.getElementById('fr-version');
             const enVersion = document.getElementById('en-version');
-            const plotlyConfig = {responsive: true, displaylogo: false};
-
-            const commonLayout = {
-                scene: {
-                    xaxis: { title: 'X-axis (i)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
-                    yaxis: { title: 'Y-axis (j)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
-                    zaxis: { title: 'Z-axis (k)', titlefont: { family: 'Computer Modern Sans' }, autorange: true },
-                    aspectmode: 'data', // Keep aspect ratio consistent
-                    camera: { eye: {x: 1.5, y: 1.5, z: 1.0} }
-                },
-                margin: { l: 0, r: 0, b: 0, t: 80 }, // Increased top margin to 80px
-                legend: { 
-                    font: { family: 'Computer Modern Sans', size: 10 }, // Smaller font
-                    y: 0.9, // Place it just below the title
-                    x: 0.05, // 5% from the left edge
-                    xanchor: 'left', // Anchor from its left
-                    yanchor: 'top', // Anchor from its top
-                    bgcolor: 'rgba(248, 249, 250, 0.85)', // More transparent
-                    bordercolor: '#ccc',
-                    borderwidth: 1
-                }
-            };
-            
-            function createTitle(text) {
-                return {
-                    text: text,
-                    font: { family: 'Computer Modern Serif', size: 16 },
-                    y: 0.98, x: 0.05, xanchor: 'left', yanchor: 'top'
-                };
-            }
-            
-            function getArrowHead(tip, vec, color, sizeRef) {
-                return {
-                    type: 'cone',
-                    x: [tip[0]], y: [tip[1]], z: [tip[2]],
-                    u: [vec[0]], v: [vec[1]], w: [vec[2]],
-                    sizeref: sizeRef, anchor: 'tip', showscale: false,
-                    colorscale: [[0, color], [1, color]],
-                    showlegend: false, hoverinfo: 'skip'
-                };
-            }
-
-            // --- Plotly 3D Render Function 1 (for Q1) ---
-            function renderPlot_Q1(targetDivId) {
-                if (typeof Plotly === 'undefined') return;
-                const arrowSize = 0.1; // User requested 0.1
-
-                const points = {
-                    x: [0, 1, 0, 0], // O, A, B, C
-                    y: [0, 0, 1, 0],
-                    z: [0, 0, 0, 1],
-                    mode: 'markers+text', type: 'scatter3d', name: 'Points',
-                    text: [`O (0,0,0)`, `A (1,0,0)`, `B (0,1,0)`, `C (0,0,1)`],
-                    textposition: 'top center',
-                    marker: { size: 6, color: '#003366' },
-                    textfont: { color: 'black', size: 12, family: 'Computer Modern Sans' }
-                };
-
-                const posVectors = {
-                    x: [0, 1, null, 0, 0, null, 0, 0], // OA, OB, OC
-                    y: [0, 0, null, 0, 1, null, 0, 0],
-                    z: [0, 0, null, 0, 0, null, 0, 1],
-                    mode: 'lines', type: 'scatter3d', name: 'Position Vectors',
-                    line: { color: 'grey', width: 2, dash: 'dash' }
-                };
-
-                // V_A at A: (-2, 3, -7) at (1,0,0). Tip: (-1, 3, -7)
-                const vecV_A = {
-                    x: [1, -1], y: [0, 3], z: [0, -7],
-                    mode: 'lines', type: 'scatter3d', name: 'V_A',
-                    line: { color: '#D2691E', width: 6 }
-                };
-                // V_B at B: (3, -1, -1) at (0,1,0). Tip: (3, 0, -1)
-                const vecV_B = {
-                    x: [0, 3], y: [1, 0], z: [0, -1],
-                    mode: 'lines', type: 'scatter3d', name: 'V_B',
-                    line: { color: '#0055A4', width: 6 }
-                };
-                // V_C at C: (-1, -2, 8) at (0,0,1). Tip: (-1, -2, 9)
-                const vecV_C = {
-                    x: [0, -1], y: [0, -2], z: [1, 9],
-                    mode: 'lines', type: 'scatter3d', name: 'V_C',
-                    line: { color: 'green', width: 6 }
-                };
-                // M_1O at O: (1, 6, 0) at (0,0,0). Tip: (1, 6, 0)
-                const vecM_1O = {
-                    x: [0, 1], y: [0, 6], z: [0, 0],
-                    mode: 'lines', type: 'scatter3d', name: 'Moment M_1O (Couple)',
-                    line: { color: 'purple', width: 6 }
-                };
-
-                const data = [
-                    points, posVectors, vecV_A, vecV_B, vecV_C, vecM_1O,
-                    getArrowHead([-1, 3, -7], [-2, 3, -7], '#D2691E', arrowSize),
-                    getArrowHead([3, 0, -1], [3, -1, -1], '#0055A4', arrowSize),
-                    getArrowHead([-1, -2, 9], [-1, -2, 8], 'green', arrowSize),
-                    getArrowHead([1, 6, 0], [1, 6, 0], 'purple', arrowSize)
-                ];
-
-                let layout = {...commonLayout};
-                layout.title = createTitle('Exercise 02: [T1] Visualization (Question 1)');
-                Plotly.newPlot(targetDivId, data, layout, plotlyConfig);
-            }
-
-            // --- Plotly 3D Render Function 2 (for Q2) ---
-            function renderPlot_Q2(targetDivId) {
-                if (typeof Plotly === 'undefined') return;
-                const arrowSize = 0.1; // User requested 0.1
-
-                // R_2 at O: (2, 1, 3)
-                const vecR_2 = {
-                    x: [0, 2], y: [0, 1], z: [0, 3],
-                    mode: 'lines', type: 'scatter3d', name: 'Resultant R_2',
-                    line: { color: 'blue', width: 6 }
-                };
-                // M_2O at O: (-3, 2, -7)
-                const vecM_2O = {
-                    x: [0, -3], y: [0, 2], z: [0, -7],
-                    mode: 'lines', type: 'scatter3d', name: 'Moment M_2O',
-                    line: { color: 'red', width: 6 }
-                };
-                
-                // Central Axis (Delta_2)
-                const P0_2 = [-13/14, 5/14, 7/14];
-                const R_2 = [2, 1, 3];
-                const t_scale = 2;
-                const P1 = [P0_2[0] - t_scale*R_2[0], P0_2[1] - t_scale*R_2[1], P0_2[2] - t_scale*R_2[2]];
-                const P2 = [P0_2[0] + t_scale*R_2[0], P0_2[1] + t_scale*R_2[1], P0_2[2] + t_scale*R_2[2]];
-                
-                const axis_Delta_2 = {
-                    x: [P1[0], P2[0]], y: [P1[1], P2[1]], z: [P1[2], P2[2]],
-                    mode: 'lines', type: 'scatter3d', name: 'Central Axis (Delta_2)',
-                    line: { color: 'magenta', width: 4, dash: 'dash' } // Changed from cyan
-                };
-                
-                const P0_2_point = {
-                    x: [P0_2[0]], y: [P0_2[1]], z: [P0_2[2]],
-                    mode: 'markers+text', type: 'scatter3d', name: 'Point P_0 (on Axis)',
-                    text: ['P_0_2'], textposition: 'top center',
-                    marker: { size: 5, color: 'magenta' } // Changed from cyan
-                };
-
-                const data = [
-                    vecR_2, vecM_2O, axis_Delta_2, P0_2_point,
-                    getArrowHead([2, 1, 3], [2, 1, 3], 'blue', arrowSize),
-                    getArrowHead([-3, 2, -7], [-3, 2, -7], 'red', arrowSize)
-                ];
-
-                let layout = {...commonLayout};
-                layout.title = createTitle('Exercise 02: [T2] Visualization (Question 2)');
-                Plotly.newPlot(targetDivId, data, layout, plotlyConfig);
-            }
-            
-            // --- Plotly 3D Render Function 3 (for Q3/Q5) ---
-            function renderPlot_Q3_Q5(targetDivId) {
-                if (typeof Plotly === 'undefined') return;
-                const arrowSize = 0.1; // User requested 0.1
-
-                // R_sum at O: (2, 1, 3)
-                const vecR_sum = {
-                    x: [0, 2], y: [0, 1], z: [0, 3],
-                    mode: 'lines', type: 'scatter3d', name: 'Sum Resultant R_sum',
-                    line: { color: 'green', width: 6 }
-                };
-                // M_sum at O: (-2, 8, -7)
-                const vecM_sum = {
-                    x: [0, -2], y: [0, 8], z: [0, -7],
-                    mode: 'lines', type: 'scatter3d', name: 'Sum Moment M_sum',
-                    line: { color: 'orange', width: 6 }
-                };
-                
-                // Central Axis (Delta_sum)
-                const P0_sum = [-31/14, 8/14, 18/14];
-                const R_sum = [2, 1, 3];
-                const t_scale = 2;
-                const P1 = [P0_sum[0] - t_scale*R_sum[0], P0_sum[1] - t_scale*R_sum[1], P0_sum[2] - t_scale*R_sum[2]];
-                const P2 = [P0_sum[0] + t_scale*R_sum[0], P0_sum[1] + t_scale*R_sum[1], P0_sum[2] + t_scale*R_sum[2]];
-                
-                const axis_Delta_sum = {
-                    x: [P1[0], P2[0]], y: [P1[1], P2[1]], z: [P1[2], P2[2]],
-                    mode: 'lines', type: 'scatter3d', name: 'Central Axis (Delta_sum)',
-                    line: { color: 'magenta', width: 4, dash: 'dash' }
-                };
-                
-                const P0_sum_point = {
-                    x: [P0_sum[0]], y: [P0_sum[1]], z: [P0_sum[2]],
-                    mode: 'markers+text', type: 'scatter3d', name: 'Point P_0_sum (on Axis)',
-                    text: ['P_0_sum'], textposition: 'top center',
-                    marker: { size: 5, color: 'magenta' }
-                };
-
-                const data = [
-                    vecR_sum, vecM_sum, axis_Delta_sum, P0_sum_point,
-                    getArrowHead([2, 1, 3], [2, 1, 3], 'green', arrowSize),
-                    getArrowHead([-2, 8, -7], [-2, 8, -7], 'orange', arrowSize)
-                ];
-
-                let layout = {...commonLayout};
-                layout.title = createTitle('Exercise 02: [T_sum] Visualization (Q3 & Q5)');
-                Plotly.newPlot(targetDivId, data, layout, plotlyConfig);
-            }
-            
-            // --- Master update function ---
-            function updatePlots() {
-                if (frVersion.style.display === 'block') {
-                    renderPlot_Q1('plotly-plot-q1-fr');
-                    renderPlot_Q2('plotly-plot-q2-fr');
-                    renderPlot_Q3_Q5('plotly-plot-q3-fr');
-                } else {
-                    renderPlot_Q1('plotly-plot-q1-en');
-                    renderPlot_Q2('plotly-plot-q2-en');
-                    renderPlot_Q3_Q5('plotly-plot-q3-en');
-                }
-            }
 
             // Function to set the page state based on language
             function setLanguage(lang) {
@@ -621,12 +345,11 @@
                     toggle.classList.remove('active');
                     toggleText.textContent = 'EN';
                 }
-                // Update the plots for the newly visible language
-                updatePlots();
             }
             
-            // --- Event Listeners ---
+            // Event listener for the toggle click
             toggle.addEventListener('click', () => {
+                // Check current state by looking at the class
                 const isFrench = toggle.classList.contains('active');
                 if (isFrench) {
                     setLanguage('en');
@@ -637,7 +360,7 @@
 
             // Set initial state to English on page load
             setLanguage('en'); 
-        };
+        });
     </script>
 
 </body>
