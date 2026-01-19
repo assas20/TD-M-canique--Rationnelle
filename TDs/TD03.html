@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Sheet - The Torsors</title>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['\\(', '\\)']],
+            displayMath: [['\\[', '\\]']],
+            macros: {
+              vec: ["{\\overrightarrow{#1}}", 1]
+            }
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+    <style>
+        body {
+            font-family: "Computer Modern Sans", sans-serif;
+            line-height: 1.3;
+            margin: 1em;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        h1, h2, h3, p {
+            margin-top: 0.2em;
+            margin-bottom: 0.2em;
+        }
+        h1 { font-size: 1.8em; text-align: center; border-bottom: 2px solid #003366; margin-bottom: 0.8em; font-family: "Computer Modern Serif", serif;}
+        h2 { font-size: 1.5em; font-family: "Computer Modern Serif", serif;}
+        h3 { font-size: 1.2em; border-bottom: none; color: #0055A4; font-family: "Computer Modern Serif", serif;}
+        mjx-container {
+            font-size: 105% !important;
+            text-align: left !important;
+            margin-top: 0.4em;
+            margin-bottom: 0.4em;
+        }
+        .math-display {
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            padding: 0.4em;
+            background-color: #f8f8f8;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        ul, ol { margin-top: 0.3em; margin-bottom: 0.3em; margin-left: 0; padding-left: 1.5em; }
+        li { margin-bottom: 0.2em; }
+        strong { color: #003366; }
+        .question {
+            font-weight: bold;
+            color: #D2691E;
+        }
+        .solution-branch {
+            position: relative;
+            padding-left: 25px;
+            border-left: 2px solid black;
+            margin-left: 10px;
+            padding-bottom: 0.1em;
+        }
+        .solution-branch:not(:last-child) {
+            padding-bottom: 1.2em;
+        }
+        .solution-branch > .question {
+            position: relative;
+            margin-top: 0;
+        }
+        .solution-branch > .question::before {
+            content: "";
+            position: absolute;
+            background-color: black;
+            height: 2px;
+            width: 18px;
+            left: -25px;
+            top: 0.8em;
+        }
+        .figure-placeholder {
+            height: 120px;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+         .sub-branch {
+            position: relative;
+            padding-left: 20px;
+            border-left: 1px solid black;
+            margin-left: 5px;
+            padding-top: 0.3em;
+            padding-bottom: 0.1em;
+        }
+        .sub-branch:not(:last-child) {
+            padding-bottom: 0.4em;
+        }
+        .sub-branch > h3 {
+            position: relative;
+            margin-top: 0;
+        }
+        .sub-branch > h3::before {
+            content: "";
+            position: absolute;
+            background-color: black;
+            height: 1px;
+            width: 15px;
+            left: -20px;
+            top: 0.6em;
+        }
+
+        /* Language Toggle Styles */
+        #language-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            width: 65px;
+            height: 28px;
+            background-color: #e9ecef;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            user-select: none;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .toggle-button {
+            width: 22px;
+            height: 22px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            transition: left 0.3s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #adb5bd;
+        }
+
+        .toggle-text {
+            font-family: "Arial", sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            color: #495057;
+            position: absolute;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* State for EN (default/not active) */
+        #language-toggle .toggle-button {
+            left: 3px;
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCA2MCAzMCI+DQo8Y2xpcFBhdGggaWQ9ImEiPg0KPHBhdGggZD0iTTMwLDAgVjE1IEg2MCBWMEEiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggaWQ9ImIiPg0KPHBhdGggZD0iTTAsMTUgSDMwIFYzMCBIMFYxNU0zMCwwIEg2MCBWMTUgSDMwVjBNMCwwIEgzMCBWMTAgSDBWMCIvPg0KPC9jbGlwUGF0aD4NCjxwYXRoIGQ9Ik0wLDAgVjMwIEg2MCBWMEEiIGZpbGw9IiMwMDI0N0QiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSI2IiBkPSJNMzAsMCA2MCwxNSAwLDE1IE0zMCwzMCAwLDE1IDYwLDE1Ii8+DQo8cGF0aCBzdHJva2U9IiNDRjE0MkIiIHN0cm9rZS13aWR0aD0iNCIgZD0iTTAgMCA2MCAzME0wIDMwIDYwIDAiLz4NCjxwYXRoIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSIxMCIgZD0iTTMwLDAgVjMwIi8+DQo8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS13aWR0aD0iMTgiIGQ9Ik0wLDE1IEg2MCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjYiIGQ9Ik0zMCwwIFYzMCIvPg0KPHBhdGggc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjEwIiBkPSJNLTEsMTUgSDYxIi8+DQo8L3N2Zz4=');
+        }
+        #language-toggle .toggle-text {
+            right: 12px;
+        }
+
+        /* State for FR (active) */
+        #language-toggle.active .toggle-button {
+            left: calc(100% - 22px - 3px);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzIDIiPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjIiIGZpbGw9IiMwMDU1QTEiLz48cmVjdCB4PSIxIiB3aWR0aD0iMSIgaGVpZ2h0PSIyIiBmaWxsPSIjRkZGIi8+PHJlY3QgeD0iMiIgd2lkdGg9IjEiIGhlaWdodD0iMiIgZmlsbD0iI0VEMjlENSIvPjwvc3ZnPg==');
+        }
+        #language-toggle.active .toggle-text {
+            left: 12px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="language-toggle">
+        <div class="toggle-button"></div>
+        <span class="toggle-text">EN</span>
+    </div>
+
+    <div id="fr-version" lang="fr" style="display:none;">
+        <h1>Mécanique Rationnelle - Fiche de TD n°03</h1>
+        <p style="text-align:center; font-family: 'Computer Modern Serif', serif; color: #555; margin-top:-0.5em; margin-bottom:1.5em;">Les Torseurs</p>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercice 01</h2>
+            <p>Considérant les vecteurs suivants \( \vec{OA} = 3a\vec{i} \), \( \vec{OB} = 4a\vec{j} \) et \( \vec{OC} = 5a\vec{k} \).</p>
+            <p>Déterminer le torseur en O des vecteurs \( \vec{AB} \) et \( \vec{CB} \).</p>
+        </div>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercice 02</h2>
+            <p>Soit le torseur \( [T_1]_O \) défini au point O, origine d'un repère orthonormal direct \( R(O, \vec{i}, \vec{j}, \vec{k}) \), par les trois vecteurs suivants :</p>
+            <ul>
+                <li>\( \vec{V}_A = -2\vec{i} + 3\vec{j} - 7\vec{k} \) défini au point A(1,0,0)</li>
+                <li>\( \vec{V}_B = 3\vec{i} - \vec{j} - \vec{k} \) défini au point B(0,1,0)</li>
+                <li>\( \vec{V}_C = -\vec{i} - 2\vec{j} + 8\vec{k} \) défini au point C(0,0,1)</li>
+            </ul>
+            <p>Soit \( [T_2]_O \) un torseur défini au point O par ses éléments de réduction \( \vec{R_2} \) et \( \vec{M}_{2O} \) tels que :</p>
+            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \\ \vec{M}_{2O} = -3\vec{i} + 2\vec{j} - 7\vec{k} \end{cases} \]</div>
+            <ol>
+                <li>Déterminer les éléments de réduction de \( [T_1] \) au point O.</li>
+                <li>Déterminer le pas et l'axe central du torseur \( [T_2] \).</li>
+                <li>Calculer la somme des deux torseurs.</li>
+                <li>Calculer le comoment des deux torseurs.</li>
+                <li>Calculer l'invariant scalaire du torseur somme \( [T] = [T_1] + [T_2] \).</li>
+            </ol>
+        </div>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercice 03</h2>
+            <p>Soit A un point de l'espace dans \( R(O, \vec{i}, \vec{j}, \vec{k}) \), avec \( \vec{OA} = -\frac{21}{9}\vec{i} - \frac{4}{9}\vec{j} - \frac{12}{9}\vec{k} \) et un vecteur \( \vec{V_1} = -3\vec{i} + \vec{j} + 3\vec{k} \) dont l'axe passe par le point A.</p>
+            <p>Soit \( [T_2]_O \) un torseur défini au point O par ses éléments de réduction \( \vec{R_2} \) et \( \vec{M}_{2O} \) tels que :</p>
+            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = (a-4)\vec{i} + a\vec{j} + 3a\vec{k} \\ \vec{M}_{2O} = (2a+9)\vec{j} + (-3a - \frac{2}{3})\vec{k} \end{cases} \]</div>
+            <ol>
+                <li>Déterminer les éléments de réduction du torseur \( [T_1]_O \) dont la résultante est le vecteur \( \vec{V_1} \).</li>
+                <li>Pour quelle valeur de \( \alpha \) les deux torseurs sont-ils égaux ?</li>
+                <li>En déduire le pas et l'axe central du torseur \( [T_2]_O \) pour cette valeur de \( \alpha \).</li>
+                <li>Calculer le produit des deux torseurs pour \( \alpha = 2 \).</li>
+            </ol>
+        </div>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercice 04</h2>
+            <p>Dans le repère \( R(O, \vec{i}, \vec{j}, \vec{k}) \), considérer les points A(3,0,0) et B(-1,2,1) dans l'espace affine.</p>
+            <p>Soit \( \vec{V}(M) \) un champ de vecteurs équiprojectif défini comme suit :</p>
+            <div class="math-display">\[ \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix}, \vec{V}(A) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \vec{V}(B) = \begin{pmatrix} 2 \\ -1 \\ 9 \end{pmatrix} \]</div>
+            <ol>
+                <li>Déterminer le vecteur résultant \( \vec{R} \) du torseur associé au champ \( \vec{V}(M) \).</li>
+                <li>En déduire l'expression du champ de vecteurs \( \vec{V}(M) \) en tout point M(x, y, z) de l'espace.</li>
+                <li>Déterminer l'axe central \( \Delta \) du torseur.</li>
+            </ol>
+        </div>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercice 05</h2>
+            <p>Dans un repère orthonormal direct \( R(O, \vec{i}, \vec{j}, \vec{k}) \), on considère le champ de vecteurs \( \vec{V}(M) \) dont les composantes sont définies en fonction des coordonnées (x, y, z) de M par :</p>
+            <div class="math-display">\[ \begin{cases} V_x = 1 + 3y - tz \\ V_y = -3x + 2tz \\ V_z = 2 + tx - t^2y \end{cases} \]</div>
+            <ol>
+                <li>Calculer le vecteur \( \vec{V}(M) \) au point O.</li>
+                <li>Pour quelles valeurs de t ce champ est-il antisymétrique ?</li>
+                <li>Pour chaque valeur de t trouvée, déterminer les éléments de réduction du torseur (résultante et moment en O).</li>
+                <li>Décomposer le torseur associé à \( \vec{V}(M) \) en une somme d'un couple et d'un glisseur, et indiquer les éléments de réduction.</li>
+                <li>Déterminer la position de l'axe central du torseur pour t = 0 et t = 2.</li>
+            </ol>
+        </div>
+
+    </div>
+
+    <div id="en-version" lang="en">
+        <h1>Rational Mechanics - Tutorial Sheet n°03</h1>
+        <p style="text-align:center; font-family: 'Computer Modern Serif', serif; color: #555; margin-top:-0.5em; margin-bottom:1.5em;">The Torsors</p>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercise 01</h2>
+            <p>Considering the following vectors \( \vec{OA} = 3a\vec{i} \), \( \vec{OB} = 4a\vec{j} \) and \( \vec{OC} = 5a\vec{k} \).</p>
+            <p>Determine the torsor at O of the vectors \( \vec{AB} \) and \( \vec{CB} \).</p>
+        </div>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercise 02</h2>
+            <p>Let the torsor \( [T_1]_O \) be defined at point O, the origin of a direct orthonormal frame \( R(O, \vec{i}, \vec{j}, \vec{k}) \), by the three following vectors:</p>
+            <ul>
+                <li>\( \vec{V}_A = -2\vec{i} + 3\vec{j} - 7\vec{k} \) defined at point A(1,0,0)</li>
+                <li>\( \vec{V}_B = 3\vec{i} - \vec{j} - \vec{k} \) defined at point B(0,1,0)</li>
+                <li>\( \vec{V}_C = -\vec{i} - 2\vec{j} + 8\vec{k} \) defined at point C(0,0,1)</li>
+            </ul>
+            <p>Let \( [T_2]_O \) be a torsor defined at point O by its reduction elements \( \vec{R_2} \) and \( \vec{M}_{2O} \) such that:</p>
+            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = 2\vec{i} + \vec{j} + 3\vec{k} \\ \vec{M}_{2O} = -3\vec{i} + 2\vec{j} - 7\vec{k} \end{cases} \]</div>
+            <ol>
+                <li>Determine the reduction elements of \( [T_1] \) at point O.</li>
+                <li>Determine the pitch and the central axis of the torsor \( [T_2] \).</li>
+                <li>Calculate the sum of the two torsors.</li>
+                <li>Calculate the comoment of the two torsors.</li>
+                <li>Calculate the scalar invariant of the sum torsor \( [T] = [T_1] + [T_2] \).</li>
+            </ol>
+        </div>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercise 03</h2>
+            <p>Let A be a point in space in \( R(O, \vec{i}, \vec{j}, \vec{k}) \), with \( \vec{OA} = - \frac{21}{9}\vec{i} - \frac{4}{9}\vec{j} - \frac{12}{9}\vec{k} \) and a vector \( \vec{V_1} = -3\vec{i} + \vec{j} + 3\vec{k} \) whose axis passes through point A.</p>
+            <p>Let \( [T_2]_O \) be a torsor defined at point O by its reduction elements \( \vec{R_2} \) and \( \vec{M}_{2O} \) such that:</p>
+            <div class="math-display">\[ [T_2]_O = \begin{cases} \vec{R_2} = (a-4)\vec{i} + a\vec{j} + 3a\vec{k} \\ \vec{M}_{2O} = (2a+9)\vec{j} + (-3a - \frac{2}{3})\vec{k} \end{cases} \]</div>
+            <ol>
+                <li>Determine the reduction elements of the torsor \( [T_1]_O \) whose resultant is the vector \( \vec{V_1} \).</li>
+                <li>For what value of \( \alpha \) are the two torsors equal?</li>
+                <li>Deduce the pitch and the central axis of the torsor \( [T_2]_O \) for this value of \( \alpha \).</li>
+                <li>Calculate the product of the two torsors for \( \alpha = 2 \).</li>
+            </ol>
+        </div>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercise 04</h2>
+            <p>In the reference frame \( R(O, \vec{i}, \vec{j}, \vec{k}) \), consider the points A(3,0,0) and B(-1,2,1) in the affine space.</p>
+            <p>Let \( \vec{V}(M) \) be an equiprojective vector field defined as follows:</p>
+            <div class="math-display">\[ \vec{V}(O) = \begin{pmatrix} 1 \\ 1 \\ 4 \end{pmatrix}, \vec{V}(A) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \vec{V}(B) = \begin{pmatrix} 2 \\ -1 \\ 9 \end{pmatrix} \]</div>
+            <ol>
+                <li>Determine the resultant vector \( \vec{R} \) of the torsor associated with the field \( \vec{V}(M) \).</li>
+                <li>Deduce the expression of the vector field \( \vec{V}(M) \) at any point M(x, y, z) in the space.</li>
+                <li>Determine the central axis \( \Delta \) of the torsor.</li>
+            </ol>
+        </div>
+
+        <div class="solution-branch">
+            <h2 class="question">Exercise 05</h2>
+            <p>In a direct orthonormal frame \( R(O, \vec{i}, \vec{j}, \vec{k}) \) we consider the vector field \( \vec{V}(M) \) whose components are defined as a function of the coordinates (x, y, z) of M by:</p>
+            <div class="math-display">\[ \begin{cases} V_x = 1 + 3y - tz \\ V_y = -3x + 2tz \\ V_z = 2 + tx - t^2y \end{cases} \]</div>
+            <ol>
+                <li>Calculate the vector \( \vec{V}(M) \) at point O.</li>
+                <li>For which values of t is this field antisymmetric?</li>
+                <li>For each value of t found, determine the reduction elements of the torsor (resultant and moment at O).</li>
+                <li>Decompose the torsor associated with \( \vec{V}(M) \) into a sum of a couple and a slider, and indicate the reduction elements.</li>
+                <li>Determine the position of the central axis of the torsor for t = 0 and t = 2.</li>
+            </ol>
+        </div>
+
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const toggle = document.getElementById('language-toggle');
+            const toggleText = toggle.querySelector('.toggle-text');
+            const frVersion = document.getElementById('fr-version');
+            const enVersion = document.getElementById('en-version');
+
+            // Function to set the page state based on language
+            function setLanguage(lang) {
+                if (lang === 'fr') {
+                    frVersion.style.display = 'block';
+                    enVersion.style.display = 'none';
+                    toggle.classList.add('active');
+                    toggleText.textContent = 'FR';
+                } else { // 'en'
+                    frVersion.style.display = 'none';
+                    enVersion.style.display = 'block';
+                    toggle.classList.remove('active');
+                    toggleText.textContent = 'EN';
+                }
+            }
+            
+            // Event listener for the toggle click
+            toggle.addEventListener('click', () => {
+                // Check current state by looking at the class
+                const isFrench = toggle.classList.contains('active');
+                if (isFrench) {
+                    setLanguage('en');
+                } else {
+                    setLanguage('fr');
+                }
+            });
+
+            // Set initial state to English on page load
+            setLanguage('en'); 
+        });
+    </script>
+
+</body>
+</html>
